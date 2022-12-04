@@ -1,0 +1,25 @@
+{% load static wagtailcore_tags %}
+
+            <div class="row">
+                <!-- Blog Intro Col One -->
+                <div class="col-lg-6 order-lg-1 ml-lg-auto pl-lg-6">
+                    <p class="lead lh-190 my-4">
+                        <!-- if intro.html is being included from search or tags -->
+                        {% if search or tag_filter %}
+                            Here are the posts matching your filter!
+                            Can't find what you're looking for?
+                            Feel free to reach out with suggestions.
+                        {% else %}
+                            {{ page.intro|richtext }}
+                        {% endif %}
+                    </p>
+                </div>
+                <!-- Blog Intro Col Two -->
+                <div class="col-lg-6 order-lg-2  ml-lg-auto pl-lg-6">
+                    <p class="lead lh-190 my-4"><h5>Follow Us on Social Media:</h5></p>
+                    <img src="{% static 'img/icons/brands/facebook.svg' %}" class="img-fluid" alt="Illustration" style="height: 40px;" />
+                    <img alt="Image placeholder" src="{% static 'img/icons/brands/twitter.svg' %}" class="img-fluid" style="height: 40px;">
+                    <img alt="Image placeholder" src="{% static 'img/icons/brands/linkedin.svg' %}" class="img-fluid" style="height: 40px;">
+                    <img alt="Image placeholder" src="{% static 'img/icons/brands/rss.svg' %}" class="img-fluid" style="height: 40px;">
+                </div>
+            </div>

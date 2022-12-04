@@ -1,0 +1,64 @@
+{% extends "core/base.html" %}
+{% load wagtailcore_tags %}
+{% block head %}
+<!-- Meta title -->
+<title>All Posts Tagged: {{ filter }}</title>
+<!-- Meta description -->
+<meta name="description" content="Displaying all blog articles with the following tag, {{ filter }}" />
+{% endblock head %}
+
+{% block content %}
+    {% include "blog/blog_nav.html" %}
+    <section class="slice pt-5 pb-7 bg-section-primary">
+        <div class="container">
+            {% include "blog/intro.html" %}
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 class="mt-4">Tag Results for '{{ filter }}':</h2>
+                </div>
+            </div>
+            <!-- If posts exist under tag -->
+            {% if posts %}
+                <div class="row">
+                    {% for post in posts %}
+                        {% if post.live %}
+                            {% include "blog/article_list.html" %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            <!-- If tag, but no results -->
+            {% elif filter %}
+                <div class="row">
+                    <div class="col-lg-6">
+                        <p class="lead lh-190 my-4 mt-4">No results found for '{{ filter }}'.</p>
+                    </div>
+                </div>
+            <!-- Else, tag or URL error -->
+            {% else %}
+                <div class="row">
+                    <div class="col-lg-6">
+                        <p class="lead lh-190 my-4 mt-4">An error occurred, please try again.</p>
+                    </div>
+                </div>
+            {% endif %}
+            <!-- Pagination -->
+            <div class="row">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if posts.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}&tag={{ filter }}">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="?page=1&tag={{ filter }}">&laquo; first</a></li>
+                        {% endif %}
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="#">{{ posts.number }} of {{ posts.paginator.num_pages }}<span class="sr-only"></span></a>
+                        </li>
+                        {% if posts.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}&tag={{ filter }}">next</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ posts.paginator.num_pages }}&tag={{ filter }}">last &raquo;</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
