@@ -17,6 +17,7 @@
                     <h2 class="mt-4">Search Results for '{{ query }}':</h2>
                 </div>
             </div>
+
             <!-- If results -->
             {% if posts %}
                 <div class="row">
@@ -24,6 +25,9 @@
                         {% include "blog/article_list.html" %}
                     {% endfor %}
                 </div>
+                <!-- Pagination -->
+                {% include "blog/pagination.html" %}
+
             <!-- If query was made, but no results -->
             {% elif query %}
                 <div class="row">
@@ -31,32 +35,13 @@
                         <p class="lead lh-190 my-4 mt-4">No results found for '{{ query }}'.</p>
                     </div>
                 </div>
+
             <!-- Else, empty query -->
             {% else %}
                 <div class="row">
                     <div class="col-lg-6">
                         <p class="lead lh-190 my-4 mt-4">You didn't input anything to search, please try again.</p>
                     </div>
-                </div>
-            {% endif %}
-            <!-- Pagination (only show if query was made) -->
-            {% if query %}
-                <div class="row">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            {% if posts.has_previous %}
-                                <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}&q={{ query|urlencode }}">Previous</a></li>
-                                <li class="page-item"><a class="page-link" href="?page=1&q={{ query|urlencode }}">&laquo; first</a></li>
-                            {% endif %}
-                            <li class="page-item active" aria-current="page">
-                                <a class="page-link" href="#">{{ posts.number }} of {{ posts.paginator.num_pages }}<span class="sr-only"></span></a>
-                            </li>
-                            {% if posts.has_next %}
-                                <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}&q={{ query|urlencode }}">next</a></li>
-                                <li class="page-item"><a class="page-link" href="?page={{ posts.paginator.num_pages }}&q={{ query|urlencode }}">last &raquo;</a></li>
-                            {% endif %}
-                        </ul>
-                    </nav>
                 </div>
             {% endif %}
         </div>

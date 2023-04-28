@@ -14,9 +14,10 @@
             {% include "blog/intro.html" %}
             <div class="row">
                 <div class="col-lg-6">
-                    <h2 class="mt-4">Tag Results for '{{ filter }}':</h2>
+                    <h2 class="mt-4">Tag Results for '{{ tag }}':</h2>
                 </div>
             </div>
+
             <!-- If posts exist under tag -->
             {% if posts %}
                 <div class="row">
@@ -26,13 +27,17 @@
                         {% endif %}
                     {% endfor %}
                 </div>
+                <!-- Pagination -->
+                {% include "blog/pagination.html" %}
+
             <!-- If tag, but no results -->
-            {% elif filter %}
+            {% elif tag %}
                 <div class="row">
                     <div class="col-lg-6">
-                        <p class="lead lh-190 my-4 mt-4">No results found for '{{ filter }}'.</p>
+                        <p class="lead lh-190 my-4 mt-4">No results found for '{{ tag }}'.</p>
                     </div>
                 </div>
+
             <!-- Else, tag or URL error -->
             {% else %}
                 <div class="row">
@@ -41,24 +46,6 @@
                     </div>
                 </div>
             {% endif %}
-            <!-- Pagination -->
-            <div class="row">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        {% if posts.has_previous %}
-                            <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}&tag={{ filter }}">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="?page=1&tag={{ filter }}">&laquo; first</a></li>
-                        {% endif %}
-                        <li class="page-item active" aria-current="page">
-                            <a class="page-link" href="#">{{ posts.number }} of {{ posts.paginator.num_pages }}<span class="sr-only"></span></a>
-                        </li>
-                        {% if posts.has_next %}
-                            <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}&tag={{ filter }}">next</a></li>
-                            <li class="page-item"><a class="page-link" href="?page={{ posts.paginator.num_pages }}&tag={{ filter }}">last &raquo;</a></li>
-                        {% endif %}
-                    </ul>
-                </nav>
-            </div>
         </div>
     </section>
 {% endblock content %}

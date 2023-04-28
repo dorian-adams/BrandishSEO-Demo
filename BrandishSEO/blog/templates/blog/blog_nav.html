@@ -1,18 +1,20 @@
 {% load static wagtailroutablepage_tags %}
-    <!-- Blog's sub-nav -->
-    <section class="slice slice-lg py-7 bg-cover bg-size--cover" style="background-image: url({% static 'img/backgrounds/img-5.jpg' %});">
+
+    <!-- Blog's sub-nav header -->
+    <section class="slice slice-lg py-7 bg-cover bg-size--cover" style="background-image: url({% static 'img/backgrounds/blog-banner2-darkened.jpg' %});">
         <span class="mask bg-dark opacity-8"></span>
         <div class="container d-flex align-items-center" data-offset-top="#navbar-main">
             <div class="col py-5">
                 <div class="row align-items-center justify-content-center">
                     <div class="col-md-7 col-lg-7 text-center">
-                        <h1 class="display-4 text-white mb-2"><strong>Quick</strong> Blog</h1>
-                        <span class="text-white text-sm">#1 blog on web design resources on the internet</span>
+                        <h1 class="display-4 text-white mb-2"><strong>SEO</strong> Blog</h1>
+                        <span class="text-white text-sm">In-depth SEO analysis and advice from BrandishSEO</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
     <!-- Sub-nav links -->
     <section class="border-bottom">
         <div class="container py-3">
@@ -36,6 +38,7 @@
                         </li>
                     </ul>
                 </div>
+
                 <!-- Search -->
                 <div class="col-lg-5">
                     <form class="rounded-lg border" action="{% routablepageurl page.get_site.root_page.specific 'search' %}" method="get">

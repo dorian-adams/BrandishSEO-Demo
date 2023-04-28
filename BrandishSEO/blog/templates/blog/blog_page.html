@@ -1,5 +1,5 @@
 {% extends "core/base.html" %}
-{% load wagtailcore_tags wagtailroutablepage_tags %}
+{% load wagtailcore_tags wagtailroutablepage_tags wagtailimages_tags %}
 {% block head %}
 <!-- Meta title -->
 <title>{{ page.seo_title }}</title>
@@ -9,7 +9,8 @@
 
 {% block content %}
     <!-- BlogPage Article -->
-    <section class="slice slice-lg pt-17 pb-0 bg-cover bg-size--cover" style="background-image: url({{ page.featured_image.url }})">
+    {% image page.featured_image scale-100 as featured_image %}
+    <section class="slice slice-lg pt-17 pb-0 bg-cover bg-size--cover" style="background-image: url({{ featured_image.url }})">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-9 col-lg-10">
@@ -17,7 +18,7 @@
                         <div class="card-body p-md-5">
                             <div class=" text-center">
                                 <!-- Category Badge -->
-                                <a href="#" class="badge badge-warning badge-pill">{{ page.get_parent.title }}</a>
+                                <a href="{{ page.get_parent.url }}" class="badge badge-warning badge-pill">{{ page.get_parent.title }}</a>
                                 <!-- Heading / Title -->
                                 <h1 class="h2 lh-150 mt-3 mb-0">{{ page.title }}</h1>
                             </div>
@@ -43,9 +44,9 @@
                                 <div class="col-auto">
                                     <span class="text-sm text-muted">Tags:</span>
                                     <ul class="list-inline mb-0">
-                                        {% for tag in page.tags.all %}
+                                        {% for tag in page.get_tags %}
                                             <li class="list-inline-item pr-1">
-                                                <a href="{% routablepageurl page.get_site.root_page.specific 'tag_results' %}?tag={{ tag }}" class="text-muted">
+                                                <a href="{{ tag.url }}" class="text-muted">
                                                     <span class="badge badge-{% cycle 'primary' 'secondary' 'success' 'info' %}">
                                                         {{ tag.name }}
                                                     </span>
@@ -61,6 +62,7 @@
             </div>
         </div>
     </section>
+
     <!-- Article body -->
     <section class="slice slice-lg pt-10 pb-5">
         <div class="container pb-6">
@@ -102,33 +104,37 @@
                             </ul>
                         </div>
                     </div>
+
                     <!-- Share -->
-                    <div class="mt-5 align-items-center">
-                        <button type="button" class="btn btn-facebook btn-icon-label">
-                            <span class="btn-inner--icon">
-                                <i class="fab fa-facebook"></i>
-                            </span>
-                            <span class="btn-inner--text">Facebook</span>
-                        </button>
-                        <button type="button" class="btn btn-twitter btn-icon-label">
-                            <span class="btn-inner--icon">
-                                <i class="fab fa-twitter"></i>
-                            </span>
-                            <span class="btn-inner--text">Twitter</span>
-                        </button>
-                        <button type="button" class="btn btn-slack btn-icon-label">
-                            <span class="btn-inner--icon">
-                                <i class="fab fa-slack"></i>
-                            </span>
-                            <span class="btn-inner--text">Slack</span>
-                        </button>
-                        <button type="button" class="btn btn-facebook btn-icon-label">
-                            <span class="btn-inner--icon">
-                                <i class="fab fa-linkedin"></i>
-                            </span>
-                            <span class="btn-inner--text">LinkedIn</span>
-                        </button>
+                    <div class="row justify-content-center">
+                        <div class="mt-5">
+                            <button type="button" class="btn btn-facebook btn-icon-label">
+                                <span class="btn-inner--icon">
+                                    <i class="fab fa-facebook"></i>
+                                </span>
+                                <span class="btn-inner--text">Facebook</span>
+                            </button>
+                            <button type="button" class="btn btn-twitter btn-icon-label">
+                                <span class="btn-inner--icon">
+                                    <i class="fab fa-twitter"></i>
+                                </span>
+                                <span class="btn-inner--text">Twitter</span>
+                            </button>
+                            <button type="button" class="btn btn-slack btn-icon-label">
+                                <span class="btn-inner--icon">
+                                    <i class="fab fa-slack"></i>
+                                </span>
+                                <span class="btn-inner--text">Slack</span>
+                            </button>
+                            <button type="button" class="btn btn-facebook btn-icon-label">
+                                <span class="btn-inner--icon">
+                                    <i class="fab fa-linkedin"></i>
+                                </span>
+                                <span class="btn-inner--text">LinkedIn</span>
+                            </button>
+                        </div>
                     </div>
+
                     <!-- Comments Section -->
                     <div class="mt-5">
                         <h6 class="mb-4">Comments</h6>
@@ -136,7 +142,7 @@
                         {% if user.is_authenticated %}
                             <div class="media media-comment align-items-center">
                                 <span class="avatar avatar-sm bg-primary rounded-circle">
-                                    {{ user.first_name|slice:":1" }}{{ user.last_name|slice:":1" }}
+                                    {{ user.initials }}
                                 </span>
                                 &nbsp; &nbsp;
                                 <div class="media-body">
@@ -178,13 +184,14 @@
                                 </div>
                             {% endfor %}
                         {% endif %}
+
                         <!-- Display Comments -->
                         {% if page.page_comments %}
                             {% for comment in page.page_comments.all %}
                                 {% if comment.is_approved %}
                                     <div class="media media-comment">
                                         <span class="avatar avatar-sm bg-primary rounded-circle mr-3">
-                                            {{ comment.user.first_name|slice:":1" }}{{ comment.user.last_name|slice:":1" }}
+                                            {{ comment.user.initials }}
                                         </span>
                                         <!-- Commend Body -->
                                         <div class="media-body">

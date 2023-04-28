@@ -19,12 +19,14 @@
                         <h2 class="mt-4">{{ element.category.specific.title }}</h2>
                     </div>
                 </div>
+
                 <div class="row">
                     <!-- Posts per Category -->
                     {% for post in element.posts %}
                         {% include "blog/article_list.html" %}
                     {% endfor %}
                 </div>
+
                 <div class="row">
                     <div class="col-lg-6">
                         <!-- Category URL -->

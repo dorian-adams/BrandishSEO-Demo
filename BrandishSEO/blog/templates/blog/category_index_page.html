@@ -17,30 +17,14 @@
                 <div class="col-lg-6">
                     <h2 class="mt-4">{{ page.title }}</h2>
                 </div>
-                <div class="row">
-                    {% for post in posts %}
-                        {% include "blog/article_list.html" %}
-                    {% endfor %}
-                </div>
+            </div>
+            <div class="row">
+                {% for post in posts %}
+                    {% include "blog/article_list.html" %}
+                {% endfor %}
             </div>
             <!-- Pagination -->
-            <div class="row">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        {% if posts.has_previous %}
-                            <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
-                        {% endif %}
-                        <li class="page-item active" aria-current="page">
-                            <a class="page-link" href="#">{{ posts.number }} of {{ posts.paginator.num_pages }}<span class="sr-only"></span></a>
-                        </li>
-                        {% if posts.has_next %}
-                            <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">next</a></li>
-                            <li class="page-item"><a class="page-link" href="?page={{ posts.paginator.num_pages }}">last &raquo;</a></li>
-                        {% endif %}
-                    </ul>
-                </nav>
-            </div>
+            {% include "blog/pagination.html" %}
         </div>
     </section>
 {% endblock content %}

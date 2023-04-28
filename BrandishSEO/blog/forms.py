@@ -5,16 +5,21 @@ from .models import BlogComment
 
 class CommentForm(forms.ModelForm):
     """
-    Form allows users to submit comments ``BlogComment`` to an article ``BlogPage``.
+    Form for blog comments used within ``BlogPage``.
     """
-    text = forms.CharField(
-        label='',
-        widget=forms.TextInput(attrs={
-            'class': 'form-control border-0 px-1',
-            'placeholder': 'Leave a comment...'
-        })
-    )
 
     class Meta:
         model = BlogComment
-        fields = ['text', ]
+        fields = [
+            "text",
+        ]
+
+    text = forms.CharField(
+        label="",
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control border-0 px-1",
+                "placeholder": "Leave a comment...",
+            }
+        ),
+    )
