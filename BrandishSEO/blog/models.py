@@ -18,7 +18,9 @@ from wagtail.search import index
 from wagtail.search.models import Query
 from wagtail.snippets.models import register_snippet
 
+from accounts.models import UserProfile
 from .paginator import paginate_posts
+from .edit_handlers import AuthorPanel
 
 
 class BlogIndexPage(RoutablePageMixin, Page):
@@ -153,6 +155,8 @@ class BlogPageTag(TaggedItemBase):
 class BlogPage(Page):
     """
     Represents blog posts, /blog/category/post.
+
+    ``author`` must have an ``AuthorProfile``.
     """
 
     date = models.DateField("Post date")
@@ -176,7 +180,7 @@ class BlogPage(Page):
         FieldPanel("snippet"),
         FieldPanel("featured_image"),
         FieldPanel("body"),
-        FieldPanel("author"),
+        AuthorPanel("author"),
         InlinePanel("page_comments", label="Comments"),
     ]
 
@@ -268,3 +272,14 @@ class BlogComment(models.Model):
     def __str__(self):
         text = self.text if len(str(self.text)) < 15 else self.text[:15] + "..."
         return f"'{text}' on Page: '{self.page}'"
+
+
+@register_snippet
+class AuthorProfile(UserProfile):
+    """
+    Add the attribute ``bio`` to ``UserProfile``.
+    """
+
+    bio = models.TextField(
+        validators=[MinLengthValidator(20, "Bio must be greater than 20 characters.")]
+    )

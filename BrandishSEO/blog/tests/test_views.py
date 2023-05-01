@@ -19,6 +19,7 @@ from blog.factories import (
     SiteFactoryWithRoot,
     UserFactory,
     CommentFactory,
+    AuthorProfileFactory,
 )
 
 TOTAL_CATEGORIES = 2
@@ -172,8 +173,8 @@ class CategoryIndexPageTest(WagtailPageTestCase):
 
 class BlogPageTest(WagtailPageTestCase):
     """
-    Tests default route and ensures POST requests for blog comments are
-    handled successfully.
+    Tests default route, AuthorProfile integration with the template,
+    and ensures POST requests for blog comments are handled successfully.
     """
 
     @classmethod
@@ -182,7 +183,8 @@ class BlogPageTest(WagtailPageTestCase):
         cls.site = SiteFactoryWithRoot.create()
         cls.blog_index = cls.site.root_page
         cls.blog_page = BlogPageFactory.create(
-            parent=CategoryIndexPageFactory.create(parent=cls.blog_index)
+            author=cls.user,
+            parent=CategoryIndexPageFactory.create(parent=cls.blog_index),
         )
 
     def setUp(self):
@@ -203,14 +205,18 @@ class BlogPageTest(WagtailPageTestCase):
         )  # via messages.success on successful POST
 
     def test_comment_is_not_shown_when_is_approved_is_false(self):
-        CommentFactory.create(page=self.blog_page, user=self.user)
+        comment = CommentFactory.create(page=self.blog_page, user=self.user)
         response = self.client.get(self.blog_page.url)
-        self.assertNotContains(response, "Test comment...")
+        self.assertNotContains(response, comment.text)
 
     def test_comment_is_shown_when_is_approved_is_true(self):
-        comment_text = "Comment is shown"
-        CommentFactory.create(
-            page=self.blog_page, text=comment_text, is_approved=True, user=self.user
+        comment = CommentFactory.create(
+            page=self.blog_page, is_approved=True, user=self.user
         )
         response = self.client.get(self.blog_page.url)
-        self.assertContains(response, comment_text)
+        self.assertContains(response, comment.text)
+
+    def test_template_displays_author_bio(self):
+        author_profile = AuthorProfileFactory.create(user=self.user)
+        response = self.client.get(self.blog_page.url)
+        self.assertContains(response, author_profile.bio)

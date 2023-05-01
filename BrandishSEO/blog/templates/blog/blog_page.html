@@ -27,7 +27,7 @@
                                 <div class="col mb-3 mb-lg-0">
                                     <div class="media align-items-center">
                                         <div>
-                                            <img alt="author's image" src="{{ page.author.profile.profile_image.url }}" width="100" class="mr-3">
+                                            <img alt="author's image" src="{{ page.author.authorprofile.profile_image.url }}" width="100" class="mr-3">
                                         </div>
                                         <div class="media-body">
                                             <!-- Post Info -->
@@ -73,7 +73,7 @@
                         {{ page.body|richtext }}
                     </article>
                     <!-- Article Footer -->
-                    <div class="row align-items-center mt-7 py-4 border-top border-bottom">
+                    <div class="row align-items-center mt-7 py-4 border-top">
                         <div class="col mb-3 mb-lg-0">
                             <div class="media align-items-center">
                                 <div>
@@ -102,6 +102,21 @@
                                     <a href="#" class="text-muted"><i data-feather="message-circle" class="mr-1 text-muted"></i> 14</a>
                                 </li>
                             </ul>
+                        </div>
+                    </div>
+                    <!-- Author Bio -->
+                    <div class="row align-items-center py-4 border-bottom">
+                        <div class="col mb-3 mb-lg-0">
+                            <div class="media align-items-center">
+                                <div class="media-body">
+                                    <span class="d-block h6 mb-0">
+                                        Author Bio:
+                                    </span>
+                                    <span class="text-sm text-muted">
+                                        {{ page.author.authorprofile.bio }}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

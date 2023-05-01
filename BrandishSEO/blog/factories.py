@@ -7,7 +7,7 @@ Usage:
 import factory
 import wagtail_factories
 
-from core.models import User
+from accounts.models import User
 from . import models
 
 
@@ -72,3 +72,12 @@ class SiteFactoryWithRoot(wagtail_factories.SiteFactory):
     port = "8000"
     is_default_site = True
     root_page = factory.SubFactory(BlogIndexPageFactory)
+
+
+class AuthorProfileFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.AuthorProfile
+
+    user = factory.SubFactory(UserFactory)
+    bio = "This is a test bio for AuthorProfile...."
+    profile_image = factory.django.ImageField()
