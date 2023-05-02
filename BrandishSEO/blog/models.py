@@ -2,6 +2,7 @@
 Page models for Wagtail CMS.
 """
 
+import urllib.parse
 from django.db import models
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -228,6 +229,36 @@ class BlogPage(Page):
         for tag in tags:
             tag.url = f"{base_url}tags/?tag={tag.name}"
         return tags
+
+    def get_twitter_share_url(self):
+        """
+        :return: Formatted URL to share the article on Twitter.
+        """
+        base_url = "https://twitter.com/share?url="
+        return f"{base_url}{self.full_url}&via=BrandishSEO"
+
+    def get_facebook_share_url(self):
+        """
+        :return: Formatted URL to share the article on Facebook.
+        """
+        base_url = "https://www.facebook.com/sharer/sharer.php?u="
+        return f"{base_url}{self.full_url}"
+
+    def get_linkedin_share_url(self):
+        """
+        :return: Formatted URL to share the article on LinkedIn.
+        """
+        base_url = "https://www.linkedin.com/shareArticle?mini=true&url="
+        return f"{base_url}{self.full_url}"
+
+    def get_email_share_url(self):
+        """
+        :return: Formatted URL to send an email containing the article.
+        """
+        base_url = "mailto:?"
+        email_title = urllib.parse.quote(f"Check this out: {self.title}")
+        email_body = urllib.parse.quote(f"{self.snippet}: {self.full_url} ")
+        return f"{base_url}subject={email_title}&body={email_body}"
 
 
 #    def get_category_url(self):

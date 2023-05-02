@@ -109,16 +109,18 @@ class TestPagination(TestCase):
 
 class BlogPageModelTest(TestCase):
     """
-    Tests method ``get_tags``.
-    Expected to format a URL for every tag associated with the blog post and return
-    the tags as a list.
+    Tests ``get_tags`` and all methods related to generating URLs
+    for sharing blog posts on social media.
     """
 
     @classmethod
     def setUpTestData(cls):
         cls.site = SiteFactoryWithRoot.create()
         cls.blog_index = cls.site.root_page
-        cls.category = CategoryIndexPageFactory.create(parent=cls.blog_index)
+        cls.category = CategoryIndexPageFactory.create(
+            parent=cls.blog_index, slug="test-category"
+        )
+        cls.post = BlogPageFactory.create(parent=cls.category, slug="test-post")
 
     def test_get_tags_properly_formats_tag_urls(self):
         post = BlogPageFactory.create(parent=self.category, tags=["test"])
@@ -134,3 +136,31 @@ class BlogPageModelTest(TestCase):
         tags = post.get_tags
 
         self.assertEqual(len(tags), expected_tag_count)
+
+    def test_get_twitter_share_url(self):
+        expected_url = (
+            "https://twitter.com/share?url="
+            "http://127.0.0.1:8000/blog/test-category/test-post/&via=BrandishSEO"
+        )
+        self.assertEqual(self.post.get_twitter_share_url(), expected_url)
+
+    def test_get_facebook_share_url(self):
+        expected_url = (
+            "https://www.facebook.com/sharer/sharer.php?u="
+            "http://127.0.0.1:8000/blog/test-category/test-post/"
+        )
+        self.assertEqual(self.post.get_facebook_share_url(), expected_url)
+
+    def test_get_linkedin_share_url(self):
+        expected_url = (
+            "https://www.linkedin.com/shareArticle?mini=true&url="
+            "http://127.0.0.1:8000/blog/test-category/test-post/"
+        )
+        self.assertEqual(self.post.get_linkedin_share_url(), expected_url)
+
+    def test_get_email_share_url(self):
+        expected_url = (
+            "mailto:?subject=Check%20this%20out%3A%20Test%20page&body="
+            "Article%204%20snippet...%3A%20http%3A//127.0.0.1%3A8000/blog/test-category/test-post/%20"
+        )
+        self.assertEqual(self.post.get_email_share_url(), expected_url)

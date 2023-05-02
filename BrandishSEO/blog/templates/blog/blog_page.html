@@ -123,30 +123,38 @@
                     <!-- Share -->
                     <div class="row justify-content-center">
                         <div class="mt-5">
-                            <button type="button" class="btn btn-facebook btn-icon-label">
-                                <span class="btn-inner--icon">
-                                    <i class="fab fa-facebook"></i>
-                                </span>
-                                <span class="btn-inner--text">Facebook</span>
-                            </button>
-                            <button type="button" class="btn btn-twitter btn-icon-label">
-                                <span class="btn-inner--icon">
-                                    <i class="fab fa-twitter"></i>
-                                </span>
-                                <span class="btn-inner--text">Twitter</span>
-                            </button>
-                            <button type="button" class="btn btn-slack btn-icon-label">
-                                <span class="btn-inner--icon">
-                                    <i class="fab fa-slack"></i>
-                                </span>
-                                <span class="btn-inner--text">Slack</span>
-                            </button>
-                            <button type="button" class="btn btn-facebook btn-icon-label">
-                                <span class="btn-inner--icon">
-                                    <i class="fab fa-linkedin"></i>
-                                </span>
-                                <span class="btn-inner--text">LinkedIn</span>
-                            </button>
+                            <a href="{{ page.get_facebook_share_url }}">
+                                <button type="button" class="btn btn-facebook btn-icon-label">
+                                    <span class="btn-inner--icon">
+                                        <i class="fab fa-facebook"></i>
+                                    </span>
+                                    <span class="btn-inner--text">Facebook</span>
+                                </button>
+                            </a>
+                            <a href="{{ page.get_twitter_share_url }}">
+                                <button type="button" class="btn btn-twitter btn-icon-label">
+                                    <span class="btn-inner--icon">
+                                        <i class="fab fa-twitter"></i>
+                                    </span>
+                                    <span class="btn-inner--text">Twitter</span>
+                                </button>
+                            </a>
+                            <a href="{{ page.get_linkedin_share_url }}">
+                                <button type="button" class="btn btn-facebook btn-icon-label">
+                                    <span class="btn-inner--icon">
+                                        <i class="fab fa-linkedin"></i>
+                                    </span>
+                                    <span class="btn-inner--text">LinkedIn</span>
+                                </button>
+                            </a>
+                            <a href="{{ page.get_email_share_url }}">
+                                <button type="button" class="btn btn-primary btn-icon-label">
+                                    <span class="btn-inner--icon">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                    <span class="btn-inner--text">E-Mail</span>
+                                </button>
+                            </a>
                         </div>
                     </div>
 
