@@ -22,6 +22,7 @@ from wagtail.snippets.models import register_snippet
 from accounts.models import UserProfile
 from .paginator import paginate_posts
 from .edit_handlers import AuthorPanel
+from .validators import validate_twitter_handle
 
 
 class BlogIndexPage(RoutablePageMixin, Page):
@@ -162,7 +163,7 @@ class BlogPage(Page):
 
     date = models.DateField("Post date")
     snippet = models.CharField(
-        max_length=250, help_text="Excerpt used in article list preview card."
+        max_length=200, help_text="Excerpt used in article list preview card."
     )
     body = RichTextField(blank=True)
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
@@ -314,3 +315,9 @@ class AuthorProfile(UserProfile):
     bio = models.TextField(
         validators=[MinLengthValidator(20, "Bio must be greater than 20 characters.")]
     )
+    twitter_handle = models.CharField(
+        max_length=16, validators=[MinLengthValidator(5), validate_twitter_handle]
+    )
+
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name}"

@@ -180,6 +180,7 @@ class BlogPageTest(WagtailPageTestCase):
     @classmethod
     def setUpTestData(cls):
         cls.user = UserFactory.create()
+        cls.author_profile = AuthorProfileFactory.create(user=cls.user)
         cls.site = SiteFactoryWithRoot.create()
         cls.blog_index = cls.site.root_page
         cls.blog_page = BlogPageFactory.create(
@@ -217,6 +218,9 @@ class BlogPageTest(WagtailPageTestCase):
         self.assertContains(response, comment.text)
 
     def test_template_displays_author_bio(self):
-        author_profile = AuthorProfileFactory.create(user=self.user)
         response = self.client.get(self.blog_page.url)
-        self.assertContains(response, author_profile.bio)
+        self.assertContains(response, self.author_profile.bio)
+
+    def test_template_meta_data_contains_author_twitter_handle(self):
+        response = self.client.get(self.blog_page.url)
+        self.assertContains(response, self.author_profile.twitter_handle)

@@ -80,4 +80,5 @@ class AuthorProfileFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory(UserFactory)
     bio = "This is a test bio for AuthorProfile...."
+    twitter_handle = "@Test"
     profile_image = factory.django.ImageField()
