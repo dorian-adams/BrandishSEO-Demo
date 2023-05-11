@@ -8,40 +8,5 @@
 {% endblock head %}
 
 {% block content %}
-    <section class="slice slice-lg bg-section-secondary">
-        <div class="container-fluid d-flex flex-column">
-            <div class="row align-items-center min-vh-100">
-                <div class="col-md-6 col-lg-5 col-xl-4 mx-auto">
-                    <div class="card shadow-lg border-0 mb-0">
-                        <div class="card-body py-5 px-sm-5">
-                            <div>
-                                <div class="mb-5 text-center">
-                                    <h6 class="h3 mb-1">Welcome</h6>
-                                    <p class="text-muted mb-0">Don't have an account?
-                                        <a href="{% url 'accounts:register' %}">Sign up</a>
-                                    </p>
-                                </div>
-                                <span class="clearfix"></span>
-                                <form action="{% url 'accounts:login' %}" method="post">
-                                    <div class="form-group">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="next" value="{{ request.GET.next }}">
-                                        {{ form|crispy }}
-                                    </div>
-                                    <div class="mb-2 text-center">
-                                        <p class="text-muted mb-0">
-                                            <a href="{% url 'accounts:reset_password' %}">Forgot password?</a>
-                                        </p>
-                                    </div>
-                                    <div class="mt-4">
-                                        <button type="submit" value="Submit" class="btn btn-block btn-primary">Login</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+{% include "accounts/base_form.html" with heading="Welcome" button_label="Login" login=True form=form action_url="accounts:login" %}
 {% endblock content %}

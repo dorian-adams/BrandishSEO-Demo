@@ -45,12 +45,6 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
         queryset = super(UserUpdateView, self).get_queryset()
         return queryset.filter(email=self.request.user.email)
 
-    def get_context_data(self, **kwargs):
-        # Get user id to pass as url argument for post request
-        context = super(UserUpdateView, self).get_context_data(**kwargs)
-        context["pk"] = self.request.user.id
-        return context
-
 
 class UpdatePasswordView(SuccessMessageMixin, PasswordChangeView):
     model = User

@@ -1,0 +1,54 @@
+{% load static crispy_forms_tags %}
+
+    <section class="slice slice-lg bg-section-secondary">
+        <div class="container-fluid d-flex flex-column pt-4">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-md-6 col-lg-5 col-xl-4 mx-auto">
+                    <div class="card shadow-lg border-0 mb-0">
+                        <div class="card-body py-5 px-sm-5">
+                            <div>
+                                <div class="mb-5 text-center">
+                                    <h6 class="h3 mb-1">{{ heading }}</h6>
+                                    {% if register %}
+                                        <p class="text-muted mb-0">Already have an account?
+                                            <a href="{% url 'accounts:login' %}">Sign in</a>
+                                        </p>
+                                    {% endif %}
+
+                                    {% if login %}
+                                        <p class="text-muted mb-0">Don't have an account?
+                                            <a href="{% url 'accounts:register' %}">Sign up</a>
+                                        </p>
+                                    {% endif %}
+                                </div>
+                                <span class="clearfix"></span>
+                                {% if user_update %}
+                                    <form action="{% url 'accounts:user_update' user.pk %}" method="post">
+                                {% elif password_reset %}
+                                    <form method="post">
+                                {% else %}
+                                    <form action="{% url action_url %}" method="post">
+                                {% endif %}
+                                    <div class="form-group">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="next" value="{{ request.GET.next }}">
+                                        {{ form|crispy }}
+                                    </div>
+                                    {% if login %}
+                                    <div class="mb-2 text-center">
+                                        <p class="text-muted mb-0">
+                                            <a href="{% url 'accounts:reset_password' %}">Forgot password?</a>
+                                        </p>
+                                    </div>
+                                    {% endif %}
+                                    <div class="mt-4">
+                                        <button type="submit" value="Submit" class="btn btn-block btn-primary">{{ button_label }}</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

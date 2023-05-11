@@ -6,32 +6,7 @@
 <!-- Meta description -->
 <meta name="description" content="" />
 {% endblock head %}
+
 {% block content %}
-    <section class="slice slice-lg bg-section-secondary">
-        <div class="container-fluid d-flex flex-column">
-            <div class="row align-items-center min-vh-100">
-                <div class="col-md-6 col-lg-5 col-xl-4 mx-auto">
-                    <div class="card shadow-lg border-0 mb-0">
-                        <div class="card-body py-5 px-sm-5">
-                            <div>
-                                <div class="mb-5 text-center">
-                                    <h6 class="h3 mb-1">Update</h6>
-                                </div>
-                                <span class="clearfix"></span>
-                                <form action="{% url 'accounts:user_update' user.pk %}" method="post">
-                                    {% csrf_token %}
-                                    <div class="form-group">
-                                        {{ form|crispy }}
-                                    </div>
-                                    <div class="mt-4">
-                                        <button type="submit" value="Submit" class="btn btn-block btn-primary">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+{% include "accounts/base_form.html" with heading="Update" button_label="Submit" form=form user_update=True %}
 {% endblock content %}
