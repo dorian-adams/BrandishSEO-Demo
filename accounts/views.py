@@ -33,7 +33,9 @@ class RegisterUserView(RedirectURLMixin, CreateView):
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
-    """Update customer/member information.  Name, e-mail, etc."""
+    """
+    Update customer/member information.  Name, e-mail, etc.
+    """
 
     model = User
     fields = ["first_name", "last_name", "email"]
@@ -42,7 +44,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_queryset(self):
         # Limit a user to only modifying their own data
-        queryset = super(UserUpdateView, self).get_queryset()
+        queryset = super().get_queryset()
         return queryset.filter(email=self.request.user.email)
 
 
@@ -50,14 +52,17 @@ class UpdatePasswordView(SuccessMessageMixin, PasswordChangeView):
     model = User
     form_class = PasswordChangeForm
     template_name = "accounts/update_password.html"
-    success_message = "Password changed successfully."
+    success_message = "Password updated successfully."
     success_url = reverse_lazy("accounts:profile")
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = "accounts/reset_password.html"
     email_template_name = "accounts/password_reset_email.html"
-    success_message = "Instructions to reset your password will be sent to the email you provided. Thank you."
+    success_message = (
+        "Instructions to reset your password will be sent "
+        "to the email you provided. Thank you."
+    )
     success_url = reverse_lazy("accounts:profile")
 
 

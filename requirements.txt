@@ -16,6 +16,7 @@ lxml==4.9.1
 Pillow==8.4.0
 psycopg2-binary==2.9.3
 pylint==2.17.2
+pytest==7.3.1
 redis
 requests==2.26.0
 stripe==2.63.0
