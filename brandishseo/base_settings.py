@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 # Determine which settings file to use based on the environment
 SETTINGS_FILE = (
     "brandishseo.local_settings"
-    if os.environ.get("DEBUG")
+    if os.environ.get("DEBUG") is True
     else "brandishseo.production_settings"
 )
 
