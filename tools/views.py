@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .utils import PageAnalyzer
+
+from .analyzer import PageAnalyzer
 
 
 def seo_tools(request):
