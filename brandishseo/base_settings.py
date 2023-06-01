@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 # Determine which settings file to use based on the environment
 SETTINGS_FILE = (
     "brandishseo.local_settings"
-    if os.environ.get("DEBUG") is True
+    if os.environ.get("DEBUG") == "True"
     else "brandishseo.production_settings"
 )
 
@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "modelcluster",
     "taggit",
     "crispy_forms",
+    "crispy_bootstrap4",
     "captcha",
     "storages",
     "accounts.apps.AccountsConfig",

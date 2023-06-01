@@ -112,14 +112,11 @@
                         </div>
                         <div class="col-auto">
                             <ul class="list-inline mb-0">
-                                <li class="list-inline-item pr-4">
-                                    <a href="#" class="text-muted"><i data-feather="share" class="mr-1 text-muted"></i> 131</a>
-                                </li>
-                                <li class="list-inline-item pr-4">
-                                    <a href="#" class="text-muted"><i data-feather="eye" class="mr-1 text-muted"></i> 255</a>
-                                </li>
                                 <li class="list-inline-item">
-                                    <a href="#" class="text-muted"><i data-feather="message-circle" class="mr-1 text-muted"></i> 14</a>
+                                    <i data-feather="twitter" class="mr-1"></i>
+                                    <a href="https://twitter.com/{{ page.author.authorprofile.twitter_handle }}">
+                                        {{ page.author.authorprofile.twitter_handle }}
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -212,7 +209,9 @@
                             <br />
                         {% else %}
                             <div class="media-body" style="margin-bottom: 50px;">
-                                <span class="text-muted">Login or Register to leave a comment.</span>
+                                <span class="text-muted">
+                                    <a href="{% url 'accounts:login' %}">Login</a> or <a href="{% url 'accounts:register' %}">Register</a> to leave a comment.
+                                </span>
                             </div>
                         {% endif %}
                         <!-- Success message if user submitted a comment -->

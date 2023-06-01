@@ -44,7 +44,7 @@ class BlogPageFactory(wagtail_factories.PageFactory):
     date = factory.Faker("date_time")
     author = factory.SubFactory(UserFactory)
     slug = factory.sequence(lambda n: f"post{n}")
-    snippet = factory.sequence(lambda n: f"Article {n} snippet...")
+    snippet = "Article snippet..."
     body = "Test post..."
     featured_image = factory.SubFactory(wagtail_factories.ImageFactory)
     featured_article = False
@@ -68,8 +68,6 @@ class CommentFactory(factory.django.DjangoModelFactory):
 
 
 class SiteFactoryWithRoot(wagtail_factories.SiteFactory):
-    hostname = "127.0.0.1"
-    port = "8000"
     is_default_site = True
     root_page = factory.SubFactory(BlogIndexPageFactory)
 

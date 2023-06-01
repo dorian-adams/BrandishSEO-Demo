@@ -125,7 +125,8 @@ class BlogPageModelTest(TestCase):
     def test_get_tags_properly_formats_tag_urls(self):
         post = BlogPageFactory.create(parent=self.category, tags=["test"])
         tag = post.get_tags[0]
-        expected_url = "http://127.0.0.1:8000/blog/tags/?tag=test"
+        page = "/blog/tags/?tag=test"
+        expected_url = f"http://{self.site.hostname}:{self.site.port}{page}"
 
         self.assertEqual(tag.url, expected_url)
 
@@ -138,29 +139,30 @@ class BlogPageModelTest(TestCase):
         self.assertEqual(len(tags), expected_tag_count)
 
     def test_get_twitter_share_url(self):
-        expected_url = (
-            "https://twitter.com/share?url="
-            "http://127.0.0.1:8000/blog/test-category/test-post/&via=BrandishSEO"
-        )
+        twitter = "https://twitter.com/share?url="
+        page = "/blog/test-category/test-post/&via=BrandishSEO"
+        expected_url = f"{twitter}http://{self.site.hostname}:{self.site.port}{page}"
+
         self.assertEqual(self.post.get_twitter_share_url(), expected_url)
 
     def test_get_facebook_share_url(self):
-        expected_url = (
-            "https://www.facebook.com/sharer/sharer.php?u="
-            "http://127.0.0.1:8000/blog/test-category/test-post/"
-        )
+        facebook = "https://www.facebook.com/sharer/sharer.php?u="
+        page = "/blog/test-category/test-post/"
+        expected_url = f"{facebook}http://{self.site.hostname}:{self.site.port}{page}"
+
         self.assertEqual(self.post.get_facebook_share_url(), expected_url)
 
     def test_get_linkedin_share_url(self):
-        expected_url = (
-            "https://www.linkedin.com/shareArticle?mini=true&url="
-            "http://127.0.0.1:8000/blog/test-category/test-post/"
-        )
+        linkedin = "https://www.linkedin.com/shareArticle?mini=true&url="
+        page = "/blog/test-category/test-post/"
+        expected_url = f"{linkedin}http://{self.site.hostname}:{self.site.port}{page}"
+
         self.assertEqual(self.post.get_linkedin_share_url(), expected_url)
 
     def test_get_email_share_url(self):
-        expected_url = (
-            "mailto:?subject=Check%20this%20out%3A%20Test%20page&body="
-            "Article%204%20snippet...%3A%20http%3A//127.0.0.1%3A8000/blog/test-category/test-post/%20"
-        )
+        subject = "subject=Check%20this%20out%3A%20Test%20page&"
+        body = f"body=Article%20snippet...%3A%20"
+        page = "/blog/test-category/test-post/%20"
+        expected_url = f"mailto:?{subject}{body}http%3A//{self.site.hostname}%3A{self.site.port}{page}"
+
         self.assertEqual(self.post.get_email_share_url(), expected_url)

@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="authorprofile",
             name="twitter_handle",
-            field=models.CharField(default="@BrandishSEO", max_length=16),
+            field=models.CharField(default="@brandishseo", max_length=16),
             preserve_default=False,
         ),
         migrations.AlterField(

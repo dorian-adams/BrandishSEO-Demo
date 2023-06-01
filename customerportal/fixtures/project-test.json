@@ -1,0 +1,190 @@
+[
+{
+    "model": "core.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$390000$SsD9ixmQ68ecpCS0XHSL74$Q+p6OKQrtSEpKnehy2QSVqgP2BacJjjtIWTnG5/vAS8=",
+        "last_login": "2022-12-23T00:26:48.444Z",
+        "is_superuser": true,
+        "username": "jay",
+        "first_name": "",
+        "last_name": "",
+        "email": "blank@email.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2022-12-20T18:57:52.595Z",
+        "initials": "",
+        "groups": [],
+        "user_permissions": [],
+        "projects": []
+    }
+},
+{
+    "model": "core.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$390000$Yff8Ce7DGR4AalrkDj2YIc$FhorXN0Hd54YYXxkktkmkx85BTWZaSE5QHL7wZyHg1U=",
+        "last_login": "2022-12-23T00:26:12.604Z",
+        "is_superuser": false,
+        "username": "user",
+        "first_name": "Auth",
+        "last_name": "User",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-12-20T18:59:03Z",
+        "initials": "AU",
+        "groups": [],
+        "user_permissions": [],
+        "projects": []
+    }
+},
+{
+    "model": "core.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$390000$Wi7dnRwU0Ax5G4krtq6b99$y9r/gYqS/TE321cQhGdPaA0wyttQyskFNWN1nKBSjTo=",
+        "last_login": "2022-12-21T07:09:35.167Z",
+        "is_superuser": false,
+        "username": "unauth_user",
+        "first_name": "Unauth",
+        "last_name": "User",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-12-20T18:59:56Z",
+        "initials": "UU",
+        "groups": [],
+        "user_permissions": [],
+        "projects": []
+    }
+},
+{
+    "model": "customerportal.project",
+    "pk": 1,
+    "fields": {
+        "project_name": "Test Project",
+        "slug": "test-project",
+        "website": "www.test.com",
+        "description": "Test project for unit testing.",
+        "keywords": "testing",
+        "competitor": "Unit Test",
+        "package": "SEO Test Package",
+        "payment_complete": false,
+        "checkout_attempt_date": "2022-12-20T19:03:49.465Z",
+        "status": "Pending",
+        "checkout_attempt_count": 1,
+        "strategy_doc": "",
+        "strategy_pdf": "",
+        "admin": [
+            2
+        ],
+        "members": [
+            2
+        ]
+    }
+},
+{
+    "model": "customerportal.project",
+    "pk": 2,
+    "fields": {
+        "project_name": "Demo",
+        "slug": "demo",
+        "website": "www.demo.com",
+        "description": "This is the demo project.",
+        "keywords": "Demo",
+        "competitor": "N/A",
+        "package": "SEO Test Package",
+        "payment_complete": false,
+        "checkout_attempt_date": "2022-12-20T20:14:08.163Z",
+        "status": "Complete",
+        "checkout_attempt_count": 1,
+        "strategy_doc": "Demo/SEO_Audit_Template_2022.docx",
+        "strategy_pdf": "Demo/SEO_Audit_Template_2022.pdf",
+        "admin": [
+            1
+        ],
+        "members": [
+            1
+        ]
+    }
+},
+{
+    "model": "customerportal.task",
+    "pk": 1,
+    "fields": {
+        "project": 1,
+        "task_title": "Test Task",
+        "task_description": "Test task description.",
+        "task_goal": "Testing",
+        "progress": 90,
+        "priority": "Low",
+        "status": "To-do",
+        "assigned_to": 2,
+        "created_at": "2022-12-20T19:21:36.035Z",
+        "slug": "test-task"
+    }
+},
+{
+    "model": "customerportal.task",
+    "pk": 2,
+    "fields": {
+        "project": 2,
+        "task_title": "Canonical Tags Task 1:",
+        "task_description": "A republished article was found at the following URL: www.example.com/article. Set the canonical for this page to point to the original source, www.acme.com/original.  Secondly, set the meta to “noindex”",
+        "task_goal": "",
+        "progress": 0,
+        "priority": "High",
+        "status": "To-do",
+        "assigned_to": null,
+        "created_at": "2022-12-20T20:14:09.037Z",
+        "slug": "canonical-tags-task-1"
+    }
+},
+{
+    "model": "customerportal.task",
+    "pk": 3,
+    "fields": {
+        "project": 2,
+        "task_title": "Canonical Tags Task 2:",
+        "task_description": "A second republished article was found at the following URL: www.example.com/second-article. Set the canonical for this page to, www.acme.com/popular-article and “noindex” again.",
+        "task_goal": "",
+        "progress": 0,
+        "priority": "High",
+        "status": "To-do",
+        "assigned_to": null,
+        "created_at": "2022-12-20T20:14:09.038Z",
+        "slug": "canonical-tags-task-2"
+    }
+},
+{
+    "model": "customerportal.taskcomment",
+    "pk": 5,
+    "fields": {
+        "task": 1,
+        "text": "Test comment.",
+        "author": 2,
+        "posted_at": "2022-12-21T23:17:40.732Z",
+        "updated_at": "2022-12-21T23:17:40.732Z"
+    }
+},
+{
+    "model": "customerportal.taskcomment",
+    "pk": 6,
+    "fields": {
+        "task": 2,
+        "text": "Hi, how's everything coming along?",
+        "author": 1,
+        "posted_at": "2022-12-21T23:23:58.454Z",
+        "updated_at": "2022-12-21T23:23:58.454Z"
+    }
+},
+{
+    "model": "customerportal.accountinvite",
+    "pk": 1,
+    "fields": {
+        "email": "first-invite@email.com",
+        "project": 1
+    }
+}
+]

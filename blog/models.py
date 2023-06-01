@@ -210,7 +210,7 @@ class BlogPage(Page):
                     "submitted and is awaiting moderation. "
                     "Thank you for contributing!",
                 )
-                return redirect(self.get_url())
+                return redirect(self.get_url(request))
         else:
             form = CommentForm
 
@@ -260,14 +260,6 @@ class BlogPage(Page):
         email_title = urllib.parse.quote(f"Check this out: {self.title}")
         email_body = urllib.parse.quote(f"{self.snippet}: {self.full_url} ")
         return f"{base_url}subject={email_title}&body={email_body}"
-
-
-#    def get_category_url(self):
-#        """
-#
-#        :return:
-#        """
-#        return self.get_parent().url
 
 
 @register_snippet
