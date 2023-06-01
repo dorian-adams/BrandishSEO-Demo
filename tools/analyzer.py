@@ -1,12 +1,23 @@
-from concurrent.futures.thread import ThreadPoolExecutor
-from bs4 import BeautifulSoup
-from requests.exceptions import InvalidURL
-import requests
+"""
+SEO Analysis tool used in view: ``seo_tools`` at /free-seo-tool/
+WIP
+"""
+
 import math
 import re
+from concurrent.futures.thread import ThreadPoolExecutor
+from requests.exceptions import InvalidURL
+import requests
+from bs4 import BeautifulSoup
 
 
 class PageAnalyzer:
+    """
+    SEO page analyzer.
+
+    Crawls a given URL and holds any SEO issues found in ``results``.
+    """
+
     def __init__(self, url, keyword):
         self.domain = None
         self.source = None
@@ -26,9 +37,9 @@ class PageAnalyzer:
     def clean_url(self, url):
         prefix = ["http://", "https://"]
         if not any(x in url for x in prefix):
-            url = "http://" + url
+            url = f"http://{url}"
         try:
-            r = requests.get(url)
+            r = requests.get(url, timeout=40)
             self.source = r.text
         except:
             return
@@ -47,8 +58,8 @@ class PageAnalyzer:
         h1_error = {"type": "H1 Error"}
         # Tips
         multiple_tip = (
-            "It's best to use only one h1 tag per page and it should typically serves as the title of "
-            "the page or article. Reduce to one h1 tag and ensure keyword is used within it."
+            "It's best to use one h1 tag per page and it should typically serves as the main "
+            "heading of the page or article. Reduce to one h1 tag and ensure keyword is used within it."
         )
 
         if not h1:
@@ -61,27 +72,27 @@ class PageAnalyzer:
             )
             return errors
 
-        # If more than one h1 tag is present, find total count and return
+        # If more than one h1 tag is present, find total count
         if len(h1) > 1:
-            for error in h1[1:]:
+            for h1_tag in h1[1:]:
                 errors.append(
                     {
                         **h1_error,
                         "solution": "Remove or change to subheading 2, 3, etc",
-                        "error": str(error.string),
+                        "error": str(h1_tag.string),
                     }
                 )
 
-        # Get main heading, all further analysis will be on it alone.
+        # Get the first h1 tag, all further analysis will be on it alone.
         main_heading = h1[0].text
         lower_heading = main_heading.lower()
 
-        # Check keyword usage if only one, which is the optimal count, h1 tag is present
+        # Check keyword usage
         if self.keyword not in lower_heading:
             errors.append(
                 {
                     **h1_error,
-                    "solution": "Add keyword " + self.keyword + " to your H1 tag.",
+                    "solution": f"Add keyword: {self.keyword} to your H1 tag.",
                     "error": main_heading,
                 }
             )
@@ -93,9 +104,7 @@ class PageAnalyzer:
                 errors.append(
                     {
                         **h1_error,
-                        "solution": "Place keyword "
-                        + self.keyword
-                        + " closer to the start.",
+                        "solution": f"Place keyword: {self.keyword} closer to the start.",
                         "error": main_heading,
                     }
                 )
@@ -143,20 +152,19 @@ class PageAnalyzer:
 
         # Check if multiple meta titles are present
         if len(clean_titles) > 1:
-            for error in clean_titles[
+            for meta_title in clean_titles[
                 1:
             ]:  # Only grab the additional meta titles as errors
                 errors.append(
                     {
                         **title_error,
                         "solution": "Remove additional meta title.",
-                        "error": error,
+                        "error": meta_title,
                     }
                 )
 
-        title_string = clean_titles[
-            0
-        ]  # In case of multiple, base primary analysis on first element only
+        # In case of multiple, base primary analysis on first element only
+        title_string = clean_titles[0]
         if len(title_string) > 60:
             errors.append(
                 {
@@ -217,18 +225,17 @@ class PageAnalyzer:
                 {
                     **description_error,
                     "error": "Meta Description not found.",
-                    "solution": "Implement meta description and include your "
-                    "target keyword: " + self.keyword,
+                    "solution": f"Implement meta description & include your target keyword: {self.keyword}",
                 }
             )
             return errors
 
         if len(description) > 1:
-            for error in description[1:]:
+            for meta_desc in description[1:]:
                 errors.append(
                     {
                         **description_error,
-                        "error": error,
+                        "error": meta_desc,
                         "solution": "Remove additional meta descriptions, until you "
                         "have only one left.",
                     }
@@ -260,9 +267,7 @@ class PageAnalyzer:
                 {
                     **description_error,
                     "error": description,
-                    "solution": "Incorporate target keyword "
-                    + self.keyword
-                    + " into the description.",
+                    "solution": f"Incorporate target keyword {self.keyword} into the description.",
                 }
             )
         elif (
@@ -281,7 +286,7 @@ class PageAnalyzer:
         return errors
 
     def content_analysis(self):
-        content = self.soup.get_text()
+        pass
 
     def broken_links(self, links):
         broken_links = []
@@ -291,10 +296,12 @@ class PageAnalyzer:
         def _validate_url(link):
             if link.startswith("#") or link.startswith("../"):
                 return
-            elif link.startswith("/"):
+            if "javascript" in link:
+                return
+            if link.startswith("/"):
                 link = self.domain + link
             elif "http" not in link:
-                link = "http://" + link
+                link = f"http://{link}"
             try:
                 r = requests.head(link, timeout=2.0)
                 r.raise_for_status()
@@ -303,10 +310,7 @@ class PageAnalyzer:
                     {
                         **link_error,
                         "error": link,
-                        "solution": "The following link, "
-                        + link
-                        + " took too long to respond. Please review the link"
-                        "and update the url if necessary.",
+                        "solution": f"URL: {link} took too long to respond.",
                     }
                 )
             except ConnectionError:
@@ -314,10 +318,7 @@ class PageAnalyzer:
                     {
                         **link_error,
                         "error": link,
-                        "solution": "Connection failed at, "
-                        + link
-                        + ". The server at the specified url might be down. "
-                        "Please double check and update the url if necessary.",
+                        "solution": f"Connection failed at, {link}. Check server status.",
                     }
                 )
             except InvalidURL:
@@ -325,10 +326,7 @@ class PageAnalyzer:
                     {
                         **link_error,
                         "error": link,
-                        "solution": "URL is invalid, please check "
-                        + link
-                        + "for typos. If this is a javascript, or similar, url, "
-                        "then this warning can probably be ignored.",
+                        "solution": f"URL is invalid, please check {link} for typos.",
                     }
                 )
             except Exception as e:
@@ -336,8 +334,7 @@ class PageAnalyzer:
                     {
                         "type": "Broken Link",
                         "error": link,
-                        "solution": "Failed to resolve url, with the following "
-                        "error " + e,
+                        "solution": f"Failed to resolve url. Error: {e}",
                     }
                 )
 
