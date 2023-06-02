@@ -33,7 +33,9 @@ def export_to_xlsx():
 
 
 class TaskInline(admin.StackedInline):
-    """Incorporated in ProjectAdmin."""
+    """
+    Incorporated in ProjectAdmin.
+    """
 
     model = Task
     classes = ["collapse"]
@@ -41,7 +43,9 @@ class TaskInline(admin.StackedInline):
 
 
 class TaskCommentInline(admin.StackedInline):
-    """Read Only. Incorporated in TaskAdmin."""
+    """
+    Read Only. Incorporated in TaskAdmin.
+    """
 
     model = TaskComment
     classes = ["collapse"]

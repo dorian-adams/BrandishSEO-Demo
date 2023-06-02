@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.shortcuts import get_object_or_404, get_list_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic.edit import FormMixin
 from django.views.generic.detail import DetailView
@@ -9,10 +9,12 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.http import HttpResponseRedirect
 
 from accounts.models import User
-from .models import Project, AccountInvite, Task, TaskComment
+from .models import Project, Task, TaskComment
 from .forms import AccountInviteForm, TaskCreationForm, TaskUpdateForm, TaskCommentForm
 from .mixins import ProjectContextMixin, ProjectAuthMixin
 
+
+# pylint: disable=invalid-name
 
 # -----------------------------------------------------------------------------
 # Customer Profile Views
@@ -21,21 +23,22 @@ from .mixins import ProjectContextMixin, ProjectAuthMixin
 
 @login_required()
 def redirect_project(request):
-    """Redirects user to their ``Project``, or profile page if multiple or no Project exists."""
+    """
+    Redirects user to their ``Project``, or profile page if multiple or no Project exists.
+    """
     projects = Project.objects.filter(members=request.user)
 
     if len(projects) == 1:
         return HttpResponseRedirect(
             reverse("customerportal:project", args=(projects[0].slug,))
         )
-    else:
-        # If user has more than one project or no projects redirect to user's profile page
-        # From there, the user can complete purchase or select the project they wish to visit
-        return HttpResponseRedirect(
-            reverse(
-                "accounts:profile",
-            )
+    # If user has more than one project or no projects redirect to user's profile page
+    # From there, the user can complete purchase or select the project they wish to visit
+    return HttpResponseRedirect(
+        reverse(
+            "accounts:profile",
         )
+    )
 
 
 # -----------------------------------------------------------------------------
@@ -44,14 +47,18 @@ def redirect_project(request):
 
 
 class ProjectDetailView(ProjectAuthMixin, ProjectContextMixin, DetailView):
-    """Serves as the main hub/landing page for all Project related content."""
+    """
+    Serves as the main hub/landing page for all Project related content.
+    """
 
     model = Project
     template_name = "customerportal/customer_portal.html"
 
     def get_context_data(self, **kwargs):
-        """Display a brief list of the latest comments, ``TaskComment``."""
-        context = super(ProjectDetailView, self).get_context_data(**kwargs)
+        """
+        Display a brief list of the latest comments, ``TaskComment``.
+        """
+        context = super().get_context_data(**kwargs)
         context["comments"] = TaskComment.objects.filter(task__project=self.object.pk)[
             :5
         ]
@@ -59,7 +66,9 @@ class ProjectDetailView(ProjectAuthMixin, ProjectContextMixin, DetailView):
 
 
 class ProjectUpdateView(ProjectAuthMixin, ProjectContextMixin, UpdateView):
-    """Update information related to the project.  Website name, keywords, etc."""
+    """
+    Update information related to the project.  Website name, keywords, etc.
+    """
 
     model = Project
     fields = [
@@ -99,7 +108,7 @@ class TaskDetailView(ProjectAuthMixin, ProjectContextMixin, FormMixin, DetailVie
     slug_url_kwarg = "task_slug"
 
     def get_context_data(self, **kwargs):
-        context = super(TaskDetailView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         try:
             context["comments"] = get_list_or_404(TaskComment, task=self.object.pk)
         except:
@@ -108,21 +117,22 @@ class TaskDetailView(ProjectAuthMixin, ProjectContextMixin, FormMixin, DetailVie
         return context
 
     def post(self, request, *args, **kwargs):
-        """Handle creation of Task comments, ``TaskComment``."""
+        """
+        Handle creation of Task comments, ``TaskComment``.
+        """
         self.object = self.get_object()
         self.object.text = request.POST.get("text", "")
         form = self.get_form()
         if form.is_valid():
             return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+        return self.form_invalid(form)
 
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.task = self.get_object()
         obj.author = self.request.user
         obj.save()
-        return super(TaskDetailView, self).form_valid(form)
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy(
@@ -140,7 +150,9 @@ class CreateTaskView(ProjectAuthMixin, ProjectContextMixin, CreateView):
     form_class = TaskCreationForm
 
     def get_initial(self):
-        """Pass ``Project`` to ``TaskCreationForm`` init for custom query."""
+        """
+        Pass ``Project`` to ``TaskCreationForm`` init for custom query.
+        """
         return {"project": get_object_or_404(Project, slug=self.kwargs["slug"])}
 
     def get_success_url(self):
@@ -174,7 +186,9 @@ class TaskUpdateView(ProjectAuthMixin, ProjectContextMixin, UpdateView):
 
 
 class StrategyDetailView(ProjectAuthMixin, ProjectContextMixin, DetailView):
-    """Display the Project's strategy and all associated documents."""
+    """
+    Display the Project's strategy and all associated documents.
+    """
 
     template_name = "customerportal/strategy.html"
     model = Project
@@ -202,31 +216,32 @@ class TeamDetailView(ProjectAuthMixin, ProjectContextMixin, FormMixin, DetailVie
     )
 
     def get_context_data(self, **kwargs):
-        context = super(TeamDetailView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["form"] = AccountInviteForm(
             initial={"project": get_object_or_404(Project, slug=self.kwargs["slug"])}
         )
         return context
 
     def post(self, request, *args, **kwargs):
-        """Handle ``Project`` invites."""
+        """
+        Handle ``Project`` invites.
+        """
         self.object = self.get_object()
         form = AccountInviteForm(request.POST)
         if form.is_valid():
             return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+        return self.form_invalid(form)
 
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.project = self.get_object()
         self.invite_email = obj.email
         obj.save()
-        return super(TeamDetailView, self).form_valid(form)
+        return super().form_valid(form)
 
     def get_success_url(self):
         messages.success(
-            self.request, "Invite successfully sent to %s" % self.invite_email
+            self.request, f"Invite successfully sent to {self.invite_email}"
         )
         return reverse_lazy("customerportal:team", args=(self.object.slug,))
 
@@ -255,7 +270,7 @@ def project_remove_admin(request, slug, pk):
         elif len(project.admin.all()) > min_admin:
             project.admin.remove(user)
             messages.success(
-                request, "Successfully removed '%s' from admin group." % user.first_name
+                request, f"Successfully removed '{user.first_name}' from admin group."
             )
         else:
             messages.success(
@@ -268,7 +283,9 @@ def project_remove_admin(request, slug, pk):
 
 
 def project_add_admin(request, slug, pk):
-    """Add ``User`` via their ``pk`` to the Project's admin group."""
+    """
+    Add ``User`` via their ``pk`` to the Project's admin group.
+    """
     if request.method == "POST":
         project = get_object_or_404(Project, slug=slug)
         user = get_object_or_404(User, id=pk)
@@ -277,7 +294,7 @@ def project_add_admin(request, slug, pk):
         if is_admin:
             project.admin.add(user)
             messages.success(
-                request, "Successfully promoted '%s' to admin." % user.first_name
+                request, f"Successfully promoted '{user.first_name}' to admin."
             )
         else:
             messages.success(
@@ -310,7 +327,7 @@ def project_remove_member(request, slug, pk):
             if user in project.admin.all():
                 project.admin.remove(user)
             messages.success(
-                request, "Successfully removed '%s' from the Project." % user.first_name
+                request, f"Successfully removed '{user.first_name}' from the Project."
             )
         else:
             messages.success(
