@@ -17,7 +17,7 @@
                             {% if demo %}
                             <button type="button" class="btn btn-sm btn-warning btn-icon" onclick="location.href=#;">
                                 {% else %}
-                            <button type="button" class="btn btn-sm btn-warning btn-icon" onclick="location.href='{% url 'customerportal:task-creation' slug %}';">
+                            <button type="button" class="btn btn-sm btn-warning btn-icon" onclick="location.href='{% url 'customerportal:task_creation' slug %}';">
                                 {% endif %}
                                 <span class="btn-inner--text">Create Task</span>
                                 <span class="btn-inner--icon"><i data-feather="plus"></i></span>

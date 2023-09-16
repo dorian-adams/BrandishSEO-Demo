@@ -38,7 +38,7 @@ class TestAuthUser(TestCase):
 
     def test_create_task_view_GET(self):
         response = self.client.get(
-            reverse("customerportal:task-creation", kwargs=self.slug_dict)
+            reverse("customerportal:task_creation", kwargs=self.slug_dict)
         )
 
         self.assertEqual(response.status_code, 200)
@@ -53,7 +53,7 @@ class TestAuthUser(TestCase):
     def test_create_task_view_POST(self):
         prior_objects_count = Task.objects.count()
         response = self.client.post(
-            reverse("customerportal:task-creation", kwargs=self.slug_dict),
+            reverse("customerportal:task_creation", kwargs=self.slug_dict),
             data={
                 "task_title": "Post test",
                 "task_description": "a new task",
@@ -107,7 +107,7 @@ class TestAuthUser(TestCase):
     def test_task_detail_view_GET(self):
         response = self.client.get(
             reverse(
-                "customerportal:task-detail",
+                "customerportal:task_detail",
                 kwargs={"task_slug": self.task.slug, **self.slug_dict},
             )
         )
@@ -144,7 +144,7 @@ class TestAuthUser(TestCase):
         prior_objects_count = TaskComment.objects.count()
         response = self.client.post(
             reverse(
-                "customerportal:task-detail",
+                "customerportal:task_detail",
                 kwargs={"task_slug": self.task.slug, **self.slug_dict},
             ),
             data={"text": "Test comment POST."},
@@ -156,7 +156,7 @@ class TestAuthUser(TestCase):
     def test_task_update_view_GET(self):
         response = self.client.get(
             reverse(
-                "customerportal:task-update",
+                "customerportal:task_update",
                 kwargs={"pk": self.task.pk, **self.slug_dict},
             )
         )
@@ -170,7 +170,7 @@ class TestAuthUser(TestCase):
         )
         response = self.client.post(
             reverse(
-                "customerportal:task-update",
+                "customerportal:task_update",
                 kwargs={"pk": task_to_update.pk, **self.slug_dict},
             ),
             data={
@@ -204,7 +204,7 @@ class TestAuthUser(TestCase):
         response = self.client.post(
             reverse(
                 "customerportal:team-edit",
-                kwargs={"edit": "remove-member", "pk": new_user.pk, **self.slug_dict},
+                kwargs={"edit": "remove_member", "pk": new_user.pk, **self.slug_dict},
             )
         )
 
@@ -283,7 +283,7 @@ class TestUnauthUser(TestCase):
 
     def test_task_creation(self):
         response = self.client.get(
-            reverse("customerportal:task-creation", kwargs=self.slug_dict)
+            reverse("customerportal:task_creation", kwargs=self.slug_dict)
         )
         self.assertEqual(response.status_code, 403)
 
@@ -302,7 +302,7 @@ class TestUnauthUser(TestCase):
     def test_task_detail(self):
         response = self.client.get(
             reverse(
-                "customerportal:task-detail",
+                "customerportal:task_detail",
                 kwargs={"task_slug": self.task.slug, **self.slug_dict},
             )
         )
@@ -311,7 +311,7 @@ class TestUnauthUser(TestCase):
     def test_task_update(self):
         response = self.client.get(
             reverse(
-                "customerportal:task-update",
+                "customerportal:task_update",
                 kwargs={"pk": self.task.pk, **self.slug_dict},
             )
         )

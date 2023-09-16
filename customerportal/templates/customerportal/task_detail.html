@@ -62,7 +62,7 @@
                 <!-- Buttons -->
                 <div class="row">
                     <div class="col">
-                        <a href="{% url 'customerportal:task-update' slug object.pk %}" class="btn btn-primary">Update Task</a>
+                        <a href="{% url 'customerportal:task_update' slug object.pk %}" class="btn btn-primary">Update Task</a>
                     </div>
                     <div class="col px-0 text-right">
                         <a href="#" class="btn btn-primary">Request Feedback</a>
@@ -92,7 +92,7 @@
                 {% endfor %}
                 <div class="media media-comment align-items-center">
                     <div class="media-body">
-                        <form class="rounded-lg border" method="post" action="{% url 'customerportal:task-detail' slug object.slug %}">
+                        <form class="rounded-lg border" method="post" action="{% url 'customerportal:task_detail' slug object.slug %}">
                             {% csrf_token %}
                             <div class="input-group input-group-lg input-group-merge">
                                 <!-- Prepend -->

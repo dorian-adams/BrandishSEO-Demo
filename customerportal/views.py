@@ -136,7 +136,7 @@ class TaskDetailView(ProjectAuthMixin, ProjectContextMixin, FormMixin, DetailVie
 
     def get_success_url(self):
         return reverse_lazy(
-            "customerportal:task-detail",
+            "customerportal:task_detail",
             args=(
                 self.object.project.slug,
                 self.object.slug,
@@ -157,7 +157,7 @@ class CreateTaskView(ProjectAuthMixin, ProjectContextMixin, CreateView):
 
     def get_success_url(self):
         return reverse_lazy(
-            "customerportal:task-detail",
+            "customerportal:task_detail",
             args=(
                 self.object.project.slug,
                 self.object.slug,
@@ -172,7 +172,7 @@ class TaskUpdateView(ProjectAuthMixin, ProjectContextMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy(
-            "customerportal:task-detail",
+            "customerportal:task_detail",
             args=(
                 self.object.project.slug,
                 self.object.slug,

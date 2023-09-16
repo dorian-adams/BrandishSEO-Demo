@@ -13,9 +13,9 @@
                         </div>
                         <span class="clearfix"></span>
                         {% if form.progress %}
-                            <form action="{% url 'customerportal:task-update' slug object.pk %}" method="post">
+                            <form action="{% url 'customerportal:task_update' slug object.pk %}" method="post">
                         {% else %}
-                            <form action="{% url 'customerportal:task-creation' slug %}" method="post">
+                            <form action="{% url 'customerportal:task_creation' slug %}" method="post">
                         {% endif %}
                             {% csrf_token %}
                             <div class="form-group">

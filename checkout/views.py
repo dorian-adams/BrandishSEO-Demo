@@ -145,9 +145,9 @@ class CreateOrderView(LoginRequiredMixin, CreateView):
         try:
             # If user tries to check out existing order
             order = Order.objects.get(website=form.instance.website)
-            return reverse_lazy("checkout:checkout-payment", args=(order.object.pk,))
+            return reverse_lazy("checkout:checkout_payment", args=(order.object.pk,))
         except:
             return self.render_to_response(self.get_context_data(form=form))
 
     def get_success_url(self):
-        return reverse_lazy("checkout:checkout-payment", args=(self.object.pk,))
+        return reverse_lazy("checkout:checkout_payment", args=(self.object.pk,))

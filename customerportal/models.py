@@ -80,7 +80,7 @@ class Task(models.Model):
 
     def get_absolute_url(self):
         return reverse(
-            "customerportal:task-detail", args=[self.project.slug, self.slug]
+            "customerportal:task_detail", args=[self.project.slug, self.slug]
         )
 
     @classmethod

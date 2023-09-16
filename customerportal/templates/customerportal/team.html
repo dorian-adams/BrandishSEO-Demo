@@ -64,11 +64,11 @@
                                                     {% if admin %}
                                                         {% if member in project.admin.all %}
                                                             <div class="name h6 mb-0 text-sm">
-                                                                <a href="{% url 'customerportal:remove-admin' slug member.id %}" method="post">Demote Admin</a>
+                                                                <a href="{% url 'customerportal:remove_admin' slug member.id %}" method="post">Demote Admin</a>
                                                             </div>
                                                         {% else %}
                                                             <div class="name h6 mb-0 text-sm">
-                                                                <a href="{% url 'customerportal:add-admin' slug member.id %}" method="post">Promote Admin</a>
+                                                                <a href="{% url 'customerportal:add_admin' slug member.id %}" method="post">Promote Admin</a>
                                                             </div>
                                                         {% endif %}
                                                     {% endif %}
@@ -80,7 +80,7 @@
                                                             <i data-feather="message-square"></i>
                                                         </a>
                                                         {% if admin %}
-                                                            <a href="{% url 'customerportal:remove-member' slug member.id %}" class="action-item text-danger mr-2" data-toggle="tooltip" title="Remove Member">
+                                                            <a href="{% url 'customerportal:remove_member' slug member.id %}" class="action-item text-danger mr-2" data-toggle="tooltip" title="Remove Member">
                                                                 <i data-feather="trash-2"></i>
                                                             </a>
                                                        {% endif %}

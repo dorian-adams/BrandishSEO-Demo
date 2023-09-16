@@ -52,7 +52,7 @@
                                             <span class="text-sm">
                                                 <!-- Check if payment is complete -->
                                                 {% if not order.order_completed %}
-                                                    <a href="{% url 'checkout:checkout-payment' order.pk %}">
+                                                    <a href="{% url 'checkout:checkout_payment' order.pk %}">
                                                         Click here to complete payment
                                                     </a>
                                                 {% else %}
