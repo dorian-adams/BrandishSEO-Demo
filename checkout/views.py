@@ -17,7 +17,7 @@ from .tasks import order_confirmation_mail
 stripe.api_key = settings.STRIPE_PRIVATE_KEY
 
 
-@login_required(login_url="/register")
+@login_required(login_url=reverse_lazy("accounts:login"))
 def checkout_payment(request, order_pk=None):
     if order_pk is None:
         # Get eligible Projects when the Project pk is not given
