@@ -45,7 +45,7 @@ class Project(models.Model):
     strategy_pdf = models.FileField(upload_to=directory_path, null=True, blank=True)
 
     def get_absolute_url(self):
-        return reverse("customerportal:project", args=[self.slug])
+        return reverse("projects:project", args=[self.slug])
 
     def save(self, *args, **kwargs):
         """
@@ -80,7 +80,7 @@ class Task(models.Model):
 
     def get_absolute_url(self):
         return reverse(
-            "customerportal:task_detail", args=[self.project.slug, self.slug]
+            "projects:task_detail", args=[self.project.slug, self.slug]
         )
 
     @classmethod

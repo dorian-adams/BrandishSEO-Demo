@@ -1,4 +1,4 @@
-{% extends "customerportal/customerportal_nav.html" %}
+{% extends "projects/projects_nav.html" %}
 {% load static crispy_forms_tags %}
 
 {% block customer_content %}
@@ -12,7 +12,11 @@
                             <p class="text-muted mb-0">Made with love for designers &amp; developers.</p>
                         </div>
                         <span class="clearfix"></span>
-                        <form action="{% url 'customerportal:invite-registration' slug %}" method="post">
+                        {% if form.progress %}
+                            <form action="{% url 'projects:task_update' slug object.pk %}" method="post">
+                        {% else %}
+                            <form action="{% url 'projects:task_creation' slug %}" method="post">
+                        {% endif %}
                             {% csrf_token %}
                             <div class="form-group">
                                 {{ form|crispy }}

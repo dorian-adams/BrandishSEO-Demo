@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView
 
-from customerportal.models import Project
+from projects.models import Project
 from .models import Service, Order
 from .forms import AuditOrderForm, KeywordOrderForm
 from .tasks import order_confirmation_mail
@@ -28,7 +28,7 @@ def checkout_payment(request, order_pk=None):
             # If the user has multiple Projects that can be checked out
             # Redirect to user's profile page, so they can select specific
             # Project to check out
-            return HttpResponseRedirect(reverse("customerportal:profile"))
+            return HttpResponseRedirect(reverse("projects:profile"))
         elif len(orders) == 0:
             # If the user does not have any Projects eligible for checkout
             # Redirect to services page to initiate purchase

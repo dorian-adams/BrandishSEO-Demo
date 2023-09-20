@@ -65,7 +65,7 @@ INSTALLED_APPS = [
     "blog.apps.BlogConfig",
     "tools.apps.ToolsConfig",
     "checkout.apps.CheckoutConfig",
-    "customerportal.apps.CustomerportalConfig",
+    "projects.apps.ProjectsConfig",
 ]
 
 MIDDLEWARE = [

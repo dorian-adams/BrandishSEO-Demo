@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("checkout", "0001_initial"),
-        ("customerportal", "0001_initial"),
+        ("projects", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 blank=True,
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
-                to="customerportal.project",
+                to="projects.project",
             ),
         ),
         migrations.AddField(

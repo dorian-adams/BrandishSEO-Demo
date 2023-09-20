@@ -1,4 +1,4 @@
-{% extends "customerportal/customerportal_nav.html" %}
+{% extends "projects/projects_nav.html" %}
 {% load static crispy_forms_tags %}
 {% block customer_content %}
     <div class="slice slice-sm bg-section-secondary">
@@ -64,11 +64,11 @@
                                                     {% if admin %}
                                                         {% if member in project.admin.all %}
                                                             <div class="name h6 mb-0 text-sm">
-                                                                <a href="{% url 'customerportal:remove_admin' slug member.id %}" method="post">Demote Admin</a>
+                                                                <a href="{% url 'projects:remove_admin' slug member.id %}" method="post">Demote Admin</a>
                                                             </div>
                                                         {% else %}
                                                             <div class="name h6 mb-0 text-sm">
-                                                                <a href="{% url 'customerportal:add_admin' slug member.id %}" method="post">Promote Admin</a>
+                                                                <a href="{% url 'projects:add_admin' slug member.id %}" method="post">Promote Admin</a>
                                                             </div>
                                                         {% endif %}
                                                     {% endif %}
@@ -80,7 +80,7 @@
                                                             <i data-feather="message-square"></i>
                                                         </a>
                                                         {% if admin %}
-                                                            <a href="{% url 'customerportal:remove_member' slug member.id %}" class="action-item text-danger mr-2" data-toggle="tooltip" title="Remove Member">
+                                                            <a href="{% url 'projects:remove_member' slug member.id %}" class="action-item text-danger mr-2" data-toggle="tooltip" title="Remove Member">
                                                                 <i data-feather="trash-2"></i>
                                                             </a>
                                                        {% endif %}
@@ -109,7 +109,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
                         <!-- Form -->
-                        <form action="{% url 'customerportal:team' slug %}" method="post">
+                        <form action="{% url 'projects:team' slug %}" method="post">
                             {% csrf_token %}
                             <div class="form-group">
                                 {{ form|crispy }}

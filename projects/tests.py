@@ -2,8 +2,8 @@ from django.test import TestCase, Client, SimpleTestCase
 from django.urls import reverse
 
 from accounts.models import User
-from customerportal.forms import ProjectUpdateForm, AccountInviteForm
-from customerportal.models import Project, TaskComment, Task, AccountInvite
+from projects.forms import ProjectUpdateForm, AccountInviteForm
+from projects.models import Project, TaskComment, Task, AccountInvite
 
 
 class TestAuthUser(TestCase):
@@ -22,11 +22,11 @@ class TestAuthUser(TestCase):
 
     def test_project_view(self):
         response = self.client.get(
-            reverse("customerportal:project", kwargs=self.slug_dict)
+            reverse("projects:project", kwargs=self.slug_dict)
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "customerportal/customer_portal.html")
+        self.assertTemplateUsed(response, "projects/projects.html")
         self.assertEqual(response.context["project"], self.project)
         self.assertContains(
             response, "Welcome, Auth"
@@ -38,11 +38,11 @@ class TestAuthUser(TestCase):
 
     def test_create_task_view_GET(self):
         response = self.client.get(
-            reverse("customerportal:task_creation", kwargs=self.slug_dict)
+            reverse("projects:task_creation", kwargs=self.slug_dict)
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "customerportal/task_form.html")
+        self.assertTemplateUsed(response, "projects/task_form.html")
 
         # Test view's get_initial()
         self.assertContains(
@@ -53,7 +53,7 @@ class TestAuthUser(TestCase):
     def test_create_task_view_POST(self):
         prior_objects_count = Task.objects.count()
         response = self.client.post(
-            reverse("customerportal:task_creation", kwargs=self.slug_dict),
+            reverse("projects:task_creation", kwargs=self.slug_dict),
             data={
                 "task_title": "Post test",
                 "task_description": "a new task",
@@ -69,11 +69,11 @@ class TestAuthUser(TestCase):
 
     def test_invite_registration_view_GET(self):
         response = self.client.get(
-            reverse("customerportal:invite-registration", kwargs=self.slug_dict)
+            reverse("projects:invite-registration", kwargs=self.slug_dict)
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "customerportal/invite_registration.html")
+        self.assertTemplateUsed(response, "projects/invite_registration.html")
 
         # Test view's get_initial()
         self.assertContains(
@@ -84,7 +84,7 @@ class TestAuthUser(TestCase):
     def test_invite_registration_view_POST(self):
         prior_objects_count = AccountInvite.objects.count()
         response = self.client.post(
-            reverse("customerportal:invite-registration", kwargs=self.slug_dict),
+            reverse("projects:invite-registration", kwargs=self.slug_dict),
             data={"email": "invite@email.com", "project": self.project.pk},
         )
 
@@ -93,11 +93,11 @@ class TestAuthUser(TestCase):
 
     def test_task_list_view(self):
         response = self.client.get(
-            reverse("customerportal:tasks", kwargs=self.slug_dict)
+            reverse("projects:tasks", kwargs=self.slug_dict)
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "customerportal/tasks.html")
+        self.assertTemplateUsed(response, "projects/tasks.html")
 
         # Test get_queryset - correctly filters the right project
         self.assertIn("object_list", response.context)
@@ -107,13 +107,13 @@ class TestAuthUser(TestCase):
     def test_task_detail_view_GET(self):
         response = self.client.get(
             reverse(
-                "customerportal:task_detail",
+                "projects:task_detail",
                 kwargs={"task_slug": self.task.slug, **self.slug_dict},
             )
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "customerportal/task_detail.html")
+        self.assertTemplateUsed(response, "projects/task_detail.html")
         self.assertContains(response, "Test Task")
         self.assertContains(response, "Testing")
         self.assertContains(response, "Test task description.")  #
@@ -144,7 +144,7 @@ class TestAuthUser(TestCase):
         prior_objects_count = TaskComment.objects.count()
         response = self.client.post(
             reverse(
-                "customerportal:task_detail",
+                "projects:task_detail",
                 kwargs={"task_slug": self.task.slug, **self.slug_dict},
             ),
             data={"text": "Test comment POST."},
@@ -156,13 +156,13 @@ class TestAuthUser(TestCase):
     def test_task_update_view_GET(self):
         response = self.client.get(
             reverse(
-                "customerportal:task_update",
+                "projects:task_update",
                 kwargs={"pk": self.task.pk, **self.slug_dict},
             )
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "customerportal/task_form.html")
+        self.assertTemplateUsed(response, "projects/task_form.html")
 
     def test_task_update_view_POST(self):
         task_to_update = Task.objects.create(
@@ -170,7 +170,7 @@ class TestAuthUser(TestCase):
         )
         response = self.client.post(
             reverse(
-                "customerportal:task_update",
+                "projects:task_update",
                 kwargs={"pk": task_to_update.pk, **self.slug_dict},
             ),
             data={
@@ -190,11 +190,11 @@ class TestAuthUser(TestCase):
 
     def test_team_detail_view(self):
         response = self.client.get(
-            reverse("customerportal:team", kwargs=self.slug_dict)
+            reverse("projects:team", kwargs=self.slug_dict)
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "customerportal/team.html")
+        self.assertTemplateUsed(response, "projects/team.html")
         self.assertContains(response, "Auth User")
         self.assertNotContains(response, "Unauth User")
 
@@ -203,50 +203,25 @@ class TestAuthUser(TestCase):
         self.project.members.add(new_user)
         response = self.client.post(
             reverse(
-                "customerportal:team-edit",
+                "projects:team-edit",
                 kwargs={"edit": "remove_member", "pk": new_user.pk, **self.slug_dict},
             )
         )
 
         self.assertEqual(response.status_code, 302)
 
-    def test_customer_update_view_GET(self):
-        response = self.client.get(
-            reverse(
-                "customerportal:customer-update",
-                kwargs={"pk": self.user.pk, **self.slug_dict},
-            )
-        )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed("customerportal/user_update_form.html")
-        self.assertContains(response, "Auth")  # Passed correct user instance
-
-    def test_customer_update_view_POST(self):
-        response = self.client.post(
-            reverse(
-                "customerportal:customer-update",
-                kwargs={"pk": self.user.pk, **self.slug_dict},
-            ),
-            data={"first_name": "Updated"},
-        )
-
-        self.assertEqual(response.status_code, 302)
-        self.user.refresh_from_db()
-        self.assertEqual(self.user.first_name, "Updated")
-
     def test_project_update_view_GET(self):
         response = self.client.get(
-            reverse("customerportal:project-update", kwargs=self.slug_dict)
+            reverse("projects:project-update", kwargs=self.slug_dict)
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "customerportal/project_update_form.html")
+        self.assertTemplateUsed(response, "projects/project_update_form.html")
         self.assertIn("form", response.context)
 
     def test_project_update_view_POST(self):
         response = self.client.post(
-            reverse("customerportal:project-update", kwargs=self.slug_dict),
+            reverse("projects:project-update", kwargs=self.slug_dict),
             data={
                 "website": "Updated",
                 "description": "test",
@@ -277,32 +252,32 @@ class TestUnauthUser(TestCase):
     def test_project_view(self):
         # Project Main
         response = self.client.get(
-            reverse("customerportal:project", kwargs=self.slug_dict)
+            reverse("projects:project", kwargs=self.slug_dict)
         )
         self.assertEqual(response.status_code, 403)
 
     def test_task_creation(self):
         response = self.client.get(
-            reverse("customerportal:task_creation", kwargs=self.slug_dict)
+            reverse("projects:task_creation", kwargs=self.slug_dict)
         )
         self.assertEqual(response.status_code, 403)
 
     def test_invite_registration(self):
         response = self.client.get(
-            reverse("customerportal:invite-registration", kwargs=self.slug_dict)
+            reverse("projects:invite-registration", kwargs=self.slug_dict)
         )
         self.assertEqual(response.status_code, 403)
 
     def test_tasks(self):
         response = self.client.get(
-            reverse("customerportal:tasks", kwargs=self.slug_dict)
+            reverse("projects:tasks", kwargs=self.slug_dict)
         )
         self.assertEqual(response.status_code, 403)
 
     def test_task_detail(self):
         response = self.client.get(
             reverse(
-                "customerportal:task_detail",
+                "projects:task_detail",
                 kwargs={"task_slug": self.task.slug, **self.slug_dict},
             )
         )
@@ -311,7 +286,7 @@ class TestUnauthUser(TestCase):
     def test_task_update(self):
         response = self.client.get(
             reverse(
-                "customerportal:task_update",
+                "projects:task_update",
                 kwargs={"pk": self.task.pk, **self.slug_dict},
             )
         )
@@ -319,35 +294,13 @@ class TestUnauthUser(TestCase):
 
     def test_team(self):
         response = self.client.get(
-            reverse("customerportal:team", kwargs=self.slug_dict)
-        )
-        self.assertEqual(response.status_code, 403)
-
-        # Team Update
-
-    def test_update_self(self):
-        response = self.client.get(
-            reverse(
-                "customerportal:customer-update",
-                kwargs={"pk": self.unauth_user.pk, **self.slug_dict},
-            ),
-            follow=False,
-        )
-        self.assertEqual(response.status_code, 403)
-
-    def test_update_other_user(self):
-        user = User.objects.get(username="user")
-        response = self.client.get(
-            reverse(
-                "customerportal:customer-update",
-                kwargs={"pk": user.pk, **self.slug_dict},
-            )
+            reverse("projects:team", kwargs=self.slug_dict)
         )
         self.assertEqual(response.status_code, 403)
 
     def test_project_update(self):
         response = self.client.get(
-            reverse("customerportal:project-update", kwargs=self.slug_dict)
+            reverse("projects:project-update", kwargs=self.slug_dict)
         )
         self.assertEqual(response.status_code, 403)
 

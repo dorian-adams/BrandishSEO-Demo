@@ -30,7 +30,7 @@ def redirect_project(request):
 
     if len(projects) == 1:
         return HttpResponseRedirect(
-            reverse("customerportal:project", args=(projects[0].slug,))
+            reverse("projects:project", args=(projects[0].slug,))
         )
     # If user has more than one project or no projects redirect to user's profile page
     # From there, the user can complete purchase or select the project they wish to visit
@@ -52,7 +52,7 @@ class ProjectDetailView(ProjectAuthMixin, ProjectContextMixin, DetailView):
     """
 
     model = Project
-    template_name = "customerportal/customer_portal.html"
+    template_name = "projects/projects.html"
 
     def get_context_data(self, **kwargs):
         """
@@ -77,10 +77,10 @@ class ProjectUpdateView(ProjectAuthMixin, ProjectContextMixin, UpdateView):
         "keywords",
         "competitor",
     ]
-    template_name = "customerportal/project_update_form.html"
+    template_name = "projects/project_update_form.html"
 
     def get_success_url(self):
-        return reverse_lazy("customerportal:project", args=(self.object.slug,))
+        return reverse_lazy("projects:project", args=(self.object.slug,))
 
 
 # -----------------------------------------------------------------------------
@@ -90,7 +90,7 @@ class ProjectUpdateView(ProjectAuthMixin, ProjectContextMixin, UpdateView):
 
 class TaskListView(ProjectAuthMixin, ProjectContextMixin, ListView):
     model = Task
-    template_name = "customerportal/tasks.html"
+    template_name = "projects/tasks.html"
 
     def get_queryset(self):
         return get_list_or_404(Task, project__slug=self.kwargs["slug"])
@@ -103,7 +103,7 @@ class TaskDetailView(ProjectAuthMixin, ProjectContextMixin, FormMixin, DetailVie
     """
 
     model = Task
-    template_name = "customerportal/task_detail.html"
+    template_name = "projects/task_detail.html"
     form_class = TaskCommentForm
     slug_url_kwarg = "task_slug"
 
@@ -136,7 +136,7 @@ class TaskDetailView(ProjectAuthMixin, ProjectContextMixin, FormMixin, DetailVie
 
     def get_success_url(self):
         return reverse_lazy(
-            "customerportal:task_detail",
+            "projects:task_detail",
             args=(
                 self.object.project.slug,
                 self.object.slug,
@@ -145,7 +145,7 @@ class TaskDetailView(ProjectAuthMixin, ProjectContextMixin, FormMixin, DetailVie
 
 
 class CreateTaskView(ProjectAuthMixin, ProjectContextMixin, CreateView):
-    template_name = "customerportal/task_form.html"
+    template_name = "projects/task_form.html"
     model = Project
     form_class = TaskCreationForm
 
@@ -157,7 +157,7 @@ class CreateTaskView(ProjectAuthMixin, ProjectContextMixin, CreateView):
 
     def get_success_url(self):
         return reverse_lazy(
-            "customerportal:task_detail",
+            "projects:task_detail",
             args=(
                 self.object.project.slug,
                 self.object.slug,
@@ -166,13 +166,13 @@ class CreateTaskView(ProjectAuthMixin, ProjectContextMixin, CreateView):
 
 
 class TaskUpdateView(ProjectAuthMixin, ProjectContextMixin, UpdateView):
-    template_name = "customerportal/task_form.html"
+    template_name = "projects/task_form.html"
     model = Task
     form_class = TaskUpdateForm
 
     def get_success_url(self):
         return reverse_lazy(
-            "customerportal:task_detail",
+            "projects:task_detail",
             args=(
                 self.object.project.slug,
                 self.object.slug,
@@ -190,7 +190,7 @@ class StrategyDetailView(ProjectAuthMixin, ProjectContextMixin, DetailView):
     Display the Project's strategy and all associated documents.
     """
 
-    template_name = "customerportal/strategy.html"
+    template_name = "projects/strategy.html"
     model = Project
 
 
@@ -208,7 +208,7 @@ class TeamDetailView(ProjectAuthMixin, ProjectContextMixin, FormMixin, DetailVie
     all member actions (remove, promote) are sent to their, separate, respective functions.
     """
 
-    template_name = "customerportal/team.html"
+    template_name = "projects/team.html"
     model = Project
     form_class = AccountInviteForm
     invite_email = (
@@ -243,7 +243,7 @@ class TeamDetailView(ProjectAuthMixin, ProjectContextMixin, FormMixin, DetailVie
         messages.success(
             self.request, f"Invite successfully sent to {self.invite_email}"
         )
-        return reverse_lazy("customerportal:team", args=(self.object.slug,))
+        return reverse_lazy("projects:team", args=(self.object.slug,))
 
 
 # -----------------------------------------------------------------------------
@@ -278,7 +278,7 @@ def project_remove_admin(request, slug, pk):
             )
 
         return HttpResponseRedirect(
-            reverse("customerportal:team", args=(project.slug,))
+            reverse("projects:team", args=(project.slug,))
         )
 
 
@@ -302,7 +302,7 @@ def project_add_admin(request, slug, pk):
             )
 
         return HttpResponseRedirect(
-            reverse("customerportal:team", args=(project.slug,))
+            reverse("projects:team", args=(project.slug,))
         )
 
 
@@ -334,7 +334,7 @@ def project_remove_member(request, slug, pk):
                 request, "Request failed. Project must maintain at least one member."
             )
         return HttpResponseRedirect(
-            reverse("customerportal:team", args=(project.slug,))
+            reverse("projects:team", args=(project.slug,))
         )
 
 
@@ -350,5 +350,5 @@ def invite_registration(request):
             user = get_object_or_404(User, email=user_email)
             project.members.add(user)
     form = UserRegistrationForm()
-    return render(request, 'customerportal/invite_registration.html', {'form': form})
+    return render(request, 'projects/invite_registration.html', {'form': form})
 """

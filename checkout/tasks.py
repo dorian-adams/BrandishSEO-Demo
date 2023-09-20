@@ -3,7 +3,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 
 from brandishseo.celery import app
-from customerportal.models import Project
+from projects.models import Project
 
 
 @app.task

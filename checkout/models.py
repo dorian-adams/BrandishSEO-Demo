@@ -20,7 +20,7 @@ class Order(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     project_name = models.CharField(max_length=20)
     project = models.ForeignKey(
-        "customerportal.Project", blank=True, null=True, on_delete=models.CASCADE
+        "projects.Project", blank=True, null=True, on_delete=models.CASCADE
     )
     order_completed = models.BooleanField(default=False)
     website = models.CharField(max_length=200)

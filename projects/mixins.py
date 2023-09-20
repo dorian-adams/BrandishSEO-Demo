@@ -23,7 +23,7 @@ class ProjectContextMixin:
     """
     Sets context that's used across all ``Project``.
 
-    context['slug'] is used in the sub-nav, 'customerportal_nav.html'.
+    context['slug'] is used in the sub-nav, 'projects_nav.html'.
     Passing the slug to context ensures it can be accessed in a consistent manner.
     """
 

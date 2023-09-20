@@ -1,8 +1,8 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from customerportal.models import Project, Task
-from customerportal.parser import extract_tasks
+from projects.models import Project, Task
+from projects.parser import extract_tasks
 
 
 @receiver(post_save, sender=Project)

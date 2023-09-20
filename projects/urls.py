@@ -16,7 +16,7 @@ from .views import (
 )
 
 
-app_name = "customerportal"
+app_name = "projects"
 
 urlpatterns = [
     path("<slug:slug>/team/add-admin/<int:pk>/", project_add_admin, name="add_admin"),

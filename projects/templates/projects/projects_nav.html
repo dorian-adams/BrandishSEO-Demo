@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% load static %}
+
 {% block head %}
 <!-- No index No follow -->
 <meta name="robots" content="noindex, nofollow">
@@ -9,7 +10,7 @@
 <meta name="description" content="SEO project portal for {{ website }}." />
 {% endblock head %}
 {% block content %}
-     <!-- Customer Portal Nav -->
+     <!-- Project Nav -->
     <section class="pt-5 bg-section-secondary">
         <div class="container">
             <div class="row justify-content-center">
@@ -31,29 +32,29 @@
                     <div class="mt-4">
                         <ul class="nav nav-tabs overflow-x">
                             <li class="nav-item">
-                                <a href="{% url 'customerportal:project' slug %}" class="nav-link active">
+                                <a href="{% url 'projects:project' slug %}" class="nav-link active">
                                     Main
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{% url 'customerportal:tasks' slug %}" class="nav-link">
+                                <a href="{% url 'projects:tasks' slug %}" class="nav-link">
                                     Task Manager
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{% url 'customerportal:team' slug %}" class="nav-link">
+                                <a href="{% url 'projects:team' slug %}" class="nav-link">
                                     Team
                                 </a>
                             </li>
                             {% if not demo %}
                             <li class="nav-item">
-                                <a href="{% url 'customerportal:project_update' slug %}" class="nav-link">
+                                <a href="{% url 'projects:project_update' slug %}" class="nav-link">
                                     Project
                                 </a>
                             </li>
                             {% endif %}
                             <li class="nav-item">
-                                <a href="{% url 'customerportal:strategy' slug %}" class="nav-link">
+                                <a href="{% url 'projects:strategy' slug %}" class="nav-link">
                                     SEO Strategy
                                 </a>
                             </li>

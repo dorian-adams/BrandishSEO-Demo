@@ -1,4 +1,4 @@
-{% extends "customerportal/customerportal_nav.html" %}
+{% extends "projects/projects_nav.html" %}
 {% load static %}
 
 {% block customer_content %}
@@ -229,7 +229,7 @@
                                 </div>
                                 <!-- List group -->
                                 <div class="list-group list-group-flush">
-                                    <a href="{% url 'customerportal:tasks' slug %}" class="list-group-item list-group-item-action border-0 py-2">
+                                    <a href="{% url 'projects:tasks' slug %}" class="list-group-item list-group-item-action border-0 py-2">
                                         <div class="d-flex">
                                             <div>
                                                 <i data-feather="check-square" class="mr-3"></i>
@@ -241,7 +241,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="{% url 'customerportal:strategy' slug %}" class="list-group-item list-group-item-action border-0 py-2">
+                                    <a href="{% url 'projects:strategy' slug %}" class="list-group-item list-group-item-action border-0 py-2">
                                         <div class="d-flex">
                                             <div>
                                                 <i data-feather="file-text" class="mr-3"></i>
@@ -253,7 +253,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="{% url 'customerportal:team' slug %}" class="list-group-item list-group-item-action border-0 py-2">
+                                    <a href="{% url 'projects:team' slug %}" class="list-group-item list-group-item-action border-0 py-2">
                                         <div class="d-flex">
                                             <div>
                                                 <i data-feather="users" class="mr-3"></i>
