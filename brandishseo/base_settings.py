@@ -63,7 +63,7 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "core.apps.CoreConfig",
     "blog.apps.BlogConfig",
-    "tools.apps.ToolsConfig",
+    "seotools.freetools.apps.FreeToolsConfig",
     "checkout.apps.CheckoutConfig",
     "projects.apps.ProjectsConfig",
 ]

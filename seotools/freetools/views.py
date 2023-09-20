@@ -11,6 +11,6 @@ def seo_tools(request):
         seo = PageAnalyzer(website, keyword)
         context = {"analysis": True, "errors": seo.results}
 
-        return render(request, "tools/seo-tools.html", context)
+        return render(request, "freetools/seo-tools.html", context)
     else:
-        return render(request, "tools/seo-tools.html")
+        return render(request, "freetools/seo-tools.html")
