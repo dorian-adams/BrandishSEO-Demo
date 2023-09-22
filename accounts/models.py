@@ -1,6 +1,6 @@
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.conf import settings
 
 from brandishseo.cdn.backends import MediaStorage
 
@@ -24,7 +24,9 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         if self.initials == "":
-            self.initials = self.first_name[:1].upper() + self.last_name[:1].upper()
+            self.initials = (
+                self.first_name[:1].upper() + self.last_name[:1].upper()
+            )
         super().save(*args, **kwargs)
 
 
@@ -36,7 +38,9 @@ class UserProfile(models.Model):
     class Meta:
         abstract = True
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
     profile_image = models.ImageField(
         upload_to=directory_path, storage=MediaStorage(), blank=True, null=True
     )

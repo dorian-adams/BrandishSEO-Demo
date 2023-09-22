@@ -1,4 +1,4 @@
-from celery import task, shared_task
+from celery import shared_task, task
 from django.conf import settings
 from django.core.mail import send_mail
 

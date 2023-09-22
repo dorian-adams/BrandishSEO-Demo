@@ -1,6 +1,6 @@
 import pytest
-from accounts.models import User, UserProfile
 
+from accounts.models import User, UserProfile
 
 # pylint: disable=missing-function-docstring
 

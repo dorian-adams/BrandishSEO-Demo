@@ -1,9 +1,14 @@
-from django.test import TestCase, Client, SimpleTestCase
+from django.test import Client, SimpleTestCase, TestCase
 from django.urls import reverse
 
 from accounts.models import User
-from projects.forms import ProjectUpdateForm, AccountInviteForm
-from projects.models import Project, TaskComment, Task, AccountInvite
+from projects.forms import AccountInviteForm, ProjectUpdateForm
+from projects.models import (
+    AccountInvite,
+    Project,
+    Task,
+    TaskComment,
+)
 
 
 class TestAuthUser(TestCase):
@@ -31,9 +36,13 @@ class TestAuthUser(TestCase):
         self.assertContains(
             response, "Welcome, Auth"
         )  # Contains welcome msg w/ user's name
-        self.assertContains(response, "Test Project")  # Contains project's name
+        self.assertContains(
+            response, "Test Project"
+        )  # Contains project's name
         self.assertContains(response, "www.test.com")  # Contains project's url
-        self.assertContains(response, "Test comment.")  # Contains message snippet
+        self.assertContains(
+            response, "Test comment."
+        )  # Contains message snippet
         self.assertContains(response, "Pending")  # Contains order status
 
     def test_create_task_view_GET(self):
@@ -89,7 +98,9 @@ class TestAuthUser(TestCase):
         )
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(AccountInvite.objects.count(), prior_objects_count + 1)
+        self.assertEqual(
+            AccountInvite.objects.count(), prior_objects_count + 1
+        )
 
     def test_task_list_view(self):
         response = self.client.get(
@@ -102,7 +113,9 @@ class TestAuthUser(TestCase):
         # Test get_queryset - correctly filters the right project
         self.assertIn("object_list", response.context)
         self.assertEqual(len(response.context["object_list"]), 1)
-        self.assertEqual(response.context["object_list"][0].project, self.project)
+        self.assertEqual(
+            response.context["object_list"][0].project, self.project
+        )
 
     def test_task_detail_view_GET(self):
         response = self.client.get(
@@ -199,12 +212,18 @@ class TestAuthUser(TestCase):
         self.assertNotContains(response, "Unauth User")
 
     def test_team_update_view_POST(self):
-        new_user = User.objects.create_user(username="new", password="abc12345")
+        new_user = User.objects.create_user(
+            username="new", password="abc12345"
+        )
         self.project.members.add(new_user)
         response = self.client.post(
             reverse(
                 "projects:team-edit",
-                kwargs={"edit": "remove_member", "pk": new_user.pk, **self.slug_dict},
+                kwargs={
+                    "edit": "remove_member",
+                    "pk": new_user.pk,
+                    **self.slug_dict,
+                },
             )
         )
 
@@ -319,7 +338,9 @@ class TestAccountInviteForm(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_act_invite_form_invalid(self):
-        form = AccountInviteForm(data={"email": "invalid", "project": self.project})
+        form = AccountInviteForm(
+            data={"email": "invalid", "project": self.project}
+        )
         self.assertFalse(form.is_valid())
         self.assertEqual(len(form.errors), 1)
 

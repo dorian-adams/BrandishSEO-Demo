@@ -1,0 +1,6 @@
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+[tool.isort]
+profile = 'black'
+force_grid_wrap = 4

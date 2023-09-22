@@ -5,18 +5,19 @@ Test model methods (non-view), pagination, and parent-child relationships.
 # pylint: disable=missing-function-docstring
 
 import operator
+
 from django.test import TestCase
 from wagtail.test.utils import WagtailPageTestCase
 
-from blog.models import BlogIndexPage, CategoryIndexPage, BlogPage
-from blog.paginator import paginate_posts
 from blog.factories import (
-    CategoryIndexPageFactory,
-    BlogPageFactory,
     BlogIndexPageFactory,
-    SiteFactoryWithRoot,
+    BlogPageFactory,
+    CategoryIndexPageFactory,
     CommentFactory,
+    SiteFactoryWithRoot,
 )
+from blog.models import BlogIndexPage, BlogPage, CategoryIndexPage
+from blog.paginator import paginate_posts
 
 
 class BlogIndexPageModelTest(WagtailPageTestCase):
@@ -38,7 +39,9 @@ class CategoryIndexPageModelTest(WagtailPageTestCase):
         self.assertCanCreateAt(CategoryIndexPage, BlogPage)
 
     def test_get_recent_posts(self):
-        category = CategoryIndexPageFactory.create(parent=BlogIndexPageFactory.create())
+        category = CategoryIndexPageFactory.create(
+            parent=BlogIndexPageFactory.create()
+        )
         BlogPageFactory.create_batch(4, parent=category)
         queryset = category.get_recent_posts()
         expected_num_results = 3  # get_recent_posts() slices at [:3]
@@ -49,7 +52,9 @@ class CategoryIndexPageModelTest(WagtailPageTestCase):
         )  # get_recent_posts() is expected to order by "-date"
 
         self.assertEqual(queryset.count(), expected_num_results)
-        self.assertQuerysetEqual(queryset, expected_order, transform=lambda x: x)
+        self.assertQuerysetEqual(
+            queryset, expected_order, transform=lambda x: x
+        )
 
 
 class BlogCommentModelTest(TestCase):
@@ -62,7 +67,9 @@ class BlogCommentModelTest(TestCase):
         blog_page = BlogPageFactory.build()
         comment_text = "Ensure comment text is properly truncated"
         truncated_comment_text = "Ensure comment ..."
-        expected_object_name = f"'{truncated_comment_text}' on Page: '{blog_page}'"
+        expected_object_name = (
+            f"'{truncated_comment_text}' on Page: '{blog_page}'"
+        )
 
         comment_obj = CommentFactory.build(page=blog_page, text=comment_text)
         self.assertEqual(str(comment_obj), expected_object_name)
@@ -120,7 +127,9 @@ class BlogPageModelTest(TestCase):
         cls.category = CategoryIndexPageFactory.create(
             parent=cls.blog_index, slug="test-category"
         )
-        cls.post = BlogPageFactory.create(parent=cls.category, slug="test-post")
+        cls.post = BlogPageFactory.create(
+            parent=cls.category, slug="test-post"
+        )
 
     def test_get_tags_properly_formats_tag_urls(self):
         post = BlogPageFactory.create(parent=self.category, tags=["test"])
@@ -141,21 +150,27 @@ class BlogPageModelTest(TestCase):
     def test_get_twitter_share_url(self):
         twitter = "https://twitter.com/share?url="
         page = "/blog/test-category/test-post/&via=BrandishSEO"
-        expected_url = f"{twitter}http://{self.site.hostname}:{self.site.port}{page}"
+        expected_url = (
+            f"{twitter}http://{self.site.hostname}:{self.site.port}{page}"
+        )
 
         self.assertEqual(self.post.get_twitter_share_url(), expected_url)
 
     def test_get_facebook_share_url(self):
         facebook = "https://www.facebook.com/sharer/sharer.php?u="
         page = "/blog/test-category/test-post/"
-        expected_url = f"{facebook}http://{self.site.hostname}:{self.site.port}{page}"
+        expected_url = (
+            f"{facebook}http://{self.site.hostname}:{self.site.port}{page}"
+        )
 
         self.assertEqual(self.post.get_facebook_share_url(), expected_url)
 
     def test_get_linkedin_share_url(self):
         linkedin = "https://www.linkedin.com/shareArticle?mini=true&url="
         page = "/blog/test-category/test-post/"
-        expected_url = f"{linkedin}http://{self.site.hostname}:{self.site.port}{page}"
+        expected_url = (
+            f"{linkedin}http://{self.site.hostname}:{self.site.port}{page}"
+        )
 
         self.assertEqual(self.post.get_linkedin_share_url(), expected_url)
 

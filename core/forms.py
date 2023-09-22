@@ -1,6 +1,6 @@
-from django import forms
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
+from django import forms
 
 from .tasks import send_contact_form
 
@@ -9,7 +9,9 @@ class ContactForm(forms.Form):
     form_class = {"class": "form-control form-control-lg"}
     name = forms.CharField(
         max_length=75,
-        widget=forms.TextInput(attrs={"placeholder": "Your name", **form_class}),
+        widget=forms.TextInput(
+            attrs={"placeholder": "Your name", **form_class}
+        ),
     )
     email = forms.EmailField(
         widget=forms.EmailInput(
@@ -31,5 +33,10 @@ class ContactForm(forms.Form):
     def send(self):
         cleaned_data = super().clean()
         subject = "Contact Form, from: " + cleaned_data.get("name")
-        msg = "Email: " + cleaned_data.get("email") + "\n" + cleaned_data.get("message")
+        msg = (
+            "Email: "
+            + cleaned_data.get("email")
+            + "\n"
+            + cleaned_data.get("message")
+        )
         send_contact_form.delay(subject, msg)

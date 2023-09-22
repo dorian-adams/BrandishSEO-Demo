@@ -1,25 +1,28 @@
 from django.urls import path
 
 from .views import (
-    ProjectUpdateView,
-    ProjectDetailView,
-    TaskListView,
     CreateTaskView,
-    TaskUpdateView,
-    TaskDetailView,
-    TeamDetailView,
+    ProjectDetailView,
+    ProjectUpdateView,
     StrategyDetailView,
-    redirect_project,
+    TaskDetailView,
+    TaskListView,
+    TaskUpdateView,
+    TeamDetailView,
     project_add_admin,
     project_remove_admin,
     project_remove_member,
+    redirect_project,
 )
-
 
 app_name = "projects"
 
 urlpatterns = [
-    path("<slug:slug>/team/add-admin/<int:pk>/", project_add_admin, name="add_admin"),
+    path(
+        "<slug:slug>/team/add-admin/<int:pk>/",
+        project_add_admin,
+        name="add_admin",
+    ),
     path(
         "<slug:slug>/team/remove-admin/<int:pk>/",
         project_remove_admin,
@@ -36,7 +39,9 @@ urlpatterns = [
         name="task_update",
     ),
     path(
-        "<slug:slug>/tasks/create-task/", CreateTaskView.as_view(), name="task_creation"
+        "<slug:slug>/tasks/create-task/",
+        CreateTaskView.as_view(),
+        name="task_creation",
     ),
     path(
         "<slug:slug>/tasks/<slug:task_slug>/",
@@ -48,7 +53,9 @@ urlpatterns = [
         ProjectUpdateView.as_view(),
         name="project_update",
     ),
-    path("<slug:slug>/strategy/", StrategyDetailView.as_view(), name="strategy"),
+    path(
+        "<slug:slug>/strategy/", StrategyDetailView.as_view(), name="strategy"
+    ),
     path("<slug:slug>/team/", TeamDetailView.as_view(), name="team"),
     path("<slug:slug>/tasks/", TaskListView.as_view(), name="tasks"),
     path("<slug:slug>/", ProjectDetailView.as_view(), name="project"),

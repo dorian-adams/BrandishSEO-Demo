@@ -6,9 +6,10 @@ WIP
 import math
 import re
 from concurrent.futures.thread import ThreadPoolExecutor
-from requests.exceptions import InvalidURL
+
 import requests
 from bs4 import BeautifulSoup
+from requests.exceptions import InvalidURL
 
 
 class PageAnalyzer:
@@ -27,8 +28,12 @@ class PageAnalyzer:
         self.tips = []
         self.results = {
             "h1_tasks": list(self.h_tag(self.soup.find_all("h1"))),
-            "meta_title_tasks": list(self.meta_title(self.soup.find_all("title"))),
-            "broken_link_tasks": list(self.broken_links(self.soup.find_all("a"))),
+            "meta_title_tasks": list(
+                self.meta_title(self.soup.find_all("title"))
+            ),
+            "broken_link_tasks": list(
+                self.broken_links(self.soup.find_all("a"))
+            ),
             "meta_description_tasks": list(
                 self.meta_description(self.soup.find_all("meta"))
             ),
@@ -99,7 +104,8 @@ class PageAnalyzer:
         else:
             heading_split = lower_heading.split()
             if (
-                self.keyword not in heading_split[: math.trunc(len(main_heading) / 2)]
+                self.keyword
+                not in heading_split[: math.trunc(len(main_heading) / 2)]
             ):  # Must be present in the first half
                 errors.append(
                     {
@@ -144,7 +150,9 @@ class PageAnalyzer:
         for title in titles:
             # Convert to string to check html syntax
             str_title = str(title)
-            if str_title.startswith("<title>") and str_title.endswith("</title>"):
+            if str_title.startswith("<title>") and str_title.endswith(
+                "</title>"
+            ):
                 # Strip html code, convert to string and append to clean list
                 title = title.string
                 title = str(title)

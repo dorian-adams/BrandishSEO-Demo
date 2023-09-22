@@ -11,15 +11,16 @@ See: https://pytest-django.readthedocs.io/en/latest/database.html#django-db-setu
 # pylint: disable=missing-function-docstring
 
 import operator
+
 from wagtail.test.utils import WagtailPageTestCase
 
 from blog.factories import (
-    CategoryIndexPageFactory,
+    AuthorProfileFactory,
     BlogPageFactory,
+    CategoryIndexPageFactory,
+    CommentFactory,
     SiteFactoryWithRoot,
     UserFactory,
-    CommentFactory,
-    AuthorProfileFactory,
 )
 
 TOTAL_CATEGORIES = 2
@@ -108,7 +109,8 @@ class BlogIndexPageTest(WagtailPageTestCase):
         # /blog/tags/?tag=test
         BlogPageFactory.create(parent=self.categories[0], tags=["test"])
         response = self.client.get(
-            self.blog_index.url + self.blog_index.reverse_subpage("tag_results"),
+            self.blog_index.url
+            + self.blog_index.reverse_subpage("tag_results"),
             data={"tag": "test"},
         )
         expected_num_results = 1
@@ -120,7 +122,9 @@ class BlogIndexPageTest(WagtailPageTestCase):
 
     def test_get_context_gets_all_categories(self):
         response = self.client.get(self.blog_index.url)
-        self.assertEqual(len(response.context["posts_per_category"]), TOTAL_CATEGORIES)
+        self.assertEqual(
+            len(response.context["posts_per_category"]), TOTAL_CATEGORIES
+        )
 
     def test_get_context_filters_posts_by_category(self):
         response = self.client.get(self.blog_index.url)
@@ -159,7 +163,9 @@ class CategoryIndexPageTest(WagtailPageTestCase):
 
     def test_get_context_returns_posts_filtered_by_category(self):
         response = self.client.get(self.category.url)
-        self.assertEqual(response.context["posts"].paginator.count, CATEGORY_POST_COUNT)
+        self.assertEqual(
+            response.context["posts"].paginator.count, CATEGORY_POST_COUNT
+        )
 
     def test_get_context_orders_posts_in_reverse_chronological_order(self):
         response = self.client.get(self.category.url)

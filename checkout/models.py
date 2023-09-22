@@ -1,6 +1,5 @@
-from django.db import models
 from django.conf import settings
-
+from django.db import models
 
 PACKAGE_CHOICES = (("SEO", "SEO"), ("Keyword", "Keyword"))
 
@@ -15,7 +14,9 @@ class Service(models.Model):
 
 
 class Order(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
     email = models.EmailField()
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     project_name = models.CharField(max_length=20)

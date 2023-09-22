@@ -5,10 +5,10 @@ Settings for production use only.
 # pylint: disable=unused-wildcard-import, wildcard-import
 
 import sys
+
 import dj_database_url
 
 from .base_settings import *
-
 
 DEBUG = False
 

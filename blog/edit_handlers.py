@@ -15,7 +15,9 @@ class AuthorPanel(FieldPanel):
     Restricts ``BlogPage`` ``author`` choices to users who have an ``AuthorProfile``.
     """
 
-    class BoundPanel(FieldPanel.BoundPanel):  # pylint: disable=missing-class-docstring
+    class BoundPanel(
+        FieldPanel.BoundPanel
+    ):  # pylint: disable=missing-class-docstring
         def __init__(self, **kwargs):
             super().__init__(**kwargs)
             self.form.fields["author"].queryset = User.objects.exclude(

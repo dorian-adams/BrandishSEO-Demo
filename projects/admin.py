@@ -7,8 +7,12 @@ other procedures.
 
 from django.contrib import admin
 
-from .models import AccountInvite, Task, Project, TaskComment
-
+from .models import (
+    AccountInvite,
+    Project,
+    Task,
+    TaskComment,
+)
 
 # -----------------------------------------------------------------------------
 # Default Admin
@@ -113,5 +117,7 @@ class TaskCommentAdmin(admin.ModelAdmin):
     def get_form(self, request, obj=None, change=False, **kwargs):
         form = super(TaskCommentAdmin, self).get_form(request, obj, **kwargs)
         if obj:
-            form.base_fields["author"].queryset = obj.task.project.members.all()
+            form.base_fields[
+                "author"
+            ].queryset = obj.task.project.members.all()
         return form

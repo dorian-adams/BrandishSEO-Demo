@@ -1,6 +1,6 @@
-import zipfile
-import xml.etree.ElementTree as ET
 import re
+import xml.etree.ElementTree as ET
+import zipfile
 
 
 def extract_tasks(instance):
@@ -24,7 +24,11 @@ def extract_tasks(instance):
         elif "Task" in line:
             if task_info["title"] is not None and task_info not in tasks:
                 tasks.append(task_info)
-            task_info = {"title": line, "priority": next(iter_list), "description": ""}
+            task_info = {
+                "title": line,
+                "priority": next(iter_list),
+                "description": "",
+            }
             new_task = True
         elif new_task:
             task_info["description"] += line

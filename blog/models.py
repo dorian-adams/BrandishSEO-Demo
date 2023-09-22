@@ -3,11 +3,12 @@ Page models for Wagtail CMS.
 """
 
 import urllib.parse
-from django.db import models
-from django.shortcuts import render, redirect
-from django.contrib import messages
+
 from django.conf import settings
+from django.contrib import messages
 from django.core.validators import MinLengthValidator
+from django.db import models
+from django.shortcuts import redirect, render
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
@@ -20,8 +21,9 @@ from wagtail.search.models import Query
 from wagtail.snippets.models import register_snippet
 
 from accounts.models import UserProfile
-from .paginator import paginate_posts
+
 from .edit_handlers import AuthorPanel
+from .paginator import paginate_posts
 from .validators import validate_twitter_handle
 
 
@@ -34,7 +36,9 @@ class BlogIndexPage(RoutablePageMixin, Page):
     gets and serves the latest three blog posts, from every ``CategoryIndexPage``.
     """
 
-    intro = RichTextField(help_text="Brief page description used in the intro section.")
+    intro = RichTextField(
+        help_text="Brief page description used in the intro section."
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel("intro", classname="full"),
@@ -57,12 +61,18 @@ class BlogIndexPage(RoutablePageMixin, Page):
 
         results = paginate_posts(
             request,
-            queryset=BlogPage.objects.live().order_by("-date").search(search_query),
+            queryset=BlogPage.objects.live()
+            .order_by("-date")
+            .search(search_query),
         )
 
         return self.render(
             request,
-            context_overrides={"query": search_query, "posts": results, "search": True},
+            context_overrides={
+                "query": search_query,
+                "posts": results,
+                "search": True,
+            },
             template="blog/search_results.html",
         )
 
@@ -75,12 +85,18 @@ class BlogIndexPage(RoutablePageMixin, Page):
         tag = request.GET.get("tag")
         results = paginate_posts(
             request,
-            queryset=BlogPage.objects.live().order_by("-date").filter(tags__name=tag),
+            queryset=BlogPage.objects.live()
+            .order_by("-date")
+            .filter(tags__name=tag),
         )
 
         return self.render(
             request,
-            context_overrides={"tag": tag, "posts": results, "tag_filter": True},
+            context_overrides={
+                "tag": tag,
+                "posts": results,
+                "tag_filter": True,
+            },
             template="blog/tag_results.html",
         )
 
@@ -92,7 +108,9 @@ class BlogIndexPage(RoutablePageMixin, Page):
         of dictionaries.
         """
         context = super().get_context(request)
-        if request.path.strip("/") == self.slug:  # Only apply to the blog home, /blog/.
+        if (
+            request.path.strip("/") == self.slug
+        ):  # Only apply to the blog home, /blog/.
             context["posts_per_category"] = [
                 {
                     "category": category,
@@ -111,7 +129,9 @@ class CategoryIndexPage(Page):
     Responsible for serving all posts, ``BlogPage``, associated with the category.
     """
 
-    intro = RichTextField(help_text="Brief page description used in the intro section.")
+    intro = RichTextField(
+        help_text="Brief page description used in the intro section."
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel("intro", classname="full"),
@@ -127,7 +147,11 @@ class CategoryIndexPage(Page):
         """
         context = super().get_context(request)
         posts = paginate_posts(
-            request, BlogPage.objects.child_of(self).live().specific().order_by("-date")
+            request,
+            BlogPage.objects.child_of(self)
+            .live()
+            .specific()
+            .order_by("-date"),
         )
         context["posts"] = posts
         return context
@@ -138,7 +162,12 @@ class CategoryIndexPage(Page):
         :return: The three most recent posts from the category, ordered by -date.
         :rtype: queryset
         """
-        return BlogPage.objects.child_of(self).live().specific().order_by("-date")[:3]
+        return (
+            BlogPage.objects.child_of(self)
+            .live()
+            .specific()
+            .order_by("-date")[:3]
+        )
 
     class Meta:
         verbose_name_plural = "Blog categories"
@@ -167,8 +196,12 @@ class BlogPage(Page):
     )
     body = RichTextField(blank=True)
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
-    featured_image = models.ForeignKey("wagtailimages.Image", on_delete=models.CASCADE)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    featured_image = models.ForeignKey(
+        "wagtailimages.Image", on_delete=models.CASCADE
+    )
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.PROTECT
+    )
     featured_article = models.BooleanField(default=False)
 
     content_panels = Page.content_panels + [
@@ -214,7 +247,9 @@ class BlogPage(Page):
         else:
             form = CommentForm
 
-        return render(request, "blog/blog_page.html", {"page": self, "form": form})
+        return render(
+            request, "blog/blog_page.html", {"page": self, "form": form}
+        )
 
     @property
     def get_tags(self):
@@ -275,7 +310,9 @@ class BlogComment(models.Model):
         "BlogPage", on_delete=models.CASCADE, related_name="page_comments"
     )
     text = models.TextField(
-        validators=[MinLengthValidator(3, "Comment must be greater than 3 characters.")]
+        validators=[
+            MinLengthValidator(3, "Comment must be greater than 3 characters.")
+        ]
     )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -294,7 +331,9 @@ class BlogComment(models.Model):
     ]
 
     def __str__(self):
-        text = self.text if len(str(self.text)) < 15 else self.text[:15] + "..."
+        text = (
+            self.text if len(str(self.text)) < 15 else self.text[:15] + "..."
+        )
         return f"'{text}' on Page: '{self.page}'"
 
 
@@ -305,10 +344,13 @@ class AuthorProfile(UserProfile):
     """
 
     bio = models.TextField(
-        validators=[MinLengthValidator(20, "Bio must be greater than 20 characters.")]
+        validators=[
+            MinLengthValidator(20, "Bio must be greater than 20 characters.")
+        ]
     )
     twitter_handle = models.CharField(
-        max_length=16, validators=[MinLengthValidator(5), validate_twitter_handle]
+        max_length=16,
+        validators=[MinLengthValidator(5), validate_twitter_handle],
     )
 
     def __str__(self):

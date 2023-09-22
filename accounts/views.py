@@ -2,19 +2,20 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import (
+    PasswordChangeView,
+    PasswordResetConfirmView,
+    PasswordResetView,
+    RedirectURLMixin,
+)
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
-from django.contrib.auth.views import (
-    RedirectURLMixin,
-    PasswordChangeView,
-    PasswordResetView,
-    PasswordResetConfirmView,
-)
 
 from checkout.models import Order
+
 from .forms import UserRegistrationForm
 from .models import User
 

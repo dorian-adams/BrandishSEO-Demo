@@ -3,10 +3,10 @@ Celery configuration with REDIS broker.
 """
 
 import os
+
 from celery import Celery
 
 from .base_settings import SETTINGS_FILE
-
 
 # Set the default Django settings module for the 'celery' program.
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", SETTINGS_FILE)

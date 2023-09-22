@@ -8,8 +8,8 @@ import factory
 import wagtail_factories
 
 from accounts.models import User
-from . import models
 
+from . import models
 
 # pylint: disable=missing-function-docstring, missing-class-docstring, too-few-public-methods
 

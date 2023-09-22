@@ -17,7 +17,9 @@ class CommentFormTest(SimpleTestCase):
 
     def test_comment_form_placeholder(self):
         form = CommentForm()
-        text_field_placeholder = form.fields["text"].widget.attrs["placeholder"]
+        text_field_placeholder = form.fields["text"].widget.attrs[
+            "placeholder"
+        ]
         self.assertEqual(text_field_placeholder, "Leave a comment...")
 
     def test_comment_form_label(self):

@@ -1,7 +1,6 @@
 import pytest
 from django.urls import reverse
 
-
 # pylint: disable=missing-function-docstring
 
 
@@ -32,7 +31,9 @@ def test_register_user_view_post(client, django_user_model):
 
 def test_user_update_view_get(auto_login_user):
     user, client = auto_login_user
-    response = client.get(reverse("accounts:user_update", kwargs={"pk": user.pk}))
+    response = client.get(
+        reverse("accounts:user_update", kwargs={"pk": user.pk})
+    )
 
     assert 200 == response.status_code
     # Ensure form fields are prepopulated with the user's data.
@@ -97,7 +98,9 @@ def test_reset_password_view_get(auto_login_user):
 def test_reset_password_view_post(auto_login_user, mailoutbox):
     user, client = auto_login_user
     response = client.post(
-        reverse("accounts:reset_password"), data={"email": user.email}, follow=True
+        reverse("accounts:reset_password"),
+        data={"email": user.email},
+        follow=True,
     )
 
     assert 200 == response.status_code

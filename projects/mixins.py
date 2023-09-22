@@ -1,7 +1,7 @@
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import get_object_or_404
 
 from .models import Project
-from django.contrib.auth.mixins import UserPassesTestMixin
 
 
 class ProjectAuthMixin(UserPassesTestMixin):

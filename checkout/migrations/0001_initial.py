@@ -48,12 +48,15 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(max_length=80)),
                 (
                     "price",
-                    models.DecimalField(decimal_places=2, default=0, max_digits=7),
+                    models.DecimalField(
+                        decimal_places=2, default=0, max_digits=7
+                    ),
                 ),
                 (
                     "package_type",
                     models.CharField(
-                        choices=[("SEO", "SEO"), ("Keyword", "Keyword")], max_length=7
+                        choices=[("SEO", "SEO"), ("Keyword", "Keyword")],
+                        max_length=7,
                     ),
                 ),
             ],

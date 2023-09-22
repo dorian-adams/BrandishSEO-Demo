@@ -1,8 +1,11 @@
-from django.db import models
-from django.core.validators import MinLengthValidator
 from django.conf import settings
+from django.core.validators import (
+    MaxValueValidator,
+    MinLengthValidator,
+    MinValueValidator,
+)
+from django.db import models
 from django.template.defaultfilters import slugify
-from django.core.validators import MaxValueValidator, MinValueValidator
 from django.urls import reverse
 
 from checkout.models import Service
@@ -15,7 +18,11 @@ STRATEGY_STATUS_CHOICES = (
     ("Complete", "Complete"),
 )
 
-TASK_PRIORITY_CHOICES = (("Low", "Low"), ("Medium", "Medium"), ("High", "High"))
+TASK_PRIORITY_CHOICES = (
+    ("Low", "Low"),
+    ("Medium", "Medium"),
+    ("High", "High"),
+)
 
 TASK_STATUS_CHOICES = (
     ("To-do", "To-do"),
@@ -29,8 +36,12 @@ def directory_path(instance, filename):
 
 
 class Project(models.Model):
-    admin = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="admins")
-    members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="members")
+    admin = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name="admins"
+    )
+    members = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name="members"
+    )
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     project_name = models.CharField(max_length=40, unique=True)
     slug = models.SlugField(max_length=50)
@@ -39,10 +50,16 @@ class Project(models.Model):
     keywords = models.CharField(max_length=200)
     competitor = models.CharField(max_length=200)
     status = models.CharField(
-        max_length=20, choices=STRATEGY_STATUS_CHOICES, default="Payment Pending"
+        max_length=20,
+        choices=STRATEGY_STATUS_CHOICES,
+        default="Payment Pending",
     )
-    strategy_doc = models.FileField(upload_to=directory_path, null=True, blank=True)
-    strategy_pdf = models.FileField(upload_to=directory_path, null=True, blank=True)
+    strategy_doc = models.FileField(
+        upload_to=directory_path, null=True, blank=True
+    )
+    strategy_pdf = models.FileField(
+        upload_to=directory_path, null=True, blank=True
+    )
 
     def get_absolute_url(self):
         return reverse("projects:project", args=[self.slug])
@@ -60,7 +77,9 @@ class Project(models.Model):
 
 
 class Task(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="tasks")
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name="tasks"
+    )
     task_title = models.CharField(max_length=100)
     task_description = models.TextField()
     task_goal = models.CharField(max_length=100)
@@ -104,9 +123,13 @@ class Task(models.Model):
 
 
 class TaskComment(models.Model):
-    task = models.ForeignKey(Task, related_name="comments", on_delete=models.CASCADE)
+    task = models.ForeignKey(
+        Task, related_name="comments", on_delete=models.CASCADE
+    )
     text = models.CharField(max_length=1000)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.PROTECT
+    )
     posted_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -127,10 +150,14 @@ class DirectMessage(models.Model):
         ],
     )
     receiver = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="sent_to"
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        related_name="sent_to",
     )
     sender = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="sent_from"
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        related_name="sent_from",
     )
     sent_at = models.DateTimeField(auto_now_add=True)
 

@@ -19,7 +19,8 @@ class Migration(migrations.Migration):
             model_name="blogpage",
             name="snippet",
             field=models.CharField(
-                help_text="Excerpt used in article list preview card.", max_length=200
+                help_text="Excerpt used in article list preview card.",
+                max_length=200,
             ),
         ),
     ]

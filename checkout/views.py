@@ -1,17 +1,19 @@
 import json
+
 import stripe
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.urls import reverse_lazy, reverse
-from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse, reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView
 
 from projects.models import Project
-from .models import Service, Order
+
 from .forms import AuditOrderForm, KeywordOrderForm
+from .models import Order, Service
 from .tasks import order_confirmation_mail
 
 stripe.api_key = settings.STRIPE_PRIVATE_KEY
@@ -145,9 +147,13 @@ class CreateOrderView(LoginRequiredMixin, CreateView):
         try:
             # If user tries to check out existing order
             order = Order.objects.get(website=form.instance.website)
-            return reverse_lazy("checkout:checkout_payment", args=(order.object.pk,))
+            return reverse_lazy(
+                "checkout:checkout_payment", args=(order.object.pk,)
+            )
         except:
             return self.render_to_response(self.get_context_data(form=form))
 
     def get_success_url(self):
-        return reverse_lazy("checkout:checkout_payment", args=(self.object.pk,))
+        return reverse_lazy(
+            "checkout:checkout_payment", args=(self.object.pk,)
+        )

@@ -2,8 +2,9 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.views.generic import FormView
 
-from checkout.models import Service
 from blog.models import BlogPage
+from checkout.models import Service
+
 from .forms import ContactForm
 
 

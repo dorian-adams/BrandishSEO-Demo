@@ -1,7 +1,12 @@
 from django import forms
 from django.shortcuts import get_object_or_404
 
-from .models import AccountInvite, Task, TaskComment, Project
+from .models import (
+    AccountInvite,
+    Project,
+    Task,
+    TaskComment,
+)
 
 
 class AccountInviteForm(forms.ModelForm):
@@ -28,7 +33,9 @@ class TaskCreationForm(forms.ModelForm):
         super(TaskCreationForm, self).__init__(*args, **kwargs)
         project = kwargs["initial"]["project"]
         self.fields["project"].widget = forms.HiddenInput()
-        self.fields["assigned_to"] = forms.ModelChoiceField(queryset=project.members)
+        self.fields["assigned_to"] = forms.ModelChoiceField(
+            queryset=project.members
+        )
 
     class Meta:
         model = Task
@@ -54,7 +61,9 @@ class TaskUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(TaskUpdateForm, self).__init__(*args, **kwargs)
         project = get_object_or_404(Project, id=kwargs["instance"].project.id)
-        self.fields["assigned_to"] = forms.ModelChoiceField(queryset=project.members)
+        self.fields["assigned_to"] = forms.ModelChoiceField(
+            queryset=project.members
+        )
 
     class Meta:
         model = Task

@@ -2,7 +2,6 @@ import pytest
 
 from accounts.forms import UserRegistrationForm
 
-
 # pylint: disable=missing-function-docstring
 
 

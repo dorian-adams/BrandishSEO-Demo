@@ -7,11 +7,12 @@ Add apps and middleware that are only used in dev.
 
 from .base_settings import *
 
-
 DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1"]
-INTERNAL_IPS = ["127.0.0.1",]  # Necessary for WagtailSiteFactory
+INTERNAL_IPS = [
+    "127.0.0.1",
+]  # Necessary for WagtailSiteFactory
 
 DATABASES = {
     "default": {
