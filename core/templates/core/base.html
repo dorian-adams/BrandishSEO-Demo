@@ -23,9 +23,11 @@
         <nav class="navbar position-fixed fixed-top navbar-expand-lg navbar-dark bg-dark" id="navbar-main">
             <div class="container">
                 <!-- Brand -->
-                <a class="navbar-brand" href="{% url 'core:index' %}">
-                    <img alt="Image placeholder" src="{% static 'img/brand/logobrand.jpg' %}" id="navbar-logo">
-                </a>
+                <div class="d-flex align-items-center" style="max-width: 200px;">
+                    <a href="{% url 'core:index' %}">
+                        <img alt="Logo" src="{% static 'img/brand/brandishseo-logo.png' %}" id="navbar-logo" class="img-fluid">
+                    </a>
+                </div>
                 <!-- Toggler -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main-collapse" aria-controls="navbar-main-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -130,8 +132,8 @@
                 <div class="row">
                     <div class="col-lg-4 mb-5 mb-lg-0">
                         <!-- Theme's logo -->
-                        <a href="../../index.html">
-                            <img alt="Image placeholder" src="{% static 'img/brand/logobrand.jpg' %}" id="footer-logo">
+                        <a href="{% url 'core:index' %}">
+                            <img alt="Logo" src="{% static 'img/brand/brandishseo-logo.png' %}" id="footer-logo"  class="img-fluid">
                         </a>
                         <!-- Mission -->
                         <p class="mt-4 text-sm opacity-8 pr-lg-4">BrandishSEO is a search marketing company specializing in comprehensive SEO strategies for small businesses.
