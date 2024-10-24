@@ -2,7 +2,11 @@ astroid==2.15.3
 beautifulsoup4==4.11.1
 black==23.1.0
 boto3
+<<<<<<< HEAD
 celery==5.3.5
+=======
+celery==5.0.0
+>>>>>>> bd9a443... Bump celery to 5.0
 crispy-bootstrap4
 dj-database-url==1.0.0
 Django==4.1.1
