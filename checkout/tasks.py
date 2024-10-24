@@ -1,12 +1,11 @@
-from celery import shared_task, task
+from celery import shared_task
 from django.conf import settings
 from django.core.mail import send_mail
 
-from brandishseo.celery import app
 from projects.models import Project
 
 
-@app.task
+@shared_task
 def order_confirmation_mail(project_pk):
     project = Project.objects.get(pk=project_pk)
     user_email = project.admin.first().email
