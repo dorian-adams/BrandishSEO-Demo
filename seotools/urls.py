@@ -1,6 +1,6 @@
 from django.urls import path
 
-from seotools.freetools import views
+from seotools import views
 
 app_name = "freetools"
 
