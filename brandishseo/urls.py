@@ -26,7 +26,7 @@ urlpatterns = [
     path("blog/", include(wagtail_urls)),
     path("admin/", admin.site.urls),
     path("cms/", include(wagtailadmin_urls)),
-    path("free-seo-tool/", include("seotools.freetools.urls")),
+    path("free-seo-tool/", include("seotools.urls")),
     path("checkout/", include("checkout.urls")),
     path("project/", include("projects.urls")),
     path("account/", include("accounts.urls")),

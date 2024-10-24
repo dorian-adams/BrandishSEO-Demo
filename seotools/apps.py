@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class FreeToolsConfig(AppConfig):
+class SeoToolsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "seotools.freetools"
+    name = "seotools"
