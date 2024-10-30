@@ -44,18 +44,7 @@
                 <div class="col-12 col-md-6 col-lg-6 order-md-2 mb-5 mb-md-0">
                     <!-- Card -->
                     <div class="card border-0 shadow-lg zindex-100 mb-0">
-                        <figure>
-                            <img alt="Image placeholder" src="../../assets/img/theme/light/img-1-1000x800.jpg" class="card-img">
-                        </figure>
-                        <div class="card-img-overlay d-flex justify-content-end">
-                            <div class="text-center">
-                                <a href="https://www.youtube.com/watch?v=zodT9bCdIiI" class="btn btn-white btn-icon-only rounded-circle shadow-sm hover-scale-110" data-fancybox="">
-                                    <span class="btn-inner--icon text-sm">
-                                        <i data-feather="play" class="text-primary"></i>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
+                        <iframe id="vimeo-player" title="BrandishSEO Explainer Video Player" src="https://player.vimeo.com/video/1024620133?h=b24ce54ad1" width="640" height="360" frameborder="0"    allowfullscreen></iframe>
                     </div>
                     <!-- Decoration -->
                     <div class="w-75 position-absolute bottom-n5 right-n5 rotate-180">
@@ -74,15 +63,15 @@
                     </p>
                     <!-- Buttons -->
                     <div class="mt-5">
-                        <a href="#" class="btn btn-primary">
-                            Learn more
+                        <a href="#start" class="btn btn-primary">
+                            Get Started
                         </a>
-                        <a href="https://www.youtube.com/watch?v=zodT9bCdIiI" class="btn btn-neutral btn-icon d-none d-lg-inline-block" data-fancybox>
+                        <button id="play-video" class="btn btn-neutral btn-icon d-none d-lg-inline-block">
                             <span class="btn-inner--text">Play video</span>
                             <span class="btn-inner--icon">
                                 <i data-feather="play" class="text-primary"></i>
                             </span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -257,13 +246,13 @@
                 <div class="row justify-content-center">
                     <div class="col-md-10 text-center">
                         <h2 class="display-4 text-white">
-                            Ready to grow faster?
+                            Ready to get started?
                         </h2>
-                        <h4 class="text-white mt-3">Create your own experience</h4>
-                        <a href="https://www.youtube.com/watch?v=zodT9bCdIiI" data-fancybox data-toggle="tooltip" data-placement="bottom" title="Watch video in lightbox" class="btn btn-lg btn-warning btn-icon-only rounded-circle hover-scale-110 mt-4">
-                            <span class="btn-inner--icon">
-                                <i data-feather="play"></i>
-                            </span>
+                        <h4 class="text-white mt-3">
+                            <a href="#start">Click here</a> to view our affordable SEO Audit packages designed to provide you with a comprehensive, custom strategy and ongoing support from an SEO expert — ensuring you have guidance through every step of the implementation process and access to industry insights as your website grows.
+                        </h4>
+                        <a href="#start" class="mt-5 btn btn-neutral btn-icon d-none d-lg-inline-block text-white font-weight-bold">
+                            View SEO Packages
                         </a>
                     </div>
                 </div>
@@ -511,7 +500,7 @@
             </div>
         </div>
     </section>
-    <section class="slice slice-lg bg-section-secondary" style="margin-bottom: -120px">
+    <section id="start" class="slice slice-lg bg-section-secondary" style="margin-bottom: -120px">
         <div class="container mb-5" id="started">
             <!-- Section title -->
             <div class="row mb-5 justify-content-center text-center">
@@ -803,3 +792,13 @@
         </div>
     </section>
 {% endblock content %}
+{% block inline_javascript %}
+<script>
+    document.getElementById("play-video").addEventListener("click", function(event) {
+        event.preventDefault();
+        const iframe = document.getElementById("vimeo-player");
+        const videoUrl = "https://player.vimeo.com/video/1024620133?h=b24ce54ad1&autoplay=1";
+        iframe.src = videoUrl;
+    });
+</script>
+{% endblock inline_javascript %}
