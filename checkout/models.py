@@ -1,16 +1,42 @@
 from django.conf import settings
+from django.core.validators import MinValueValidator
 from django.db import models
 
-PACKAGE_CHOICES = (("SEO", "SEO"), ("Keyword", "Keyword"))
+
+class PackageType(models.IntegerChoices):
+    KEYWORD = 1, "Keyword Strategy"
+    SEO_STRATEGY = 2, "SEO Strategy"
+    LINK_BUILDING_STRATEGY = 3, "Link Building Strategy"
 
 
-class Service(models.Model):
+class Service(models.Model):    
     name = models.CharField(max_length=80)
-    price = models.DecimalField(default=0, max_digits=7, decimal_places=2)
-    package_type = models.CharField(choices=PACKAGE_CHOICES, max_length=7)
+    price = models.DecimalField(
+        default=0.00,
+        max_digits=7,
+        decimal_places=2,
+        verbose_name="Price (USD)",
+        validators=[MinValueValidator(0.00)]
+    )
+    package_type = models.PositiveSmallIntegerField(
+        choices=PackageType.choices,
+        unique=True
+    )
+    featured = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        ordering = ["package_type"]
+
+   
+class ServiceFeature(models.Model):
+    service = models.ForeignKey(Service, related_name="features", on_delete=models.CASCADE)
+    description = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.description
 
 
 class Order(models.Model):

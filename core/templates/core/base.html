@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="BrandishSEO">
+    <link rel="stylesheet" href="{% static 'css/styles.min.css' %}" id="stylesheet" type="text/css">
     {% block head %}
     {% endblock head %}
     <!-- Favicon -->
@@ -14,7 +15,8 @@
     <script src="{% static 'libs/feather-icons/dist/feather.min.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/styles.min.css' %}" id="stylesheet" type="text/css">
+    
+    {% block extra_css %}{% endblock extra_css %}
 </head>
 <body>
     <!-- Header -->
@@ -221,6 +223,8 @@
             </div>
         </div>
     </footer>
+    {% block extra_js %}
+    {% endblock extra_js %}
     {% block inline_javascript %}
     {% endblock inline_javascript %}
     <script src="https://kit.fontawesome.com/fe6d6b845d.js" crossorigin="anonymous"></script>
