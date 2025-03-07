@@ -40,7 +40,7 @@
               Get Started
             </a>
             <button id="play-video" class="btn btn-neutral btn-icon d-none d-lg-inline-block secondary-sub-heading-purple">
-              <span>Play video</span>
+              <span class="secondary-sub-heading text-dark">Play Video</span>
               <span class="btn-inner--icon">
                 <i data-feather="play" class="text-primary"></i>
               </span>
@@ -54,7 +54,7 @@
     <div class="container position-relative zindex-100">
       <div class="row mb-3 justify-content-center text-center">
         <div class="col-lg-8 col-md-10">
-          <h2 class="h1 text-white mt-4"><strong>What Makes BrandishSEO Unique</strong></h2>
+          <h2 class="text-white mt-4"><strong>What Makes BrandishSEO Unique</strong></h2>
           <div class="mt-2">
             <p class="main-sub-text lh-180 text-white">
               Unparalleled support and the only all-in-one platform for SEO strategy services.
@@ -126,7 +126,7 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <h3 class="h3 text-white">SEO Audit and <strong>Strategy</strong></h3>
+          <h3 class="text-white">SEO Audit and <strong>Strategy</strong></h3>
           <p class="mb-5 main-sub-text text-white opacity-8">
             By providing actionable solutions and expert guidance every step of the way, we deliver big-agency results at a price that's accessible to entrepreneurs like you.
           </p>
@@ -186,15 +186,9 @@
   <!-- Strategy Slides -->
   <section class="slice">
     <div class="container">
-      <div class="row justify-content-center">
-        <span class="badge badge-primary badge-pill secondary-sub-heading">
-          Strategy Overview
-        </span>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-12 col-md-8 text-center">
-          <h2 class="mt-4 mb-4">Every section of your SEO strategy at-a-glance</h2>
-        </div>
+      <div class="text-center">
+        <span class="badge badge-primary badge-pill secondary-sub-heading">Strategy Overview</span>
+        <h2 class="mt-4 mb-4">Every section of your SEO strategy at-a-glance</h2>
       </div>
       <div class="swiper-container">
         <div class="swiper-wrapper">
@@ -323,8 +317,8 @@
       <div class="col">
         <div class="row justify-content-center">
           <div class="col-md-10 text-center">
-            <h2 class="display-4 text-white">
-              Ready to get started?
+            <h2 class="text-white">
+              <strong>Ready to get started?</strong>
             </h2>
             <h5 class="text-white mt-3">
               <a href="#services">Click here</a> to view our affordable SEO Audit packages designed to provide you with a comprehensive, custom strategy and ongoing support from an SEO expert — ensuring you have guidance through every step of the implementation process and access to industry insights as your website grows.
@@ -354,7 +348,7 @@
                 Please, feel free to reach out with any questions you may have.
               </span>
             </div>
-            <div class="col-12 col-md-6 mt-4 mt-md-0 text-md-right">
+            <div class="col-12 col-md-6 mt-2 mt-md-0 text-md-right">
               <a href="{% url 'core:contact' %}" class="btn btn-warning btn-icon rounded-pill btn-lg">
                 <span class="btn-inner--icon secondary-sub-heading">
                   <i data-feather="mail"></i>
@@ -376,15 +370,15 @@
   <!-- Visual Guide -->
   <section class="slice mt-2">
     <div class="container">
-      <div class="row text-center justify-content-center">
+      <div class="text-center">
         <span class="badge badge-primary badge-pill secondary-sub-heading">How It Works</span>
         <h2 class="mt-4 mb-4">The path to SEO success has never been more thorough and accessible.</h2>
       </div>
       <div class="row">
         <div class="col-md-5">
           <!-- background design here -->
-          <img src="{% static 'img/shape1.png' %}" class="decorative-bg img-fluid">
-          <img src="{% static 'img/seo-form-preview.png' %}" class="foreground-image img-fluid">
+          <img src="{% static 'img/shape1.png' %}" class="decorative-bg img-fluid" alt="decorative background">
+          <img src="{% static 'img/seo-form-preview.png' %}" class="foreground-image img-fluid" alt="form preview">
         </div>
         <div class="col-md-6">
           <h3>Fill out a brief form to get started.</h3>
@@ -394,7 +388,7 @@
             Our goal is to ensure that every SEO strategy is perfectly tailored to your business and 
             brand while addressing all of your pressing SEO questions.
           </p>
-          <a href="#personalized" onclick="smoothScrollTo('#personalized')" role="button">
+          <a href="#personalized" onclick="smoothScrollTo('#personalized')">
             Learn More >
           </a>
         </div>
@@ -408,19 +402,19 @@
             actionable solutions, and explain the reasoning behind each recommendation. This approach makes them easier to 
             follow and implement than those of our competitors.
           </p>
-          <a href="#strategy" onclick="smoothScrollTo('#strategy')" role="button">
+          <a href="#strategy" onclick="smoothScrollTo('#strategy')">
             Learn More >
           </a>
         </div>
         <div class="col-md">
-          <img src="{% static 'img/shape2.png' %}" class="decorative-bg img-fluid">
-          <img src="{% static 'img/seo-strategy-preview.png' %}" class="foreground-image img-fluid">
+          <img src="{% static 'img/shape2.png' %}" class="decorative-bg img-fluid" alt="decorative background">
+          <img src="{% static 'img/seo-strategy-preview.png' %}" class="foreground-image img-fluid" alt="SEO strategy preview">
         </div>
       </div>
       <div class="row mt-5">
         <div class="col-md">
-          <img src="{% static 'img/shape4.png' %}" class="decorative-bg img-fluid">
-          <img src="{% static 'img/seo-platform-preview.png' %}" class="foreground-image img-fluid">
+          <img src="{% static 'img/shape4.png' %}" class="decorative-bg img-fluid" alt="decorative background">
+          <img src="{% static 'img/seo-platform-preview.png' %}" class="foreground-image img-fluid" alt="SEO project platform preview">
         </div>
         <div class="col-md">
           <h3>Easily manage your SEO tasks.</h3>
@@ -430,7 +424,7 @@
             Our platform is designed to make the implementation process a breeze. Additionally, it allows your SEO 
             expert to track progress and provide feedback when necessary.
           </p>
-          <a href="#project-management" onclick="smoothScrollTo('#project-management')" role="button">
+          <a href="#project-management" onclick="smoothScrollTo('#project-management')">
             Learn More >
           </a>
         </div>
