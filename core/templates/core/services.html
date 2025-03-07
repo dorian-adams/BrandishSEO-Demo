@@ -346,7 +346,7 @@
   <section class="slice slice-lg mt-4">
     <div class="container position-relative">
       <div class="card shadow-lg border-0 zindex-100">
-        <div class="card-body px-5 py-5 text-center text-md-left">
+        <div class="card-body px-4 py-4 text-center text-md-left">
           <div class="row align-items-center">
             <div class="col-md-6">
               <h3 class="mb-2">Have questions, or want more info?</h3>
@@ -394,7 +394,7 @@
             Our goal is to ensure that every SEO strategy is perfectly tailored to your business and 
             brand while addressing all of your pressing SEO questions.
           </p>
-          <a href="#">
+          <a href="#personalized" onclick="smoothScrollTo('#personalized')" role="button">
             Learn More >
           </a>
         </div>
@@ -408,7 +408,7 @@
             actionable solutions, and explain the reasoning behind each recommendation. This approach makes them easier to 
             follow and implement than those of our competitors.
           </p>
-          <a href="#">
+          <a href="#strategy" onclick="smoothScrollTo('#strategy')" role="button">
             Learn More >
           </a>
         </div>
@@ -430,7 +430,7 @@
             Our platform is designed to make the implementation process a breeze. Additionally, it allows your SEO 
             expert to track progress and provide feedback when necessary.
           </p>
-          <a href="#">
+          <a href="#project-management" onclick="smoothScrollTo('#project-management')" role="button">
             Learn More >
           </a>
         </div>
@@ -443,11 +443,11 @@
     <div class="container">
       <h2 class="text-white"
           data-toggle="collapse"
-          data-target="#TEST">
+          data-target="#why">
         Why Choose BrandishSEO for Your SEO Strategy
         <i class="fas fa-chevron-right ml-2"></i>
       </h2>
-      <div id="TEST" class="collapse">
+      <div id="why" class="collapse scroll-offset">
         <span class="main-text text-white">
           More than a report, when choosing BrandishSEO, you're gaining unlimited access to an SEO expert with a decade of experience in the industry.
           Therefore, when your custom-tailored and actionable strategy is complete, you're not on your own! You'll receive assistance throughout the implementation process.
@@ -458,11 +458,25 @@
       <hr />
       <h2 class="text-white"
           data-toggle="collapse"
+          data-target="#personalized">
+        Personalized Approach
+        <i class="fas fa-chevron-right ml-2"></i>
+      </h2>
+      <div id="personalized" class="collapse scroll-offset">
+        <span class="main-text text-white">
+          Nothing cookie-cutter. Every SEO strategy we deliver is specifically made for your brand and business. To best ensure that your strategy is tailored to your needs, 
+          please take the time to include as much detail in the form as possible. For instance, let us know about your goals, challenges, questions you would like answered, 
+          and anything else you find relevant. All of this will be taken into account when crafting your actionable SEO strategy.
+        </span>
+      </div>
+      <hr />
+      <h2 class="text-white"
+          data-toggle="collapse"
           data-target="#strategy">
         The Strategy
         <i class="fas fa-chevron-right ml-2"></i>
       </h2>
-      <div id="strategy" class="collapse">
+      <div id="strategy" class="collapse scroll-offset">
         <span class="main-text text-white">
           First and foremost, BrandishSEO's strategies are 100% white hat and made specifically for your website and business. 
           The process starts with performing a thorough website audit and then researching one of your top-ranking competitors. 
@@ -477,7 +491,7 @@
         BrandishSEO's Project Management Platform
         <i class="fas fa-chevron-right ml-2"></i>
       </h2>
-      <div id="project-management" class="collapse">
+      <div id="project-management" class="collapse scroll-offset">
         <span class="main-text text-white">
           All customers gain immediate access to BrandishSEO's easy-to-use project management platform. 
           From here, you can easily manage every aspect of your SEO project. Invite coworkers to your team, assign tasks, track progress, 
@@ -493,7 +507,7 @@
         Summary
         <i class="fas fa-chevron-right ml-2"></i>
       </h2>
-      <div id="summary" class="collapse">
+      <div id="summary" class="collapse scroll-offset">
         <span class="main-text text-white">
           You receive a thorough strategy based on a manual, exhaustive website audit. 
           Included is a link-building plan with specific targets, an analysis of your current backlinks, a content strategy, a content audit, 
@@ -603,5 +617,17 @@
       }
     });
   }
+
+  function smoothScrollTo(selector) {
+  const element = document.querySelector(selector);
+  if (element) {
+    element.scrollIntoView(false);
+    
+    // Show collapse content if hidden
+    if (element.classList.contains('collapse')) {
+      new bootstrap.Collapse(element, { toggle: true });
+    }
+  }
+}
 </script>
 {% endblock inline_javascript %}
