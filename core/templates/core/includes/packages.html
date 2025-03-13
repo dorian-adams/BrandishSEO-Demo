@@ -1,0 +1,45 @@
+<section class="slice slice-lg bg-section-secondary">
+  <div class="container mb-1">
+    <div class="row mb-5 justify-content-center text-center">
+      <div class="col-lg-8 col-md-10">
+        <h2 class=" mt-4" id="services">Innovative, Affordable SEO</h2>
+        <div class="mt-2">
+          <p class="main-sub-text lh-180 mb-4">No monthly fees or hidden charges are associated with our SEO services—experience cutting-edge solutions affordable for any business with BrandishSEO.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+    {% for service in services %}
+      <div class="col-lg-4 col-md-6 mb-4 pricing pricing-palden">
+        <div class="pricing-item {% if service.featured %}pricing-item--featured{% endif %}">
+          <div class="pricing-deco">
+            <div class="text-center">
+              <h2 class="pricing-title">{{ service.name }}</h2>
+              <span class="pricing-currency">$</span><span class="pricing-price">{{ service.price }}</span>
+            </div>
+          </div>
+          <ul class="list-unstyled strong-text pricing-feature-list">
+            {% for feature in service.features.all %}
+              <li class="table-list">
+                <div class="row">
+                  <div class="col-auto">
+                    <i data-feather="check-circle" class="feature-list-icon" aria-hidden="true"></i>
+                  </div>
+                  <div class="col">
+                    {{ feature.description }}
+                  </div>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+          <div class="text-center">
+            <button class="pricing-action">
+              Buy Now
+            </button>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+</section>

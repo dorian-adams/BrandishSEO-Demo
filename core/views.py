@@ -1,16 +1,17 @@
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic import FormView
 
 from blog.models import BlogPage
 from checkout.models import Service
 
-from .forms import ContactForm
+from .forms import ContactForm, LeadForm
 
 
 def index(request):
+    services = Service.objects.all()
     recent_posts = BlogPage.objects.live().specific().order_by("-date")[:3]
-    return render(request, "core/index.html", {"posts": recent_posts})
+    return render(request, "core/index.html", {"posts": recent_posts, "services": services})
 
 
 class ContactView(FormView):
@@ -29,8 +30,16 @@ def about(request):
 
 
 def services(request):
+    services = Service.objects.all().prefetch_related("features")
+    form = LeadForm()
+
+    if request.method == "POST":
+        form = LeadForm(request.POST)
+        if form.is_valid():
+            return redirect("services")
+
     return render(
         request,
         "core/services.html",
-        {"strategy_pkg": Service.objects.get(package_type="SEO")},
+        {"services": services, "form": form},
     )

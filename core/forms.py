@@ -2,6 +2,7 @@ from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
 from django import forms
 
+from .models import Lead
 from .tasks import send_contact_form
 
 
@@ -22,7 +23,7 @@ class ContactForm(forms.Form):
         widget=forms.Textarea(
             attrs={
                 "data-toggle": "autosize",
-                "placeholder": "Tell us a few words ...",
+                "placeholder": "Enter your message here...",
                 "rows": "3",
                 **form_class,
             }
@@ -40,3 +41,14 @@ class ContactForm(forms.Form):
             + cleaned_data.get("message")
         )
         send_contact_form.delay(subject, msg)
+
+
+class LeadForm(forms.ModelForm):
+    
+    class Meta:
+        model = Lead
+        fields = ["name", "preferred_contact"]
+        widgets = {
+            "name": forms.TextInput(attrs={"class": "form-control form-control-lg", "placeholder": "Name"}),
+            "preferred_contact": forms.TextInput(attrs={"class": "form-control form-control-lg", "placeholder": "Phone number or e-mail"})
+        }

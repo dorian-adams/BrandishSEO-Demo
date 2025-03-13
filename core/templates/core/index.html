@@ -8,641 +8,383 @@
 {% endblock head %}
 
 {% block content %}
-    <!-- Main content -->
-    <section class="slice py-5 vertical-gradient-intro" style="margin-top: 50px;">
-        <div class="container">
-            <div class="row row-grid align-items-center">
-                <div class="col-12 col-md-5 col-lg-6 order-md-2">
-                    <!-- Image -->
-                    <figure class="w-100">
-                        <img alt="BrandishSEO splash" src="{% static 'img/svg/illustrations/seo-intro.svg' %}" class="img-fluid mw-md-120">
-                    </figure>
-                </div>
-                <div class="col-12 col-md-7 col-lg-6 order-md-1 pr-md-5">
-                    <!-- Heading -->
-                    <h1 class="display-4 text-center text-md-left mb-3 text-white">
-                        Innovative SEO Strategies <strong class="text-dark">Delivered</strong>
-                    </h1>
-                    <!-- Text -->
-                    <p class="lead text-center text-md-left text-white">
-                        Never automated, never scripted.
-                        Get handmade SEO strategies designed for YOUR business, delivered straight to your inbox.
-                    </p>
-                    <!-- Buttons -->
-                    <div class="text-center text-md-left mt-5">
-                        <a href="#started" class="btn btn-primary btn-icon">
-                            <span class="btn-inner--text">Get started</span><span class="btn-inner--icon">
-                                <i data-feather="arrow-right"></i>
-                            </span>
-                        </a>
-                        <a href="#how" class="btn btn-neutral btn-icon d-none d-lg-inline-block text-dark">How it Works</a>
-                    </div>
-                </div>
-            </div>
+  <section class="slice py-5 vertical-gradient-intro">
+    <div class="container">
+      <div class="row row-grid align-items-center">
+        <div class="col-12 col-md-5 col-lg-6 order-md-2">
+          <figure class="w-100">
+            <img alt="BrandishSEO splash" src="{% static 'img/svg/illustrations/seo-intro.svg' %}" class="img-fluid mw-md-120">
+          </figure>
         </div>
-    </section>
-    <section class="slice slice-lg bg-section-secondary">
-        <div class="container">
-        <!-- Title -->
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h3 class="display-4 lh-130">Ten years of experience crafting strategies that produce results.</h3>
-                </div>
-                <div class="col-lg-6 text-lg-right">
-                    <p class="lh-180 mb-3">
-                        The expertise and experience to deliver high-quality results, no matter the industry or keywords.
-                        Established in 2012, BrandishSEO began operation on freelance networks but has since grown into the business and platform you see today.
-                    </p>
-                </div>
-            </div>
-            <!-- Card -->
-            <div class="row mt-5">
-                <div class="col-md-4">
-                    <div class="card border-0 mt-lg-5">
-                        <div class="card-body pb-5">
-                            <div class="pt-4 pb-5">
-                                <img src="{% static 'img/svg/illustrations/illustration-6.svg' %}" class="img-fluid img-center" style="height: 200px;" alt="Illustration" />
-                            </div>
-                            <h5 class="h4 lh-130 text-dark mb-3">Your Strategy</h5>
-                            <p class="text-dark opacity-6 mb-0">
-                                <b>Custom-tailored solutions.</b>
-                            </p>
-                            <ul class="text-dark opacity-6">
-                                <li>Always unique and actionable</li>
-                                <li>Easy to understand</li>
-                                <li>Clear roadmap w/ prioritized tasks</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border-0 mt-lg-5">
-                        <div class="card-body pb-5">
-                            <div class="pt-4 pb-5">
-                                <img src="{% static 'img/svg/illustrations/illustration-3.svg' %}" class="img-fluid img-center" style="height: 200px;" alt="Illustration" />
-                            </div>
-                            <h5 class="h4 lh-130 text-dark mb-3">Satisfaction Guarantee</h5>
-                            <p class="text-dark opacity-6 mb-0">
-                                <b>Assistance does not end after delivery.</b>
-                            </p>
-                            <ul class="text-dark opacity-6">
-                                <li>Life-time support per website</li>
-                                <li>Implementation review</li>
-                                <li>Readjustments when necessary</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border-0 mt-lg-5">
-                        <div class="card-body pb-5">
-                            <div class="pt-4 pb-5">
-                                <img src="{% static 'img/svg/illustrations/illustration-7.svg' %}" class="img-fluid img-center" style="height: 200px;" alt="Illustration" />
-                            </div>
-                            <h5 class="h4 lh-130 text-dark mb-3">Affordable and Effective</h5>
-                            <p class="text-dark opacity-6 mb-0">
-                                <b>High-quality SEO that's accessible:</b>
-                            </p>
-                            <ul class="text-dark opacity-6">
-                                <li>No hidden costs</li>
-                                <li>100% white-hat</li>
-                                <li>Free project management platform</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="col-12 col-md-7 col-lg-6 order-md-1 pr-md-5">
+          <h1 class="display-4 text-center text-md-left mb-3 text-white">
+            Innovative SEO Strategies <strong class="text-dark">Delivered</strong>
+          </h1>
+          <p class="secondary-sub-heading text-center text-md-left">
+            Never automated, never scripted.
+            Get handmade SEO strategies designed for YOUR business, delivered straight to your inbox.
+          </p>
+          <div class="text-center text-md-left mt-5">
+            <a href="#start" class="btn btn-primary d-inline-flex align-items-center">
+              Get Started
+              <i data-feather="arrow-right" class="text-white ml-2"></i>
+            </a>
+            <a href="#how" class="btn btn-neutral btn-icon d-none d-lg-inline-block">How it Works</a>
+          </div>
         </div>
-        <div class="shape-container shape-line shape-position-bottom">
-            <svg width="100%" height="50px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" viewBox="0 0 2560 100"  xml:space="preserve" class="">
-                <polygon points="2560 0 2560 100 0 100"></polygon>
-            </svg>
-        </div>
-    </section>
-    <section class="slice slice-lg pt-1">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h3 class="display-4 lh-130">How it all works - from start to finish.</h3>
-                </div>
-                <div class="col-lg-6 text-lg-right">
-                    <p class="lh-180 mb-3">
-                        First, fill out a short form about your website, and include any specific questions you want to be answered.
-                        Next, you'll receive your strategy and audit within four weeks.
-                        Use BrandishSEO's Project Management platform to make implementation a breeze.
-                    </p>
-                </div>
-            </div>
-            <div class="row row-grid justify-content-around align-items-center" id="how">
-                <div class="col-lg-6 order-lg-2 ml-lg-auto pl-lg-6">
-                    <!-- Text -->
-                    <p class="lead lh-190 my-4">
-                        The SEO strategies provided by BrandishSEO can significantly boost organic traffic for businesses of all sizes.
-                        However, the company was founded with the primary goal of helping small businesses.
-                        Therefore, monthly fees and high entry costs are gone in favor of an affordable approach suitable for any entrepreneur.
-                        So, whether you're a blogger or launching the next tech giant, BrandishSEO shares your passion and can help fuel your organic success.
-                        <br />
-                        <br />
-                        After completing payment and filling out a short form, you'll receive your SEO strategy within four weeks.
-                        Strategies cover actionable on-site and off-site solutions, link building, keyword research, implementation instructions, answers to any specific questions you may have, and more.
-                        Accompanying each problem found is an explanation as to why it's hindering performance and what's required to fix it.
-                        Discover the why and how behind everything - all in a prioritized, easy-to-follow road map.
-                        <br />
-                        <br />
-                        Once your strategy is ready, use our project management platform, at no added cost, to make implementation a breeze.
-                        From there, you can manage tasks, invite coworkers, communicate, and exchange files.
-                        All-in-all, you're gaining unlimited access to an SEO expert, a custom SEO strategy, and a platform to manage it at a single, unbeatable price.
-                    </p>
-                </div>
-                <div class="col-lg-6 order-lg-1 align-items-center">
-                    <div class="row justify-content-center">
-                        <img src="{% static 'img/strategy.png' %}" class="img-fluid">
-                    </div>
-                    <div class="row justify-content-center">
-                        <img src="{% static 'img/platform.png' %}" class="img-fluid">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="slice slice-lg bg-section-dark pt-5 pt-lg-8">
-        <!-- SVG separator -->
-        <div class="shape-container shape-line shape-position-top shape-orientation-inverse">
-            <svg width="100%" height="100px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" viewBox="0 0 2560 100" style="enable-background:new 0 0 2560 100;" xml:space="preserve" class="">
-                <polygon points="2560 0 2560 100 0 100"></polygon>
-            </svg>
-        </div>
-        <!-- Container -->
-        <div class="container position-relative zindex-100">
-            <div class="col">
-                <div class="row justify-content-center">
-                    <div class="col-md-10 text-center">
-                        <div class="mt-4 mb-6">
-                            <h2 class="h1 text-white">
-                                Are you ready to grow faster?
-                            </h2>
-                            <h4 class="text-white mt-3">Create your own experience</h4>
-                            <!-- Play button -->
-                            <a href="https://www.youtube.com/watch?v=zodT9bCdIiI" data-fancybox data-toggle="tooltip" data-placement="bottom" title="Watch video in lightbox" class="btn btn-warning btn-icon hover-translate-y-n10 mt-4">
-                                <span class="btn-inner--icon">
-                                    <i data-feather="play"></i>
-                                </span>
-                                <span class="btn-inner--text">Play video</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="slice slice-lg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <span class="badge badge-primary badge-pill">Key deliverables</span>
-                    <h5 class="lh-180 mt-4 mb-6">BrandishSEO delivers professional SEO strategies at an affordable price.
-                        The following is a brief synopsis of the key deliverables. Click here for a complete list of everything you receive with your purchase.</h5>
-                </div>
-            </div>
-            <!-- Features -->
-            <div class="row mx-lg-n4">
-                <!-- Features - Col 1 -->
-                <div class="col-lg-4 col-md-6 px-lg-4">
-                    <div class="card shadow-none">
-                        <div class="p-3 d-flex">
-                            <div>
-                                <div class="icon icon-shape rounded-circle bg-warning text-white mr-4">
-                                    <i data-feather="check"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="h6">Custom Solutions</span>
-                                <p class="text-sm text-muted mb-0">
-                                    Handcrafted strategy from an SEO professional with 9+ years of experience.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 px-lg-4">
-                    <div class="card shadow-none">
-                        <div class="p-3 d-flex">
-                            <div>
-                                <div class="icon icon-shape rounded-circle bg-primary text-white mr-4">
-                                    <i data-feather="check"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="h6">Link Building</span>
-                                <p class="text-sm text-muted mb-0">
-                                    Actionable link acquisition strategy. Find out exactly who to target and how.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 px-lg-4">
-                    <div class="card shadow-none">
-                        <div class="p-3 d-flex">
-                            <div>
-                                <div class="icon icon-shape rounded-circle bg-danger text-white mr-4">
-                                    <i data-feather="check"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="h6">Link Audit</span>
-                                <p class="text-sm text-muted mb-0">
-                                    Ensure current backlinks are within Google Guidelines, creating a link removal strategy if necessary.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 px-lg-4">
-                    <div class="card shadow-none">
-                        <div class="p-3 d-flex">
-                            <div>
-                                <div class="icon icon-shape rounded-circle bg-success text-white mr-4">
-                                    <i data-feather="check"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="h6">Keyword Strategy</span>
-                                <p class="text-sm text-muted mb-0">
-                                    Comprehensive keyword report covering keyword priority, silo structure, and sub-topic authority.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 px-lg-4">
-                    <div class="card shadow-none">
-                        <div class="p-3 d-flex">
-                            <div>
-                                <div class="icon icon-shape rounded-circle bg-info text-white mr-4">
-                                    <i data-feather="check"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="h6">E - A - T</span>
-                                <p class="text-sm text-muted mb-0">
-                                    Strategy to enhance the Expertise, Authority, and Trust of your website. Important for YMYL* and commerce.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 px-lg-4">
-                    <div class="card shadow-none">
-                        <div class="p-3 d-flex">
-                            <div>
-                                <div class="icon icon-shape rounded-circle bg-warning text-white mr-4">
-                                    <i data-feather="check"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="h6">Content Audit</span>
-                                <p class="text-sm text-muted mb-0">
-                                    Audit current content for uniqueness, optimization opportunities, and overall value.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Features - Col 3 -->
-                <div class="col-lg-4 col-md-6 px-lg-4">
-                    <div class="card shadow-none">
-                        <div class="p-3 d-flex">
-                            <div>
-                                <div>
-                                    <div class="icon icon-shape rounded-circle bg-info text-white mr-4">
-                                        <i data-feather="check"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="h6">Content Strategy</span>
-                                <p class="text-sm text-muted mb-0">
-                                    Content calendar with optimization strategy and keyword targets for each article.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 px-lg-4">
-                    <div class="card shadow-none">
-                        <div class="p-3 d-flex">
-                            <div>
-                                <div>
-                                    <div class="icon icon-shape rounded-circle bg-danger text-white mr-4">
-                                        <i data-feather="check"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="h6">Technical Optimization</span>
-                                <p class="text-sm text-muted mb-0">
-                                    Audit of H1 title tags, meta titles, meta descriptions, internal linking, Google Analytics, and more.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 px-lg-4">
-                    <div class="card shadow-none">
-                        <div class="p-3 d-flex">
-                            <div>
-                                <div>
-                                    <div class="icon icon-shape rounded-circle bg-primary text-white mr-4">
-                                        <i data-feather="check"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="h6">Ongoing Support</span>
-                                <p class="text-sm text-muted mb-0">
-                                    Here to help whether you have questions about the strategy or implementation process.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="slice slice-lg bg-section-secondary" style="margin-bottom: -120px">
-        <div class="container" id="started">
-            <!-- Section title -->
-            <div class="row mb-5 justify-content-center text-center">
-                <div class="col-lg-8 col-md-10">
-                    <h2 class=" mt-4">Innovative, Affordable SEO</h2>
-                    <div class="mt-2">
-                        <p class="lead lh-180">No monthly fees or hidden charges are associated with our SEO services—experience cutting-edge solutions affordable for any business with BrandishSEO.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md">
-                    <div class="card card-pricing text-center px-3 shadow hover-scale-110">
-                        <div class="card-header py-5 border-0 delimiter-bottom">
-                            <div class="h1 text-center mb-0">$<span class="price font-weight-bolder">100</span></div>
-                            <span class="h6 text-muted">Keyword Strategy</span>
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-unstyled text-sm mb-4">
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Keyword strategy (50 terms)
-                                </li>
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Instructions on how to target each keyword
-                                </li>
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Keyword data including search volume and difficulty
-                                </li>
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Includes long-tail and short keywords
-                                </li>
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Custom-tailored to provide realistic targets and growth
-                                </li>
-                            </ul>
-                            <a href="#" class="btn btn-sm btn-primary hover-translate-y-n3 hover-shadow-lg mb-3">Purchase now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md">
-                    <div class="card card-pricing text-center px-3 shadow hover-scale-110">
-                        <div class="card-header py-5 border-0 delimiter-bottom">
-                            <div class="h1 text-center mb-0">$<span class="price font-weight-bolder">750</span></div>
-                            <span class="h6 text-muted">Full SEO Audit & Strategy</span>
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-unstyled text-sm mb-4">
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Complete on-site/technical audit
-                                </li>
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Keyword strategy (50 terms)
-                                </li>
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Link building strategy
-                                </li>
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Content strategy
-                                </li>
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Backlink audit
-                                </li>
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Content audit
-                                </li>
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Competitor analysis x1
-                                </li>
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Project management platform
-                                </li>
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Expertise, Authority, Trust strategy
-                                </li>
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Lifetime support
-                                </li>
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Implementation review
-                                </li>
-                                <li>
-                                    <a href="{% url 'core:services' %}">Click here</a> for more info
-                                </li>
-                            </ul>
-                            <a href="{% url 'core:services' %}#services" class="btn btn-sm btn-primary hover-translate-y-n3 hover-shadow-lg mb-3">Purchase now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="slice slice-lg bg-section-secondary" style="margin-top: -100x;">
-        <hr class="divider divider-fade divider-light my-5">
-        <div class="container">
-            <!-- FAQ -->
-            <!-- Section title -->
-            <div class="row mb-5 justify-content-center text-center">
-                <div class="col-lg-8 col-md-10">
-                    <h2 class=" mt-4">FAQ</h2>
-                    <div class="mt-2">
-                        <p class="lead lh-180">For any additional questions, please feel free to <a href="{% url 'core:contact' %}">reach out</a>.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xl-6">
-                    <div id="accordion-1" class="accordion accordion-spaced">
-                        <!-- Accordion card 1 -->
-                        <div class="card">
-                            <div class="card-header py-4" id="heading-1-1" data-toggle="collapse" role="button" data-target="#collapse-1-1" aria-expanded="false" aria-controls="collapse-1-1">
-                                <h6 class="mb-0"><i data-feather="file" class="mr-3"></i>Is it a complete strategy or
-                                    an audit?</h6>
-                            </div>
-                            <div id="collapse-1-1" class="collapse" aria-labelledby="heading-1-1" data-parent="#accordion-1">
-                                <div class="card-body">
-                                    <p>
-                                        The audit is the first step toward creating a targeted SEO strategy.
-                                        An audit involves combing through your website and pinpointing any problems.
-                                        The strategy encompasses the tactics and solutions necessary to address the issues found in the audit.
-                                        So what you receive is a complete strategy based on an exhaustive audit.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Accordion card 2 -->
-                        <div class="card">
-                            <div class="card-header py-4" id="heading-1-2" data-toggle="collapse" role="button" data-target="#collapse-1-2" aria-expanded="false" aria-controls="collapse-1-2">
-                                <h6 class="mb-0"><i data-feather="calendar" class="mr-3"></i>How soon can I expect to receive my strategy?</h6>
-                            </div>
-                            <div id="collapse-1-2" class="collapse" aria-labelledby="heading-1-2" data-parent="#accordion-1">
-                                <div class="card-body">
-                                    <p>
-                                        All strategies are completed and e-mailed to the client within four weeks.
-                                        You can also expect to receive updates along the way, so you're always aware of the current status.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Accordion card 3 -->
-                        <div class="card">
-                            <div class="card-header py-4" id="heading-1-3" data-toggle="collapse" role="button" data-target="#collapse-1-3" aria-expanded="false" aria-controls="collapse-1-3">
-                                <h6 class="mb-0"><i data-feather="thumbs-up" class="mr-3"></i>Are your strategies white hat?</h6>
-                            </div>
-                            <div id="collapse-1-3" class="collapse" aria-labelledby="heading-1-3" data-parent="#accordion-1">
-                                <div class="card-body">
-                                    <p>
-                                        Yes. All solutions offered are 100% white-hat and compliant with Google's guidelines.
-                                        In addition, our strategies are designed to run no risk of any future penalty.
-                                        Future-proofing is accomplished by offering solutions that do not attempt to game the algorithm.
-                                        Instead, the focus is placed on building reputable, authoritative, and influential websites.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6">
-                    <div id="accordion-2" class="accordion accordion-spaced">
-                        <!-- Accordion card 1 -->
-                        <div class="card">
-                            <div class="card-header py-4" id="heading-2-1" data-toggle="collapse" role="button" data-target="#collapse-2-1" aria-expanded="false" aria-controls="collapse-2-1">
-                                <h6 class="mb-0"><i data-feather="folder" class="mr-3"></i>What is provided?</h6>
-                            </div>
-                            <div id="collapse-2-1" class="collapse" aria-labelledby="heading-2-1" data-parent="#accordion-2">
-                                <div class="card-body">
-                                    <p>
-                                        You'll receive a written strategy and all supporting documents, including spreadsheets for backlink targets and keywords.
-                                        The strategy developed will be based on a thorough audit of your website, keyword research, industry research, competitor research, and Google Analytics.
-                                        All customers also receive free access to our project management platform to make implementation a breeze.
-                                        No prior experience or knowledge of SEO is necessary to execute your strategy successfully.
-                                        However, lifetime support comes with all purchases should any questions or problems arise.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Accordion card 2 -->
-                        <div class="card">
-                            <div class="card-header py-4" id="heading-2-2" data-toggle="collapse" role="button" data-target="#collapse-2-2" aria-expanded="false" aria-controls="collapse-2-2">
-                                <h6 class="mb-0"><i data-feather="file" class="mr-3"></i>Can you provide a sample?</h6>
-                            </div>
-                            <div id="collapse-2-2" class="collapse" aria-labelledby="heading-2-2" data-parent="#accordion-2">
-                                <div class="card-body">
-                                    <p>
-                                        Yes, please click here for a sample strategy.
-                                        A complete strategy will follow the same format but covers all optimization opportunities in addition to backlink, content, and keyword strategies.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Accordion card 3 -->
-                        <div class="card">
-                            <div class="card-header py-4" id="heading-2-3" data-toggle="collapse" role="button" data-target="#collapse-2-3" aria-expanded="false" aria-controls="collapse-2-3">
-                                <h6 class="mb-0"><i data-feather="check" class="mr-3"></i>Are white-label services offered?</h6>
-                            </div>
-                            <div id="collapse-2-3" class="collapse" aria-labelledby="heading-2-3" data-parent="#accordion-2">
-                                <div class="card-body">
-                                    <p>
-                                        Yes. If you're interested in white-label, check the "white-label" option at checkout.
-                                        Doing so will ensure the strategy and all supporting documents are entirely unbranded.
-                                        However, this only applies to the strategy.
-                                        The project management platform cannot be offered white-label at this time.
-                                        So, if you're only interested in the strategy itself, then yes, white-label is an option.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Blog preview -->
-    <section class="slice pt-5 pb-7 bg-section-primary">
-        <div class="container">
-    <div class="row">
-        <div class="col-lg-6">
-            <h2 class="mt-4">Latest Posts:</h2>
-        </div>
+      </div>
     </div>
-        <div class="row">
+  </section>
+  <section class="slice slice-lg bg-section-secondary">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h2 class="h1">Ten years of experience crafting strategies that produce results.</h2>
+        </div>
+        <div class="col-lg-6 text-lg-right">
+          <p class="lh-180 mb-1 main-sub-text">
+            The expertise and experience to deliver high-quality results, no matter the industry or keywords.
+            Established in 2012, BrandishSEO began operation on freelance networks but has since grown into the business and platform you see today.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card border-0 mt-lg-5">
+            <div class="card-body pb-5">
+              <div class="pt-4 pb-5">
+                <img src="{% static 'img/svg/illustrations/illustration-6.svg' %}" class="img-fluid img-center" style="height: 200px;" alt="Illustration" />
+              </div>
+              <h4 class="lh-130 text-dark mb-3">Your Strategy</h4>
+              <p class="main-text text-dark mb-0">
+                Custom-tailored solutions.
+              </p>
+              <ul class="main-sub-text">
+                <li>Always unique and actionable</li>
+                <li>Easy to understand</li>
+                <li>Clear roadmap w/ prioritized tasks</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 mt-lg-5">
+            <div class="card-body pb-5">
+              <div class="pt-4 pb-5">
+                <img src="{% static 'img/svg/illustrations/illustration-3.svg' %}" class="img-fluid img-center" style="height: 200px;" alt="Illustration" />
+              </div>
+              <h4 class="lh-130 text-dark mb-3">Satisfaction Guarantee</h4>
+              <p class="main-text text-dark mb-0">
+                Assistance does not end after delivery.
+              </p>
+              <ul class="main-sub-text">
+                <li>Life-time support per website</li>
+                <li>Implementation review</li>
+                <li>Readjustments when necessary</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 mt-lg-5">
+            <div class="card-body pb-5">
+              <div class="pt-4 pb-5">
+                <img src="{% static 'img/svg/illustrations/illustration-7.svg' %}" class="img-fluid img-center" style="height: 200px;" alt="Illustration" />
+              </div>
+              <h4 class="lh-130 text-dark mb-3">Effective and Affordable</h4>
+              <p class="main-text text-dark mb-0">
+                High-quality SEO that's accessible:
+              </p>
+              <ul class="main-sub-text">
+                <li>No hidden costs</li>
+                <li>100% white-hat</li>
+                <li>Free project management platform</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="shape-container shape-line shape-position-bottom">
+      <svg width="100%" height="50px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" viewBox="0 0 2560 100"  xml:space="preserve" class="">
+        <polygon points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
+  </section>
+  <section class="slice slice-lg pt-1">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h3 class="display-4 lh-130">How it all works - from start to finish.</h3>
+        </div>
+        <div class="col-lg-6 text-lg-right">
+          <p class="main-sub-text lh-180 mb-3">
+            First, fill out a short form about your website, and include any specific questions you want to be answered.
+            Next, you'll receive your strategy and audit within four weeks.
+            Use BrandishSEO's Project Management platform to make implementation a breeze.
+          </p>
+        </div>
+      </div>
+      <div class="row row-grid justify-content-around align-items-center" id="how">
+        <div class="col-lg-6 order-lg-2 ml-lg-auto pl-lg-6">
+          <p class="main-text lh-190 my-4">
+            The SEO strategies provided by BrandishSEO can significantly boost organic traffic for businesses of all sizes.
+            However, the company was founded with the primary goal of helping small businesses.
+            Therefore, monthly fees and high entry costs are gone in favor of an affordable approach suitable for any entrepreneur.
+            So, whether you're a blogger or launching the next tech giant, BrandishSEO shares your passion and can help fuel your organic success.
+            <br />
+            <br />
+            After completing payment and filling out a short form, you'll receive your SEO strategy within four weeks.
+            Strategies cover actionable on-site and off-site solutions, link building, keyword research, implementation instructions, answers to any specific questions you may have, and more.
+            Accompanying each problem found is an explanation as to why it's hindering performance and what's required to fix it.
+            Discover the why and how behind everything - all in a prioritized, easy-to-follow road map.
+            <br />
+            <br />
+            Once your strategy is ready, use our project management platform, at no added cost, to make implementation a breeze.
+            From there, you can manage tasks, invite coworkers, communicate, and exchange files.
+            All-in-all, you're gaining unlimited access to an SEO expert, a custom SEO strategy, and a platform to manage it at a single, unbeatable price.
+          </p>
+        </div>
+        <div class="col-lg-6 order-lg-1 align-items-center">
+          <div class="row justify-content-center">
+            <img src="{% static 'img/strategy.png' %}" class="img-fluid">
+          </div>
+          <div class="row justify-content-center">
+            <img src="{% static 'img/platform.png' %}" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="slice slice-lg bg-section-dark pt-5 pt-lg-8">
+    <div class="shape-container shape-line shape-position-top shape-orientation-inverse">
+      <svg width="100%" height="100px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" viewBox="0 0 2560 100" style="enable-background:new 0 0 2560 100;" xml:space="preserve" class="">
+        <polygon points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
+    <div class="container position-relative zindex-100">
+      <div class="col">
+        <div class="row justify-content-center">
+          <div class="col-md-10 text-center">
+            <div class="mt-2 mb-1">
+              <h2 class="text-white">
+                Struggling to Boost Your Organic Traffic?
+              </h2>
+              <h5 class="text-white mt-2">See how BrandishSEO can craft a personalized strategy just for you</h5>
+              <div class="mb-2">
+                <iframe id="vimeo-player" title="BrandishSEO Explainer Video Player" src="https://player.vimeo.com/video/1024620133?h=b24ce54ad1" width="640" height="360" frameborder="0" allow="autoplay"    allowfullscreen></iframe>
+              </div>
+              <button id="play-video" class="btn btn-white btn-icon d-inline-flex align-items-center">
+                <span class="secondary-sub-heading text-dark">Play Video</span>
+                <span class="btn-inner--icon ml-2">
+                  <i data-feather="play" class="text-primary"></i>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="slice slice-lg">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <span class="badge badge-primary badge-pill secondary-sub-heading">Key Deliverables</span>
+          <h5 class="lh-180 mt-4 mb-6">
+            BrandishSEO delivers professional SEO strategies at an affordable price.
+            The following is a brief synopsis of the key deliverables. Click here for a complete list of everything you receive with your purchase.
+          </h5>
+        </div>
+      </div>
+      <div class="row mx-lg-n4">
+        <div class="col-lg-4 col-md-6 px-lg-4">
+          <div class="card shadow-none">
+            <div class="p-3 d-flex">
+              <div>
+                <div class="icon icon-shape rounded-circle bg-warning text-white mr-4">
+                  <i data-feather="check"></i>
+                </div>
+              </div>
+              <div>
+                <span class="secondary-sub-heading-purple">Custom Solutions</span>
+                <p class="main-sub-text mb-0">
+                  Handcrafted strategy from an SEO professional with 9+ years of experience.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 px-lg-4">
+          <div class="card shadow-none">
+            <div class="p-3 d-flex">
+              <div>
+                <div class="icon icon-shape rounded-circle bg-primary text-white mr-4">
+                  <i data-feather="check"></i>
+                </div>
+              </div>
+              <div>
+                <span class="secondary-sub-heading-purple">Link Building</span>
+                <p class="main-sub-text mb-0">
+                  Actionable link acquisition strategy. Find out exactly who to target and how.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 px-lg-4">
+          <div class="card shadow-none">
+            <div class="p-3 d-flex">
+              <div>
+                <div class="icon icon-shape rounded-circle bg-danger text-white mr-4">
+                  <i data-feather="check"></i>
+                </div>
+              </div>
+              <div>
+                <span class="secondary-sub-heading-purple">Link Audit</span>
+                <p class="main-sub-text mb-0">
+                  Ensure current backlinks are within Google Guidelines, creating a link removal strategy if necessary.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 px-lg-4">
+          <div class="card shadow-none">
+            <div class="p-3 d-flex">
+              <div>
+                <div class="icon icon-shape rounded-circle bg-success text-white mr-4">
+                  <i data-feather="check"></i>
+                </div>
+              </div>
+              <div>
+                <span class="secondary-sub-heading-purple">Keyword Strategy</span>
+                <p class="main-sub-text mb-0">
+                  Comprehensive keyword report covering keyword priority, silo structure, and sub-topic authority.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 px-lg-4">
+          <div class="card shadow-none">
+            <div class="p-3 d-flex">
+              <div>
+                <div class="icon icon-shape rounded-circle bg-info text-white mr-4">
+                  <i data-feather="check"></i>
+                </div>
+              </div>
+              <div>
+                <span class="secondary-sub-heading-purple">E - A - T</span>
+                <p class="main-sub-text mb-0">
+                  Strategy to enhance the Expertise, Authority, and Trust of your website. Important for YMYL* and commerce.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 px-lg-4">
+          <div class="card shadow-none">
+            <div class="p-3 d-flex">
+              <div>
+                <div class="icon icon-shape rounded-circle bg-warning text-white mr-4">
+                  <i data-feather="check"></i>
+                </div>
+              </div>
+              <div>
+                <span class="secondary-sub-heading-purple">Content Audit</span>
+                <p class="main-sub-text mb-0">
+                  Audit current content for uniqueness, optimization opportunities, and overall value.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 px-lg-4">
+          <div class="card shadow-none">
+            <div class="p-3 d-flex">
+              <div>
+                <div>
+                  <div class="icon icon-shape rounded-circle bg-info text-white mr-4">
+                    <i data-feather="check"></i>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <span class="secondary-sub-heading-purple">Content Strategy</span>
+                <p class="main-sub-text mb-0">
+                  Content calendar with optimization strategy and keyword targets for each article.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 px-lg-4">
+          <div class="card shadow-none">
+            <div class="p-3 d-flex">
+              <div>
+                <div>
+                  <div class="icon icon-shape rounded-circle bg-danger text-white mr-4">
+                    <i data-feather="check"></i>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <span class="secondary-sub-heading-purple">Technical Optimization</span>
+                <p class="main-sub-text mb-0">
+                  Audit of H1 title tags, meta titles, meta descriptions, internal linking, Google Analytics, and more.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 px-lg-4">
+          <div class="card shadow-none">
+            <div class="p-3 d-flex">
+              <div>
+                <div>
+                  <div class="icon icon-shape rounded-circle bg-primary text-white mr-4">
+                    <i data-feather="check"></i>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <span class="secondary-sub-heading-purple">Ongoing Support</span>
+                <p class="main-sub-text mb-0">
+                  Here to help whether you have questions about the strategy or implementation process.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% include 'core/includes/packages.html' %}
+  {% include 'core/includes/faq.html' %}
+  <!-- Blog preview -->
+  <section class="slice pt-5 pb-7 bg-section-primary">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2 class="mt-4">SEO Blog:</h2>
+        </div>
+      </div>
+      <div class="row">
         {% for post in posts %}
-            {% include "blog/article_list.html" %}
+          {% include "blog/article_list.html" %}
         {% endfor %}
-        </div>
-        </div>
-    </section>
+      </div>
+    </div>
+  </section>
 {% endblock content %}
+{% block inline_javascript %}
+<script>
+  document.getElementById("play-video").addEventListener("click", function(event) {
+    event.preventDefault();
+    const iframe = document.getElementById("vimeo-player");
+    const videoUrl = "https://player.vimeo.com/video/1024620133?h=b24ce54ad1&autoplay=1";
+    iframe.src = videoUrl;
+  });
+</script>
+{% endblock inline_javascript %}
