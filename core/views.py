@@ -43,3 +43,7 @@ def services(request):
         "core/services.html",
         {"services": services, "form": form},
     )
+
+
+def privacy_policy(request):
+    return render(request, "core/privacy_policy.html")
