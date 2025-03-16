@@ -1,162 +1,162 @@
 {% extends "core/base.html" %}
 {% load static crispy_forms_tags %}
+
 {% block head %}
-<!-- No index No follow -->
-<meta name="robots" content="noindex, nofollow">
-<!-- Meta title -->
-<title>User Profile Page | BrandishSEO</title>
-<!-- Meta description -->
-<meta name="description" content="Navigate to your desired project." />
+  <meta name="robots" content="noindex, nofollow">
+  <title>User Profile Page | BrandishSEO</title>
+  <meta name="description" content="Navigate to your desired project." />
 {% endblock head %}
 
 {% block content %}
-    <section class="slice slice-lg bg-section-secondary">
-        <div class="container-fluid d-flex flex-column">
-            <div class="row align-items-center mb-5 mt-5">
-                <div class="col-md-6 col-lg-5 col-xl-4 mx-auto">
-                    <!-- Messages -->
-                    {% if messages %}
-                        <div class="alert alert-success">
-                            {% for message in messages %}
-                                {{ message }}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                    <div class="card shadow-lg border-0 mb-0">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <h6 class="text-sm mb-0">
-                                        My Projects
-                                    </h6>
-                                </div>
-                                <div class="col-auto">
-                                    <a href="{% url 'core:services' %}#services">
-                                        <button type="button" class="btn btn-xs btn-primary btn-icon rounded-pill">
-                                            <span class="btn-inner--icon"><i data-feather="plus"></i></span>
-                                            <span class="btn-inner--text">New</span>
-                                        </button></a>
-                                </div>
-                            </div>
-                            <hr class="my-3">
-                            <!-- Projects -->
-                            {% if orders %}
-                                {% for order in orders %}
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <h6 class="text-sm mb-0">
-                                                {{ order.project_name }}
-                                            </h6>
-                                        </div>
-                                        <div class="col-auto">
-                                            <span class="text-sm">
-                                                <!-- Check if payment is complete -->
-                                                {% if not order.order_completed %}
-                                                    <a href="{% url 'checkout:checkout_payment' order.pk %}">
-                                                        Click here to complete payment
-                                                    </a>
-                                                {% else %}
-                                                    <a href="{{ order.project.get_absolute_url }}">
-                                                        Access Your Project Management Platform
-                                                    </a>
-                                                {% endif %}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    {% if forloop.counter != orders.count %}
-                                        <hr class="my-3">
-                                    {% endif %}
-                                {% endfor %}
-                            {% else %}
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <h6 class="text-sm mb-0">
-                                            Project
-                                        </h6>
-                                    </div>
-                                    <div class="col-auto">
-                                        <span class="text-sm">
-                                            <a href="{% url 'core:services' %}#services">Click here to get started</a>
-                                        </span>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
+  <section class="slice slice-lg bg-section-secondary">
+    <div class="container-fluid d-flex flex-column">
+      <div class="row align-items-center mb-5 mt-5">
+        <div class="col-md-6 col-lg-5 col-xl-4 mx-auto">
+          <!-- Messages -->
+          {% if messages %}
+            <div class="alert alert-success">
+              {% for message in messages %}
+                {{ message }}
+              {% endfor %}
             </div>
-            <div class="row align-items-center mb-5 mt-5">
-                <div class="col-md-6 col-lg-5 col-xl-4 mx-auto">
-                    <div class="card shadow-lg border-0 mb-0">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <h6 class="text-sm mb-0">
-                                        My Profile
-                                    </h6>
-                                </div>
-                                <div class="col-auto">
-                                    <a href="{% url 'accounts:user_update' user.pk %}">
-                                        <button type="button" class="btn btn-xs btn-primary btn-icon rounded-pill">
-                                            <span class="btn-inner--icon"><i data-feather="edit-2"></i></span>
-                                            <span class="btn-inner--text">Edit</span>
-                                        </button></a>
-                                </div>
-                            </div>
-                            <hr class="my-3">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <h6 class="text-sm mb-0">
-                                        Name
-                                    </h6>
-                                </div>
-                                <div class="col-auto">
-                                    <span class="text-sm">
-                                        {{ user.first_name }} {{ user.last_name }}
-                                    </span>
-                                </div>
-                            </div>
-                            <hr class="my-3">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <h6 class="text-sm mb-0">
-                                        User Name
-                                    </h6>
-                                </div>
-                                <div class="col-auto">
-                                    <span class="text-sm">{{ user.username }}</span>
-                                </div>
-                            </div>
-                            <hr class="my-3">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <h6 class="text-sm mb-0">
-                                        E-mail
-                                    </h6>
-                                </div>
-                                <div class="col-auto">
-                                    <span class="text-sm">{{ user.email }}</span>
-                                </div>
-                            </div>
-                            <hr class="my-3">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <h6 class="text-sm mb-0">
-                                        Password
-                                    </h6>
-                                </div>
-                                <div class="col-auto">
-                                    <span class="text-sm">
-                                        <a href="{% url 'accounts:update_password' %}">
-                                            Change password
-                                        </a>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+          {% endif %}
+          <div class="card shadow-lg border-0 mb-0">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h6 class="text-sm mb-0">
+                    My Projects
+                  </h6>
                 </div>
+                <div class="col-auto">
+                  <a href="{% url 'core:services' %}#services">
+                    <button type="button" class="btn btn-xs btn-primary btn-icon rounded-pill">
+                        <span class="btn-inner--icon"><i data-feather="plus"></i></span>
+                        <span class="btn-inner--text">New</span>
+                    </button>
+                  </a>
+                </div>
+              </div>
+              <hr class="my-3">
+              <!-- Projects -->
+              {% if orders %}
+                {% for order in orders %}
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <h6 class="text-sm mb-0">
+                        {{ order.project_name }}
+                      </h6>
+                    </div>
+                    <div class="col-auto">
+                      <span class="text-sm">
+                        <!-- Check if payment is complete -->
+                        {% if not order.order_completed %}
+                          <a href="{% url 'checkout:checkout_payment' order.pk %}">
+                            Click here to complete payment
+                          </a>
+                        {% else %}
+                          <a href="{{ order.project.get_absolute_url }}">
+                            Access Your Project Management Platform
+                          </a>
+                        {% endif %}
+                      </span>
+                    </div>
+                  </div>
+                  {% if forloop.counter != orders.count %}
+                    <hr class="my-3">
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+                <div class="row align-items-center">
+                  <div class="col">
+                    <h6 class="text-sm mb-0">
+                      Project
+                    </h6>
+                  </div>
+                  <div class="col-auto">
+                    <span class="text-sm">
+                      <a href="{% url 'core:services' %}#services">Click here to get started</a>
+                    </span>
+                  </div>
+                </div>
+              {% endif %}
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+      <div class="row align-items-center mb-5 mt-5">
+        <div class="col-md-6 col-lg-5 col-xl-4 mx-auto">
+          <div class="card shadow-lg border-0 mb-0">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h6 class="text-sm mb-0">
+                    My Profile
+                  </h6>
+                </div>
+                <div class="col-auto">
+                  <a href="{% url 'accounts:user_update' user.pk %}">
+                    <button type="button" class="btn btn-xs btn-primary btn-icon rounded-pill">
+                      <span class="btn-inner--icon"><i data-feather="edit-2"></i></span>
+                      <span class="btn-inner--text">Edit</span>
+                    </button>
+                  </a>
+                </div>
+              </div>
+              <hr class="my-3">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h6 class="text-sm mb-0">
+                    Name
+                  </h6>
+                </div>
+                <div class="col-auto">
+                  <span class="text-sm">
+                    {{ user.first_name }} {{ user.last_name }}
+                  </span>
+                </div>
+              </div>
+              <hr class="my-3">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h6 class="text-sm mb-0">
+                    User Name
+                  </h6>
+                </div>
+                <div class="col-auto">
+                  <span class="text-sm">{{ user.username }}</span>
+                </div>
+              </div>
+              <hr class="my-3">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h6 class="text-sm mb-0">
+                      E-mail
+                  </h6>
+                </div>
+                <div class="col-auto">
+                  <span class="text-sm">{{ user.email }}</span>
+                </div>
+              </div>
+              <hr class="my-3">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h6 class="text-sm mb-0">
+                    Password
+                  </h6>
+                </div>
+                <div class="col-auto">
+                  <span class="text-sm">
+                    <a href="{% url 'accounts:update_password' %}">
+                      Change password
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock content %}
