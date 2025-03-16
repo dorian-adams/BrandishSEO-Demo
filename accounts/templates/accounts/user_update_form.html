@@ -1,12 +1,11 @@
 {% extends "core/base.html" %}
 {% load static crispy_forms_tags %}
+
 {% block head %}
-<!-- Meta title -->
-<title></title>
-<!-- Meta description -->
-<meta name="description" content="" />
+  <title>Update Account</title>
+  <meta name="description" content="" />
 {% endblock head %}
 
 {% block content %}
-{% include "accounts/base_form.html" with heading="Update" button_label="Submit" form=form user_update=True %}
+  {% include "accounts/includes/base_form.html" with heading="Update" button_label="Submit" form=form user_update=True %}
 {% endblock content %}
