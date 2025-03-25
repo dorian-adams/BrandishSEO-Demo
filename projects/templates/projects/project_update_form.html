@@ -1,29 +1,33 @@
-{% extends "projects/projects_nav.html" %}
+{% extends "core/base.html" %}
 {% load static crispy_forms_tags %}
 
-{% block customer_content %}
-    <section class="slice py-5 bg-section-secondary">
-        <div class="container d-flex flex-column">
-            <div class="row align-items-center justify-content-center min-vh-100">
-                <div class="col-md-8 col-lg-5 py-6">
-                    <div>
-                        <div class="mb-5 text-center">
-                            <h6 class="h3 mb-1">Create your account</h6>
-                            <p class="text-muted mb-0">Made with love for designers &amp; developers.</p>
-                        </div>
-                        <span class="clearfix"></span>
-                        <form action="{% url 'projects:project_update' slug %}" method="post">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                {{ form|crispy }}
-                            </div>
-                            <div class="mt-4">
-                                <button type="submit" value="Submit" class="btn btn-block btn-primary">Create my account</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+{% block subnav %}
+  {% include 'projects/includes/subnav.html' %}
+{% endblock subnav %}
+
+{% block content %}
+  <section class="slice py-5 bg-section-secondary">
+    <div class="container d-flex flex-column">
+      <div class="row align-items-center justify-content-center min-vh-100">
+        <div class="col-md-8 col-lg-5 py-6">
+          <div>
+            <div class="mb-5 text-center">
+              <h6 class="h3 mb-1">Update Project</h6>
+              <p class="text-muted mb-0">Modify project details.</p>
             </div>
+            <span class="clearfix"></span>
+            <form action="{% url 'projects:project_update' slug %}" method="post">
+              {% csrf_token %}
+              <div class="form-group">
+                {{ form|crispy }}
+              </div>
+              <div class="mt-4">
+                <button type="submit" value="Submit" class="btn btn-block btn-primary">Update</button>
+              </div>
+            </form>
+          </div>
         </div>
-    </section>
-{% endblock customer_content %}
+      </div>
+    </div>
+  </section>
+{% endblock content %}

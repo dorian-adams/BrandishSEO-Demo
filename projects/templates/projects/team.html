@@ -1,126 +1,131 @@
-{% extends "projects/projects_nav.html" %}
+{% extends "core/base.html" %}
 {% load static crispy_forms_tags %}
-{% block customer_content %}
-    <div class="slice slice-sm bg-section-secondary">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-9">
-                    <!-- Team Management -->
-                    <div class="row mt-4">
-                        <div class="col-lg-12">
-                            <div class="mb-5">
-                                <div class="d-flex align-items-center mb-4">
-                                    <div class="d-flex">
-                                        <div class="pr-3">
-                                            <span class="h5 mb-0"><i data-feather="users"></i></span>
-                                        </div>
-                                        <div class="">
-                                            <h3 class="h5 mb-0">Team Management</h3>
-                                            <p class="text-muted mb-0">
-                                                Manage all users' permissions and status.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Headings -->
-                                <div class="table-responsive">
-                                    <table class="table table-cards align-items-center">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" style="min-width: 240px">Name</th>
-                                                <th scope="col">E-Mail</th>
-                                                <th scope="col">Access</th>
-                                                <th scope="col"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        <!-- Messages -->
-                                        {% if messages %}
-                                            <div class="alert alert-success">
-                                                {% for message in messages %}
-                                                    {{ message }}
-                                                {% endfor %}
-                                            </div>
-                                        {% endif %}
-                                        <!-- Members -->
-                                        {% for member in object.members.all %}
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="media align-items-center">
-                                                        <div class="media-body ml-4">
-                                                            <div class="name h6 mb-0 text-sm">{{ member.first_name }} {{ member.last_name }}</div>
-                                                            {% if member in project.admin.all %}
-                                                                <small class="d-block font-weight-bold">Admin</small>
-                                                            {% else %}
-                                                                <small class="d-block font-weight-bold">Member</small>
-                                                            {% endif %}
-                                                        </div>
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    <div class="name h6 mb-0 text-sm">{{ member.email }}</div>
-                                                </td>
-                                                <td>
-                                                    {% if admin %}
-                                                        {% if member in project.admin.all %}
-                                                            <div class="name h6 mb-0 text-sm">
-                                                                <a href="{% url 'projects:remove_admin' slug member.id %}" method="post">Demote Admin</a>
-                                                            </div>
-                                                        {% else %}
-                                                            <div class="name h6 mb-0 text-sm">
-                                                                <a href="{% url 'projects:add_admin' slug member.id %}" method="post">Promote Admin</a>
-                                                            </div>
-                                                        {% endif %}
-                                                    {% endif %}
-                                                </td>
-                                                <td class="text-right">
-                                                    <!-- Actions -->
-                                                    <div class="actions ml-3">
-                                                        <a href="#" class="action-item mr-2" data-toggle="tooltip" title="Message">
-                                                            <i data-feather="message-square"></i>
-                                                        </a>
-                                                        {% if admin %}
-                                                            <a href="{% url 'projects:remove_member' slug member.id %}" class="action-item text-danger mr-2" data-toggle="tooltip" title="Remove Member">
-                                                                <i data-feather="trash-2"></i>
-                                                            </a>
-                                                       {% endif %}
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+
+{% block subnav %}
+  {% include 'projects/includes/subnav.html' %}
+{% endblock subnav %}
+
+{% block content %}
+  <div class="slice slice-sm bg-section-secondary">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-9">
+          <!-- Team Management -->
+          <div class="row mt-4">
+            <div class="col-lg-12">
+              <div class="mb-5">
+                <div class="d-flex align-items-center mb-4">
+                  <div class="d-flex">
+                    <div class="pr-3">
+                      <span class="h5 mb-0"><i data-feather="users"></i></span>
+                    </div>
+                    <div class="">
+                      <h3 class="h5 mb-0">Team Management</h3>
+                      <p class="text-muted mb-0">
+                        Manage all users' permissions and status.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- Headings -->
+                <div class="table-responsive">
+                  <table class="table table-cards align-items-center">
+                    <thead>
+                      <tr>
+                        <th scope="col" style="min-width: 240px">Name</th>
+                        <th scope="col">E-Mail</th>
+                        <th scope="col">Access</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Messages -->
+                      {% if messages %}
+                        <div class="alert alert-success">
+                          {% for message in messages %}
+                            {{ message }}
+                          {% endfor %}
                         </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Invite -->
-            <div class="container position-relative zindex-100">
-                <div class="row justify-content-center mb-5">
-                    <div class="col-lg-6 text-center">
-                        <h3 class="h5 mb-0">Invite a New Member to Your Team</h3>
-                        <p class="text-muted mb-0">
-                            Enter the invite recipient's e-mail address:
-                        </p>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <!-- Form -->
-                        <form action="{% url 'projects:team' slug %}" method="post">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                {{ form|crispy }}
+                      {% endif %}
+                      <!-- Members -->
+                      {% for member in object.members.all %}
+                        <tr>
+                          <th scope="row">
+                            <div class="media align-items-center">
+                              <div class="media-body ml-4">
+                                <div class="name h6 mb-0 text-sm">{{ member.first_name }} {{ member.last_name }}</div>
+                                {% if member in project.admin.all %}
+                                  <small class="d-block font-weight-bold">Admin</small>
+                                {% else %}
+                                  <small class="d-block font-weight-bold">Member</small>
+                                {% endif %}
+                              </div>
                             </div>
-                            <div class="text-center">
-                                <button type="submit" value="Submit" class="btn btn-block btn-lg btn-primary mt-4">Invite</button>
+                          </th>
+                          <td>
+                            <div class="name h6 mb-0 text-sm">{{ member.email }}</div>
+                          </td>
+                          <td>
+                            {% if admin %}
+                              {% if member in project.admin.all %}
+                                <div class="name h6 mb-0 text-sm">
+                                  <a href="{% url 'projects:remove_admin' slug member.id %}" method="post">Demote Admin</a>
+                                </div>
+                              {% else %}
+                                <div class="name h6 mb-0 text-sm">
+                                  <a href="{% url 'projects:add_admin' slug member.id %}" method="post">Promote Admin</a>
+                                </div>
+                              {% endif %}
+                            {% endif %}
+                          </td>
+                          <td class="text-right">
+                            <!-- Actions -->
+                            <div class="actions ml-3">
+                              <a href="#" class="action-item mr-2" data-toggle="tooltip" title="Message">
+                                <i data-feather="message-square"></i>
+                              </a>
+                              {% if admin %}
+                                <a href="{% url 'projects:remove_member' slug member.id %}" class="action-item text-danger mr-2" data-toggle="tooltip" title="Remove Member">
+                                  <i data-feather="trash-2"></i>
+                                </a>
+                              {% endif %}
                             </div>
-                        </form>
-                    </div>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+      <!-- Invite -->
+      <div class="container position-relative zindex-100">
+        <div class="row justify-content-center mb-5">
+          <div class="col-lg-6 text-center">
+            <h3 class="h5 mb-0">Invite a New Member to Your Team</h3>
+            <p class="text-muted mb-0">
+              Enter the invite recipient's e-mail address:
+            </p>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <!-- Form -->
+            <form action="{% url 'projects:team' slug %}" method="post">
+              {% csrf_token %}
+              <div class="form-group">
+                {{ form|crispy }}
+              </div>
+              <div class="text-center">
+                <button type="submit" value="Submit" class="btn btn-block btn-lg btn-primary mt-4">Invite</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-{% endblock customer_content %}
+  </div>
+{% endblock content %}

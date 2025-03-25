@@ -1,492 +1,479 @@
-{% extends "projects/projects_nav.html" %}
+{% extends "core/base.html" %}
 {% load static %}
 
-{% block customer_content %}
-    <section class="slice py-5 bg-section-secondary">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="row align-items-center mb-4">
-                        <div class="col">
-                            <!-- Title -->
-                            <h1 class="h4 mb-0">
-                                My Tasks
-                            </h1>
-                        </div>
-                        <div class="col-auto">
-                            {% if demo %}
-                            <button type="button" class="btn btn-sm btn-warning btn-icon" onclick="location.href=#;">
-                                {% else %}
-                            <button type="button" class="btn btn-sm btn-warning btn-icon" onclick="location.href='{% url 'projects:task_creation' slug %}';">
-                                {% endif %}
-                                <span class="btn-inner--text">Create Task</span>
-                                <span class="btn-inner--icon"><i data-feather="plus"></i></span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row mx-n2">
-                        <div class="col-lg-4 px-2">
-                            <div class="card">
-                                <!-- Card header -->
-                                <div class="card-header pb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="h6">To do</span>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="actions mr-n2">
-                                                <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
-                                                <div class="dropdown action-item" data-toggle="dropdown">
-                                                    <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Refresh</a>
-                                                        <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                        <a href="#" class="dropdown-item">Settings</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- To Do List -->
-                                <!-- Start Task Div -->
-                                <div class="card-body pt-0 position-relative scrollable-y" style="max-height: 325px;">
-                                    {% for task in object_list %}
-                                    {% if task.status == 'To-do' %}
-                                    <!-- Task -->
-                                    <div class="kanban-task">
-                                        <!-- Title -->
-                                        <a href="{{ task.get_absolute_url }}">
-                                        <h6 class="mb-2">{{ task.task_title }}</h6>
-                                        <!-- Text -->
-                                        <p class="text-sm text-muted mb-3">
-                                            {{ task.task_description }}
-                                        </p>
-                                        </a>
-                                        <span class="surtitle d-block ls-1 mb-n2">Progress</span>
-                                        <!-- Progress -->
-                                        <div class="d-flex align-items-center">
-                                            <div class="w-80">
-                                                <div class="progress progress-sm shadow-none">
-                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: {{ task.progress }}%" aria-valuenow="{{ task.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col px-0 text-right">
-                                                <a href="#" class="h6 text-sm text-primary">{{ task.progress }}%</a>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <span class="surtitle d-block ls-1 mb-n2">
-                                                    Assigned to:
-                                                </span>
-                                            </div>
-                                            <div class="col">
-                                                <span class="surtitle d-block ls-1 mb-n2">
-                                                    Priority:
-                                                </span>
-                                            </div>
-                                            <div class="w-100"></div>
-                                            <div class="col">
-                                                <div class="mt-1">
-                                                    <span class="d-block ls-1">
-                                                        {{ task.assigned_to.first_name }} {{ task.assigned_to.last_name }}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="mt-1">
-                                                    <span class="d-block ls-1">
-                                                        {{ task.priority }}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr class="my-3" />
-                                    {% endif %}
-                                    {% endfor %}
-                                </div>
-                                <!-- End Task Div -->
-                            </div>
-                        </div>
-                        <div class="col-lg-4 px-2">
-                            <div class="card">
-                                <!-- Card header -->
-                                <div class="card-header pb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="h6">In progress</span>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="actions mr-n2">
-                                                <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
-                                                <div class="dropdown action-item" data-toggle="dropdown">
-                                                    <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Refresh</a>
-                                                        <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                        <a href="#" class="dropdown-item">Settings</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- In Progress List -->
-                                <!-- Start Task Div -->
-                                <div class="card-body pt-0 position-relative scrollable-y" style="max-height: 325px;">
-                                    {% for task in object_list %}
-                                    {% if task.status == 'In progress' %}
-                                    <!-- Task -->
-                                    <div class="kanban-task">
-                                        <!-- Title -->
-                                        <h6 class="mb-2">{{ task.task_title }}</h6>
-                                        <!-- Text -->
-                                        <p class="text-sm text-muted mb-3">
-                                            {{ task.task_description }}
-                                        </p>
-                                        <span class="surtitle d-block ls-1 mb-n2">Progress</span>
-                                        <!-- Progress -->
-                                        <div class="d-flex align-items-center">
-                                            <div class="w-80">
-                                                <div class="progress progress-sm shadow-none">
-                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: {{ task.progress }}%" aria-valuenow="{{ task.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col px-0 text-right">
-                                                <a href="#" class="h6 text-sm text-primary">{{ task.progress }}%</a>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <span class="surtitle d-block ls-1 mb-n2">
-                                                    Assigned to:
-                                                </span>
-                                            </div>
-                                            <div class="col">
-                                                <span class="surtitle d-block ls-1 mb-n2">
-                                                    Priority:
-                                                </span>
-                                            </div>
-                                            <div class="w-100"></div>
-                                            <div class="col">
-                                                <div class="mt-1">
-                                                    <span class="d-block ls-1">
-                                                        {{ task.assigned_to.first_name }} {{ task.assigned_to.last_name }}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="mt-1">
-                                                    <span class="d-block ls-1">
-                                                        {{ task.priority }}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr class="my-3" />
-                                    {% endif %}
-                                    {% endfor %}
-                                </div>
-                                <!-- End Task Div -->
-                            </div>
-                        </div>
-                        <div class="col-lg-4 px-2">
-                            <div class="card">
-                                <!-- Card header -->
-                                <div class="card-header pb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="h6">Done</span>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="actions mr-n2">
-                                                <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
-                                                <div class="dropdown action-item" data-toggle="dropdown">
-                                                    <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Refresh</a>
-                                                        <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                        <a href="#" class="dropdown-item">Settings</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Completed List -->
-                                <!-- Start Task Div -->
-                                <div class="card-body pt-0 position-relative scrollable-y" style="max-height: 325px;">
-                                    {% for task in object_list %}
-                                    {% if task.status == 'Completed' %}
-                                    <!-- Task -->
-                                    <div class="kanban-task">
-                                        <!-- Title -->
-                                        <h6 class="mb-2">{{ task.task_title }}</h6>
-                                        <!-- Text -->
-                                        <p class="text-sm text-muted mb-3">
-                                            {{ task.task_description }}
-                                        </p>
-                                        <span class="surtitle d-block ls-1 mb-n2">Progress</span>
-                                        <!-- Progress -->
-                                        <div class="d-flex align-items-center">
-                                            <div class="w-80">
-                                                <div class="progress progress-sm shadow-none">
-                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: {{ task.progress }}%" aria-valuenow="{{ task.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col px-0 text-right">
-                                                <a href="#" class="h6 text-sm text-primary">{{ task.progress }}%</a>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <span class="surtitle d-block ls-1 mb-n2">
-                                                    Assigned to:
-                                                </span>
-                                            </div>
-                                            <div class="col">
-                                                <span class="surtitle d-block ls-1 mb-n2">
-                                                    Priority:
-                                                </span>
-                                            </div>
-                                            <div class="w-100"></div>
-                                            <div class="col">
-                                                <div class="mt-1">
-                                                    <span class="d-block ls-1">
-                                                        {{ task.assigned_to.first_name }} {{ task.assigned_to.last_name }}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="mt-1">
-                                                    <span class="d-block ls-1">
-                                                        {{ task.priority }}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr class="my-3" />
-                                    {% endif %}
-                                    {% endfor %}
-                                </div>
-                                <!-- End Task Div -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <div class="card card-fluid">
-                                <div class="card-header">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <span class="h6">Tasks</span>
-                                        </div>
-                                        <div class="col-auto">
-                                            <span class="d-inline-flex align-items-center badge badge-dot badge-lg h6 mr-3">
-                                                <i class="bg-primary"></i>
-                                                <span class="text-muted">Finished</span>
-                                            </span>
-                                            <span class="d-inline-flex align-items-center badge badge-dot badge-lg h6">
-                                                <i class="bg-warning"></i>
-                                                <span class="text-muted">Unfinished</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Display All Tasks -->
-                                <div class="card-body px-2 pt-2 pb-0">
-                                    <div class="card-body pt-0 position-relative scrollable-y" style="max-height: 325px;">
-                                        {% for task in object_list %}
-                                        <!-- Task -->
-                                        <div class="kanban-task">
-                                            <!-- Title -->
-                                            <a href="{{ task.get_absolute_url }}">
-                                            <h6 class="mb-2">{{ task.task_title }}</h6>
-                                            <!-- Text -->
-                                            <p class="text-sm text-muted mb-3">
-                                                {{ task.task_description }}
-                                            </p>
-                                            </a>
-                                            <span class="surtitle d-block ls-1 mb-n2">Progress</span>
-                                            <!-- Progress -->
-                                            <div class="d-flex align-items-center">
-                                                <div class="w-80">
-                                                    <div class="progress progress-sm shadow-none">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: {{ task.progress }}%" aria-valuenow="{{ task.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col px-0 text-right">
-                                                    <a href="#" class="h6 text-sm text-primary">{{ task.progress }}%</a>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <span class="surtitle d-block ls-1 mb-n2">
-                                                        Assigned to:
-                                                    </span>
-                                                </div>
-                                                <div class="col">
-                                                    <span class="surtitle d-block ls-1 mb-n2">
-                                                        Priority:
-                                                    </span>
-                                                </div>
-                                                <div class="w-100"></div>
-                                                <div class="col">
-                                                    <div class="mt-1">
-                                                        <span class="d-block ls-1">
-                                                            {{ task.assigned_to.first_name }} {{ task.assigned_to.last_name }}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="mt-1">
-                                                        <span class="d-block ls-1">
-                                                            {{ task.priority }}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr class="my-3" />
-                                        {% endfor %}
-                                    </div>
-                                    <!-- End Task Div -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <!-- Files -->
-                            <div class="card card-fluid">
-                                <div class="card-header pb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="h6">Recent files</span>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="actions mr-n2">
-                                                <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
-                                                <div class="dropdown action-item" data-toggle="dropdown">
-                                                    <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Refresh</a>
-                                                        <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                        <a href="#" class="dropdown-item">Settings</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <!-- File -->
-                                    <div class="row align-items-center mb-3 shadow-none">
-                                        <div class="col-auto">
-                                            <div class="icon icon-shape bg-soft-warning text-warning">
-                                                <i class="fas fa-image"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col pl-0">
-                                            <span class="d-block h6 text-sm mb-0">design-principles.pdf</span>
-                                            <p class="mb-0 text-xs">189 KB</p>
-                                        </div>
-                                        <div class="col-auto actions">
-                                            <div class="dropdown" data-toggle="dropdown">
-                                                <a href="#" class="action-item" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i data-feather="more-horizontal"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="#" class="dropdown-item">Refresh</a>
-                                                    <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                    <a href="#" class="dropdown-item">Settings</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr class="my-3" />
-                                    <!-- File -->
-                                    <div class="row align-items-center mb-3 shadow-none">
-                                        <div class="col-auto">
-                                            <div class="icon icon-shape bg-soft-primary text-primary">
-                                                <i class="fas fa-image"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col pl-0">
-                                            <span class="d-block h6 text-sm mb-0">website-wireframe.psd</span>
-                                            <p class="mb-0 text-xs">45.9 MB</p>
-                                        </div>
-                                        <div class="col-auto actions">
-                                            <div class="dropdown" data-toggle="dropdown">
-                                                <a href="#" class="action-item" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i data-feather="more-horizontal"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="#" class="dropdown-item">Refresh</a>
-                                                    <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                    <a href="#" class="dropdown-item">Settings</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr class="my-3" />
-                                    <!-- File -->
-                                    <div class="row align-items-center mb-3 shadow-none">
-                                        <div class="col-auto">
-                                            <div class="icon icon-shape bg-soft-success text-success">
-                                                <i class="fas fa-file-alt"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col pl-0">
-                                            <span class="d-block h6 text-sm mb-0">product-guidelines.doc</span>
-                                            <p class="mb-0 text-xs">87 KB</p>
-                                        </div>
-                                        <div class="col-auto actions">
-                                            <div class="dropdown" data-toggle="dropdown">
-                                                <a href="#" class="action-item" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i data-feather="more-horizontal"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="#" class="dropdown-item">Refresh</a>
-                                                    <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                    <a href="#" class="dropdown-item">Settings</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr class="my-3" />
-                                    <!-- File -->
-                                    <div class="row align-items-center mb-3 shadow-none">
-                                        <div class="col-auto">
-                                            <div class="icon icon-shape bg-soft-danger text-danger">
-                                                <i class="fas fa-video"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col pl-0">
-                                            <span class="d-block h6 text-sm mb-0">banner-video.avi</span>
-                                            <p class="mb-0 text-xs">23 MB</p>
-                                        </div>
-                                        <div class="col-auto actions">
-                                            <div class="dropdown" data-toggle="dropdown">
-                                                <a href="#" class="action-item" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i data-feather="more-horizontal"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="#" class="dropdown-item">Refresh</a>
-                                                    <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                    <a href="#" class="dropdown-item">Settings</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{% block subnav %}
+  {% include 'projects/includes/subnav.html' %}
+{% endblock subnav %}
+
+{% block content %}
+  <section class="slice py-5 bg-section-secondary">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row align-items-center mb-4">
+            <div class="col">
+              <!-- Title -->
+              <h1 class="h4 mb-0">
+                My Tasks
+              </h1>
             </div>
+            <div class="col-auto">
+              {% if demo %}
+                <button type="button" class="btn btn-sm btn-warning btn-icon" onclick="location.href=#;">
+              {% else %}
+                <button type="button" class="btn btn-sm btn-warning btn-icon" onclick="location.href='{% url 'projects:task_creation' slug %}';">
+              {% endif %}
+                  <span class="btn-inner--text">Create Task</span>
+                  <span class="btn-inner--icon"><i data-feather="plus"></i></span>
+                </button>
+            </div>
+          </div>
+          <div class="row mx-n2">
+            <div class="col-lg-4 px-2">
+              <div class="card">
+                <!-- Card header -->
+                <div class="card-header pb-3">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="h6">To do</span>
+                    </div>
+                    <div class="text-right">
+                      <div class="actions mr-n2">
+                        <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
+                        <div class="dropdown action-item" data-toggle="dropdown">
+                          <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <a href="#" class="dropdown-item">Refresh</a>
+                            <a href="#" class="dropdown-item">Manage Widgets</a>
+                            <a href="#" class="dropdown-item">Settings</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- To Do List -->
+                <!-- Start Task Div -->
+                <div class="card-body pt-0 position-relative scrollable-y" style="max-height: 325px;">
+                  {% for task in object_list %}
+                    {% if task.status == 'To-do' %}
+                      <!-- Task -->
+                      <div class="kanban-task">
+                        <a href="{{ task.get_absolute_url }}">
+                          <h6 class="mb-2">{{ task.task_title }}</h6>
+                          <p class="text-sm text-muted mb-3">
+                            {{ task.task_description }}
+                          </p>
+                        </a>
+                        <span class="surtitle d-block ls-1 mb-n2">Progress</span>
+                        <!-- Progress -->
+                        <div class="d-flex align-items-center">
+                          <div class="w-80">
+                            <div class="progress progress-sm shadow-none">
+                              <div class="progress-bar bg-primary" role="progressbar" style="width: {{ task.progress }}%" aria-valuenow="{{ task.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </div>
+                          <div class="col px-0 text-right">
+                            <a href="#" class="h6 text-sm text-primary">{{ task.progress }}%</a>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <span class="surtitle d-block ls-1 mb-n2">
+                              Assigned to:
+                            </span>
+                          </div>
+                          <div class="col">
+                            <span class="surtitle d-block ls-1 mb-n2">
+                              Priority:
+                            </span>
+                          </div>
+                          <div class="w-100"></div>
+                          <div class="col">
+                            <div class="mt-1">
+                              <span class="d-block ls-1">
+                                {{ task.assigned_to.first_name }} {{ task.assigned_to.last_name }}
+                              </span>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="mt-1">
+                              <span class="d-block ls-1">
+                                {{ task.priority }}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="my-3" />
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 px-2">
+              <div class="card">
+                <div class="card-header pb-3">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="h6">In progress</span>
+                    </div>
+                    <div class="text-right">
+                      <div class="actions mr-n2">
+                        <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
+                        <div class="dropdown action-item" data-toggle="dropdown">
+                          <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <a href="#" class="dropdown-item">Refresh</a>
+                            <a href="#" class="dropdown-item">Manage Widgets</a>
+                            <a href="#" class="dropdown-item">Settings</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- In Progress List -->
+                <div class="card-body pt-0 position-relative scrollable-y" style="max-height: 325px;">
+                  {% for task in object_list %}
+                    {% if task.status == 'In progress' %}
+                      <div class="kanban-task">
+                        <h6 class="mb-2">{{ task.task_title }}</h6>
+                        <p class="text-sm text-muted mb-3">
+                          {{ task.task_description }}
+                        </p>
+                        <span class="surtitle d-block ls-1 mb-n2">Progress</span>
+                        <div class="d-flex align-items-center">
+                          <div class="w-80">
+                            <div class="progress progress-sm shadow-none">
+                              <div class="progress-bar bg-primary" role="progressbar" style="width: {{ task.progress }}%" aria-valuenow="{{ task.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </div>
+                          <div class="col px-0 text-right">
+                            <a href="#" class="h6 text-sm text-primary">{{ task.progress }}%</a>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <span class="surtitle d-block ls-1 mb-n2">
+                              Assigned to:
+                            </span>
+                          </div>
+                          <div class="col">
+                            <span class="surtitle d-block ls-1 mb-n2">
+                              Priority:
+                            </span>
+                          </div>
+                          <div class="w-100"></div>
+                          <div class="col">
+                            <div class="mt-1">
+                              <span class="d-block ls-1">
+                                {{ task.assigned_to.first_name }} {{ task.assigned_to.last_name }}
+                              </span>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="mt-1">
+                              <span class="d-block ls-1">
+                                {{ task.priority }}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="my-3" />
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 px-2">
+              <div class="card">
+                <!-- Card header -->
+                <div class="card-header pb-3">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="h6">Done</span>
+                    </div>
+                    <div class="text-right">
+                      <div class="actions mr-n2">
+                        <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
+                        <div class="dropdown action-item" data-toggle="dropdown">
+                          <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <a href="#" class="dropdown-item">Refresh</a>
+                            <a href="#" class="dropdown-item">Manage Widgets</a>
+                            <a href="#" class="dropdown-item">Settings</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Completed List -->
+                <!-- Start Task Div -->
+                <div class="card-body pt-0 position-relative scrollable-y" style="max-height: 325px;">
+                  {% for task in object_list %}
+                    {% if task.status == 'Completed' %}
+                      <!-- Task -->
+                      <div class="kanban-task">
+                        <h6 class="mb-2">{{ task.task_title }}</h6>
+                        <p class="text-sm text-muted mb-3">
+                          {{ task.task_description }}
+                        </p>
+                        <span class="surtitle d-block ls-1 mb-n2">Progress</span>
+                        <!-- Progress -->
+                        <div class="d-flex align-items-center">
+                          <div class="w-80">
+                            <div class="progress progress-sm shadow-none">
+                              <div class="progress-bar bg-primary" role="progressbar" style="width: {{ task.progress }}%" aria-valuenow="{{ task.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </div>
+                          <div class="col px-0 text-right">
+                            <a href="#" class="h6 text-sm text-primary">{{ task.progress }}%</a>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <span class="surtitle d-block ls-1 mb-n2">
+                              Assigned to:
+                            </span>
+                          </div>
+                          <div class="col">
+                            <span class="surtitle d-block ls-1 mb-n2">
+                              Priority:
+                            </span>
+                          </div>
+                          <div class="w-100"></div>
+                          <div class="col">
+                            <div class="mt-1">
+                              <span class="d-block ls-1">
+                                {{ task.assigned_to.first_name }} {{ task.assigned_to.last_name }}
+                              </span>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="mt-1">
+                              <span class="d-block ls-1">
+                                {{ task.priority }}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="my-3" />
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="card card-fluid">
+                <div class="card-header">
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <span class="h6">Tasks</span>
+                    </div>
+                    <div class="col-auto">
+                      <span class="d-inline-flex align-items-center badge badge-dot badge-lg h6 mr-3">
+                        <i class="bg-primary"></i>
+                        <span class="text-muted">Finished</span>
+                      </span>
+                      <span class="d-inline-flex align-items-center badge badge-dot badge-lg h6">
+                        <i class="bg-warning"></i>
+                        <span class="text-muted">Unfinished</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Display All Tasks -->
+                <div class="card-body px-2 pt-2 pb-0">
+                  <div class="card-body pt-0 position-relative scrollable-y" style="max-height: 325px;">
+                    {% for task in object_list %}
+                      <!-- Task -->
+                      <div class="kanban-task">
+                        <a href="{{ task.get_absolute_url }}">
+                          <h6 class="mb-2">{{ task.task_title }}</h6>
+                          <p class="text-sm text-muted mb-3">
+                            {{ task.task_description }}
+                          </p>
+                        </a>
+                        <span class="surtitle d-block ls-1 mb-n2">Progress</span>
+                        <div class="d-flex align-items-center">
+                          <div class="w-80">
+                            <div class="progress progress-sm shadow-none">
+                              <div class="progress-bar bg-primary" role="progressbar" style="width: {{ task.progress }}%" aria-valuenow="{{ task.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </div>
+                          <div class="col px-0 text-right">
+                            <a href="#" class="h6 text-sm text-primary">{{ task.progress }}%</a>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <span class="surtitle d-block ls-1 mb-n2">
+                              Assigned to:
+                            </span>
+                          </div>
+                          <div class="col">
+                            <span class="surtitle d-block ls-1 mb-n2">
+                              Priority:
+                            </span>
+                          </div>
+                          <div class="w-100"></div>
+                          <div class="col">
+                            <div class="mt-1">
+                              <span class="d-block ls-1">
+                                {{ task.assigned_to.first_name }} {{ task.assigned_to.last_name }}
+                              </span>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="mt-1">
+                              <span class="d-block ls-1">
+                                {{ task.priority }}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="my-3" />
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <!-- Files -->
+              <div class="card card-fluid">
+                <div class="card-header pb-3">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="h6">Recent files</span>
+                    </div>
+                    <div class="text-right">
+                      <div class="actions mr-n2">
+                        <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
+                        <div class="dropdown action-item" data-toggle="dropdown">
+                          <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <a href="#" class="dropdown-item">Refresh</a>
+                            <a href="#" class="dropdown-item">Manage Widgets</a>
+                            <a href="#" class="dropdown-item">Settings</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <!-- File -->
+                  <div class="row align-items-center mb-3 shadow-none">
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-soft-warning text-warning">
+                        <i class="fas fa-image"></i>
+                      </div>
+                    </div>
+                    <div class="col pl-0">
+                      <span class="d-block h6 text-sm mb-0">design-principles.pdf</span>
+                      <p class="mb-0 text-xs">189 KB</p>
+                    </div>
+                    <div class="col-auto actions">
+                      <div class="dropdown" data-toggle="dropdown">
+                        <a href="#" class="action-item" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i data-feather="more-horizontal"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a href="#" class="dropdown-item">Refresh</a>
+                          <a href="#" class="dropdown-item">Manage Widgets</a>
+                          <a href="#" class="dropdown-item">Settings</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="my-3" />
+                  <!-- File -->
+                  <div class="row align-items-center mb-3 shadow-none">
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-soft-primary text-primary">
+                        <i class="fas fa-image"></i>
+                      </div>
+                    </div>
+                    <div class="col pl-0">
+                      <span class="d-block h6 text-sm mb-0">website-wireframe.psd</span>
+                      <p class="mb-0 text-xs">45.9 MB</p>
+                    </div>
+                    <div class="col-auto actions">
+                      <div class="dropdown" data-toggle="dropdown">
+                        <a href="#" class="action-item" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i data-feather="more-horizontal"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a href="#" class="dropdown-item">Refresh</a>
+                          <a href="#" class="dropdown-item">Manage Widgets</a>
+                          <a href="#" class="dropdown-item">Settings</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="my-3" />
+                  <!-- File -->
+                  <div class="row align-items-center mb-3 shadow-none">
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-soft-success text-success">
+                        <i class="fas fa-file-alt"></i>
+                      </div>
+                    </div>
+                    <div class="col pl-0">
+                      <span class="d-block h6 text-sm mb-0">product-guidelines.doc</span>
+                      <p class="mb-0 text-xs">87 KB</p>
+                    </div>
+                    <div class="col-auto actions">
+                      <div class="dropdown" data-toggle="dropdown">
+                        <a href="#" class="action-item" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i data-feather="more-horizontal"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a href="#" class="dropdown-item">Refresh</a>
+                          <a href="#" class="dropdown-item">Manage Widgets</a>
+                          <a href="#" class="dropdown-item">Settings</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="my-3" />
+                  <!-- File -->
+                  <div class="row align-items-center mb-3 shadow-none">
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-soft-danger text-danger">
+                        <i class="fas fa-video"></i>
+                      </div>
+                    </div>
+                    <div class="col pl-0">
+                      <span class="d-block h6 text-sm mb-0">banner-video.avi</span>
+                      <p class="mb-0 text-xs">23 MB</p>
+                    </div>
+                    <div class="col-auto actions">
+                      <div class="dropdown" data-toggle="dropdown">
+                        <a href="#" class="action-item" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i data-feather="more-horizontal"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a href="#" class="dropdown-item">Refresh</a>
+                          <a href="#" class="dropdown-item">Manage Widgets</a>
+                          <a href="#" class="dropdown-item">Settings</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
-{% endblock customer_content %}
+      </div>
+    </div>
+  </section>
+{% endblock content %}
