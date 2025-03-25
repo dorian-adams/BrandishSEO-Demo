@@ -1,309 +1,308 @@
-{% extends "projects/projects_nav.html" %}
+{% extends "core/base.html" %}
 {% load static %}
 
-{% block customer_content %}
-    <!-- Main content -->
-    <section class="slice slice-sm bg-section-secondary">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-9">
-                    <div>
-                        <!-- Title -->
-                        <div class="row align-items-center mb-3">
-                            <div class="col">
-                                {% if demo %}
-                                <h6 class="mb-0">Welcome!</h6>
-                                {% else %}
-                                <h6 class="mb-0">Welcome, {{ user.first_name }}</h6>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card card-fluid">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <h6 class="text-sm mb-0">
-                                                    Profile
-                                                </h6>
-                                            </div>
-                                            <div class="col-auto">
-                                                <!-- Check if 'demo' Project -->
-                                                {% if demo %}
-                                                <a href="#">
-                                                    {% else %}
-                                                    <a href="{% url 'accounts:user_update' user.pk %}">
-                                                    {% endif %}
-                                                <button type="button" class="btn btn-xs btn-primary btn-icon rounded-pill">
-                                                    <span class="btn-inner--icon"><i data-feather="edit-2"></i></span>
-                                                    <span class="btn-inner--text">Edit</span>
-                                                </button></a>
-                                            </div>
-                                        </div>
-                                        <hr class="my-3">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <h6 class="text-sm mb-0">
-                                                    Name
-                                                </h6>
-                                            </div>
-                                            <div class="col-auto">
-                                                {% if demo %}
-                                                <span class="text-sm">Demo User</span>
-                                                {% else %}
-                                                <span class="text-sm">{{ user.first_name }} {{ user.last_name }}</span>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                        <hr class="my-3">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <h6 class="text-sm mb-0">
-                                                    Website
-                                                </h6>
-                                            </div>
-                                            <div class="col-auto">
-                                                <span class="text-sm">{{ project.website }}</span>
-                                            </div>
-                                        </div>
-                                        <hr class="my-3">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <h6 class="text-sm mb-0">
-                                                    E-mail
-                                                </h6>
-                                            </div>
-                                            <div class="col-auto">
-                                                {% if demo %}
-                                                <span class="text-sm">example@email.com</span>
-                                                {% else %}
-                                                <span class="text-sm">{{ user.email }}</span>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card card-fluid">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <h6 class="text-sm mb-0">
-                                                    Order Status
-                                                </h6>
-                                            </div>
-                                            <div class="col-auto">
-                                                <span class="text-sm">{{ object.status }}</span>
-                                            </div>
-                                        </div>
-                                        <hr class="my-3">
-                                        <div class="row align-items-center">
-                                            <center>
-                                                {% if object.status == 'Pending' %}
-                                                    <span class="text-sm">Thank you for trusting . Your order has been received
-                                                        and your specifications are currently being reviewed. You'll receive
-                                                        an email if any additional information is required. Feel free to
-                                                        bookmark this page to monitor the progress of your strategy.
-                                                        In the meantime, if you have any questions please fill out the
-                                                        form below. </span>
+{% block subnav %}
+  {% include 'projects/includes/subnav.html' %}
+{% endblock subnav %}
 
-                                                {% elif object.status == 'Researching' %}
-                                                    <span class="text-sm">Market research for your strategy is now underway. Research
-                                                    includes gaining a solid understanding of your target audience and
-                                                    their habits, industry trends, effective mediums, and competitor
-                                                    analysis. Market research is pivotal towards delivering SEO solutions
-                                                    that fit your business and demographics. If there's anything you'd
-                                                    like to share on the matter please fill out the form below, if not,
-                                                    that's quite alright as well!</span>
-
-                                                {% elif object.status == 'Developing' %}
-                                                    <span class="text-sm">Your strategy is now in development! You're
-                                                    now less than two weeks away from receiving the tailored solutions you need to
-                                                    bolster your organic performance. As always, if you have any questions
-                                                    please do not hesitate to reach out via the form below.</span>
-
-                                                {% elif object.status == 'Final Touches' %}
-                                                    <span class="text-sm">The final touches are being made to your strategy,
-                                                    you're now days away from being able to increase organic visibility!
-                                                    </span>
-
-                                                {% elif object.status == 'Review' %}
-                                                    <span class="text-sm"></span>
-                                            {% endif %}
-                                            </center>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <!-- Title -->
-                                <div class="card-header">
-                                    <h6>Team</h6>
-                                </div>
-                                <div class="list-group list-group-flush">
-                                    {% for person in object.members.all %}
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="d-flex align-items-center" data-toggle="tooltip" data-placement="right" data-title="time">
-                                            <div class="flex-fill ml-3">
-                                                <div class="h6 text-sm mb-0">{{ person.first_name }} {{ person.last_name }}
-                                                    <small class="float-right text-muted"> {{ person.email }}</small>
-                                                </div>
-                                                <p class="text-sm lh-140 mb-0">
-                                                        {{ message.text }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    {% endfor %}
-                                </div>
-                                <!-- Card footer -->
-                                <div class="card-footer py-3 text-center border-0 position-relative">
-                                    <a href="#" class="text-xs ls-1 text-uppercase font-weight-bold stretched-link">See all</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="h6">SEO Strategy</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="card-body py-3">
-                                    <div class="d-flex align-items-center">
-                                        {% if demo %}
-                                        {% endif %}
-                                        <div class="pl-3">
-                                            <h6 class="text-warning mb-0">In progress...</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Messages and Alerts -->
-                    <div class="row mb-4">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <!-- Title -->
-                                <div class="card-header">
-                                    <h6>Messages</h6>
-                                </div>
-                                <!-- List group -->
-                                <div class="list-group list-group-flush">
-                                    {% for message in comments %}
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="d-flex align-items-center" data-toggle="tooltip" data-placement="right" data-title="time">
-                                            <div class="flex-fill ml-3">
-                                                <div class="h6 text-sm mb-0">From: {{ message.author }}
-                                                    <small class="float-right text-muted">At: {{ message.posted_at }}</small>
-                                                </div>
-                                                <p class="text-sm lh-140 mb-0">
-                                                        {{ message.text }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    {% endfor %}
-                                </div>
-                                <!-- Card footer -->
-                                <div class="card-footer py-3 text-center border-0 position-relative">
-                                    <a href="#" class="text-xs ls-1 text-uppercase font-weight-bold stretched-link">See all</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <!-- Card header -->
-                                <div class="card-header">
-                                    <h6>Important Links</h6>
-                                </div>
-                                <!-- List group -->
-                                <div class="list-group list-group-flush">
-                                    <a href="{% url 'projects:tasks' slug %}" class="list-group-item list-group-item-action border-0 py-2">
-                                        <div class="d-flex">
-                                            <div>
-                                                <i data-feather="check-square" class="mr-3"></i>
-                                            </div>
-                                            <div>
-                                                <div class="text-sm lh-150">
-                                                    View / Manage <span class="text-dark font-weight-bold">SEO Tasks</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="{% url 'projects:strategy' slug %}" class="list-group-item list-group-item-action border-0 py-2">
-                                        <div class="d-flex">
-                                            <div>
-                                                <i data-feather="file-text" class="mr-3"></i>
-                                            </div>
-                                            <div>
-                                                <div class="text-sm lh-150">
-                                                    View / Download <span class="text-dark font-weight-bold">SEO Strategy</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="{% url 'projects:team' slug %}" class="list-group-item list-group-item-action border-0 py-2">
-                                        <div class="d-flex">
-                                            <div>
-                                                <i data-feather="users" class="mr-3"></i>
-                                            </div>
-                                            <div>
-                                                <div class="text-sm lh-150">
-                                                    View / Update <span class="text-dark font-weight-bold">Team</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    {% if demo %}
-                                    <a href="#" class="list-group-item list-group-item-action border-0 py-2">
-                                        {% else %}
-                                        <a href="{% url 'accounts:user_update' user.pk %}" class="list-group-item list-group-item-action border-0 py-2">
-                                        {% endif %}
-                                        <div class="d-flex">
-                                            <div>
-                                                <i data-feather="user" class="mr-3"></i>
-                                            </div>
-                                            <div>
-                                                <div class="text-sm lh-150">
-                                                    Update Profile for <span class="text-dark font-weight-bold">{{ user.first_name }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action border-0 py-2">
-                                        <div class="d-flex">
-                                            <div>
-                                                <i data-feather="message-square" class="mr-3"></i>
-                                            </div>
-                                            <div>
-                                                <div class="text-sm lh-150">
-                                                    Contact Us with any <span class="text-dark font-weight-bold">Questions</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- Card footer -->
-                                <div class="card-footer py-3 text-center mt-3 position-relative">
-                                    <a href="#" class="text-xs ls-1 text-uppercase font-weight-bold stretched-link">See all</a>
-                                </div>
-                            </div>
-                            <!-- Reminder -->
-                        </div>
-                    </div>
-                </div>
+{% block content %}
+  <section class="slice slice-sm bg-section-secondary">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-9">
+          <div>
+            <!-- Title -->
+            <div class="row align-items-center mb-3">
+              <div class="col">
+                {% if demo %}
+                  <h6 class="mb-0">Welcome!</h6>
+                {% else %}
+                  <h6 class="mb-0">Welcome, {{ user.first_name }}</h6>
+                {% endif %}
+              </div>
             </div>
+            <div class="row">
+              <div class="col-xl-6">
+                <div class="card card-fluid">
+                  <div class="card-body">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          Profile
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <!-- Check if 'demo' Project -->
+                        <a href="{% if demo %}#{% else %}{% url 'accounts:user_update' user.pk %}{% endif %}">
+                          <button type="button" class="btn btn-xs btn-primary btn-icon rounded-pill">
+                            <span class="btn-inner--icon"><i data-feather="edit-2"></i></span>
+                            <span class="btn-inner--text">Edit</span>
+                          </button>
+                        </a>
+                      </div>
+                    </div>
+                    <hr class="my-3">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          Name
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        {% if demo %}
+                          <span class="text-sm">Demo User</span>
+                        {% else %}
+                          <span class="text-sm">{{ user.first_name }} {{ user.last_name }}</span>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <hr class="my-3">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          Website
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <span class="text-sm">{{ project.website }}</span>
+                      </div>
+                    </div>
+                    <hr class="my-3">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          E-mail
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        {% if demo %}
+                          <span class="text-sm">example@email.com</span>
+                        {% else %}
+                          <span class="text-sm">{{ user.email }}</span>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6">
+                <div class="card card-fluid">
+                  <div class="card-body">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          Order Status
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <span class="text-sm">{{ object.status }}</span>
+                      </div>
+                    </div>
+                    <hr class="my-3">
+                    <div class="row align-items-center">
+                      <div class="text-center">
+                        {% if object.status == 'Pending' %}
+                          <span class="text-sm">
+                            Thank you for trusting . Your order has been received
+                            and your specifications are currently being reviewed. You'll receive
+                            an email if any additional information is required. Feel free to
+                            bookmark this page to monitor the progress of your strategy.
+                            In the meantime, if you have any questions please fill out the
+                            form below. 
+                          </span>
+                        {% elif object.status == 'Researching' %}
+                          <span class="text-sm">
+                            Market research for your strategy is now underway. Research
+                            includes gaining a solid understanding of your target audience and
+                            their habits, industry trends, effective mediums, and competitor
+                            analysis. Market research is pivotal towards delivering SEO solutions
+                            that fit your business and demographics. If there's anything you'd
+                            like to share on the matter please fill out the form below, if not,
+                            that's quite alright as well!
+                          </span>
+                        {% elif object.status == 'Developing' %}
+                          <span class="text-sm">
+                            Your strategy is now in development! You're
+                            now less than two weeks away from receiving the tailored solutions you need to
+                            bolster your organic performance. As always, if you have any questions
+                            please do not hesitate to reach out via the form below.
+                          </span>
+                        {% elif object.status == 'Final Touches' %}
+                          <span class="text-sm">
+                            The final touches are being made to your strategy,
+                            you're now days away from being able to increase organic visibility!
+                          </span>
+                        {% elif object.status == 'Review' %}
+                          <span class="text-sm">
+
+                          </span>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="card">
+                <!-- Title -->
+                <div class="card-header">
+                  <h6>Team</h6>
+                </div>
+                <div class="list-group list-group-flush">
+                  {% for person in object.members.all %}
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex align-items-center" data-toggle="tooltip" data-placement="right" data-title="time">
+                        <div class="flex-fill ml-3">
+                          <div class="h6 text-sm mb-0">{{ person.first_name }} {{ person.last_name }}
+                            <small class="float-right text-muted"> {{ person.email }}</small>
+                          </div>
+                          <p class="text-sm lh-140 mb-0">
+                            {{ message.text }}
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  {% endfor %}
+                </div>
+                <!-- Card footer -->
+                <div class="card-footer py-3 text-center border-0 position-relative">
+                  <a href="#" class="text-xs ls-1 text-uppercase font-weight-bold stretched-link">See all</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="h6">SEO Strategy</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body py-3">
+                  <div class="d-flex align-items-center">
+                    {% if demo %}
+                    {% endif %}
+                    <div class="pl-3">
+                      <h6 class="text-warning mb-0">In progress...</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Messages and Alerts -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="card">
+                <!-- Title -->
+                <div class="card-header">
+                  <h6>Messages</h6>
+                </div>
+                <!-- List group -->
+                <div class="list-group list-group-flush">
+                  {% for message in comments %}
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex align-items-center" data-toggle="tooltip" data-placement="right" data-title="time">
+                        <div class="flex-fill ml-3">
+                          <div class="h6 text-sm mb-0">From: {{ message.author }}
+                            <small class="float-right text-muted">At: {{ message.posted_at }}</small>
+                          </div>
+                          <p class="text-sm lh-140 mb-0">
+                            {{ message.text }}
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  {% endfor %}
+                </div>
+                <!-- Card footer -->
+                <div class="card-footer py-3 text-center border-0 position-relative">
+                  <a href="#" class="text-xs ls-1 text-uppercase font-weight-bold stretched-link">See all</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <!-- Card header -->
+                <div class="card-header">
+                  <h6>Important Links</h6>
+                </div>
+                <!-- List group -->
+                <div class="list-group list-group-flush">
+                  <a href="{% url 'projects:tasks' slug %}" class="list-group-item list-group-item-action border-0 py-2">
+                    <div class="d-flex">
+                      <div>
+                        <i data-feather="check-square" class="mr-3"></i>
+                      </div>
+                      <div>
+                        <div class="text-sm lh-150">
+                          View / Manage <span class="text-dark font-weight-bold">SEO Tasks</span>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="{% url 'projects:strategy' slug %}" class="list-group-item list-group-item-action border-0 py-2">
+                    <div class="d-flex">
+                      <div>
+                        <i data-feather="file-text" class="mr-3"></i>
+                      </div>
+                      <div>
+                        <div class="text-sm lh-150">
+                          View / Download <span class="text-dark font-weight-bold">SEO Strategy</span>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="{% url 'projects:team' slug %}" class="list-group-item list-group-item-action border-0 py-2">
+                    <div class="d-flex">
+                      <div>
+                        <i data-feather="users" class="mr-3"></i>
+                      </div>
+                      <div>
+                        <div class="text-sm lh-150">
+                          View / Update <span class="text-dark font-weight-bold">Team</span>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="{% if demo %}#{% else %}{% url 'accounts:user_update' user.pk %}{% endif %}" class="list-group-item list-group-item-action border-0 py-2">
+                    <div class="d-flex">
+                      <div>
+                        <i data-feather="user" class="mr-3"></i>
+                      </div>
+                      <div>
+                        <div class="text-sm lh-150">
+                          Update Profile for <span class="text-dark font-weight-bold">{{ user.first_name }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action border-0 py-2">
+                    <div class="d-flex">
+                      <div>
+                        <i data-feather="message-square" class="mr-3"></i>
+                      </div>
+                      <div>
+                        <div class="text-sm lh-150">
+                          Contact Us with any <span class="text-dark font-weight-bold">Questions</span>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Card footer -->
+                <div class="card-footer py-3 text-center mt-3 position-relative">
+                  <a href="#" class="text-xs ls-1 text-uppercase font-weight-bold stretched-link">See all</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
-{% endblock customer_content %}
+      </div>
+    </div>
+  </section>
+{% endblock content %}

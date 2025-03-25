@@ -1,26 +1,30 @@
-{% extends "projects/projects_nav.html" %}
+{% extends "core/base.html" %}
 {% load static crispy_forms_tags %}
 
-{% block customer_content %}
-<div class="slice slice-sm bg-section-secondary">
+{% block subnav %}
+  {% include 'projects/includes/subnav.html' %}
+{% endblock subnav %}
+
+{% block content %}
+  <div class="slice slice-sm bg-section-secondary">
     <div class="container">
-        <center>
-            {% if object.strategy_pdf %}
-            <h1>SEO Strategy - {{ object.project_name }}</h1>
-            <embed src="{{ object.strategy_pdf.url }}" width="800" height="500" type="application/pdf">
-            {% else %}
-            <h1>Your SEO Strategy will be Available Here, Once Complete</h1>
-            <embed src="{% static 'pdf/Thank-You.pdf' %}" width="800" height="500" type="application/pdf">
-            {% endif %}
-            <br />
-            <hr />
-            <button type="button" class="btn btn-animated btn-primary btn-animated-x">
-                <span class="btn-inner--visible">Download</span>
-                <span class="btn-inner--hidden">
-                    <i data-feather="arrow-right"></i>
-                </span>
-            </button>
-        </center>
+      <div class="text-center">
+        {% if object.strategy_pdf %}
+          <h1>SEO Strategy - {{ object.project_name }}</h1>
+          <embed src="{{ object.strategy_pdf.url }}" width="800" height="500" type="application/pdf">
+        {% else %}
+          <h1>Your SEO Strategy will be Available Here, Once Complete</h1>
+          <embed src="{% static 'pdf/Thank-You.pdf' %}" width="800" height="500" type="application/pdf">
+        {% endif %}
+        <br />
+        <hr />
+        <button type="button" class="btn btn-animated btn-primary btn-animated-x">
+          <span class="btn-inner--visible">Download</span>
+          <span class="btn-inner--hidden">
+            <i data-feather="arrow-right"></i>
+          </span>
+        </button>
+      </div>
     </div>
-</div>
-{% endblock customer_content %}
+  </div>
+{% endblock content %}

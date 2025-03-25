@@ -1,120 +1,124 @@
-{% extends "projects/projects_nav.html" %}
+{% extends "core/base.html" %}
 {% load static %}
 
-{% block customer_content %}
-<section class="slice py-5 bg-section-secondary">
+{% block subnav %}
+  {% include 'projects/includes/subnav.html' %}
+{% endblock subnav %}
+
+{% block content %}
+  <section class="slice py-5 bg-section-secondary">
     <div class="container">
-        <div class="card">
-            <h5 class="card-header">Priority: {{ object.priority }}</h5>
-            <div class="card-body">
-                <h5 class="card-title">{{ object.task_title }}</h5>
-                <hr />
-                <div class="kanban-task">
-                    <!-- Goal -->
-                    <p class="text-sm text-muted mb-3">
-                        <b>Goal:</b> {{ object.task_goal }}
-                    </p>
-                    <!-- Text -->
-                    <p class="text-sm text-muted mb-3">
-                        <b>Description:</b> {{ object.task_description }}
-                    </p>
-                    <span class="surtitle d-block ls-1 mb-n2">Progress</span>
-                    <!-- Progress -->
-                    <div class="d-flex align-items-center">
-                        <div class="w-80">
-                            <div class="progress progress-sm shadow-none">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: {{ object.progress }}%" aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="col px-0 text-right">
-                            <a href="#" class="h6 text-sm text-primary">{{ object.progress }}%</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <span class="surtitle d-block ls-1 mb-n2">
-                                Assigned to:
-                            </span>
-                        </div>
-                        <div class="col">
-                            <span class="surtitle d-block ls-1 mb-n2">
-                                Priority:
-                            </span>
-                        </div>
-                        <div class="w-100"></div>
-                        <div class="col">
-                            <div class="mt-1">
-                                <span class="d-block ls-1">
-                                    {{ object.assigned_to.first_name }} {{ object.assigned_to.last_name }}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="mt-1">
-                                <span class="d-block ls-1">
-                                    {{ task.priority }}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+      <div class="card">
+        <h5 class="card-header">Priority: {{ object.priority }}</h5>
+        <div class="card-body">
+          <h5 class="card-title">{{ object.task_title }}</h5>
+          <hr />
+          <div class="kanban-task">
+            <!-- Goal -->
+            <p class="text-sm text-muted mb-3">
+              <b>Goal:</b> {{ object.task_goal }}
+            </p>
+            <!-- Text -->
+            <p class="text-sm text-muted mb-3">
+              <b>Description:</b> {{ object.task_description }}
+            </p>
+            <span class="surtitle d-block ls-1 mb-n2">Progress</span>
+            <!-- Progress -->
+            <div class="d-flex align-items-center">
+              <div class="w-80">
+                <div class="progress progress-sm shadow-none">
+                  <div class="progress-bar bg-primary" role="progressbar" style="width: {{ object.progress }}%" aria-valuenow="{{ object.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <hr />
-                <!-- Buttons -->
-                <div class="row">
-                    <div class="col">
-                        <a href="{% url 'projects:task_update' slug object.pk %}" class="btn btn-primary">Update Task</a>
-                    </div>
-                    <div class="col px-0 text-right">
-                        <a href="#" class="btn btn-primary">Request Feedback</a>
-                    </div>
-                </div>
+              </div>
+              <div class="col px-0 text-right">
+                <a href="#" class="h6 text-sm text-primary">{{ object.progress }}%</a>
+              </div>
             </div>
+            <div class="row">
+              <div class="col">
+                <span class="surtitle d-block ls-1 mb-n2">
+                  Assigned to:
+                </span>
+              </div>
+              <div class="col">
+                <span class="surtitle d-block ls-1 mb-n2">
+                  Priority:
+                </span>
+              </div>
+              <div class="w-100"></div>
+              <div class="col">
+                <div class="mt-1">
+                  <span class="d-block ls-1">
+                    {{ object.assigned_to.first_name }} {{ object.assigned_to.last_name }}
+                  </span>
+                </div>
+              </div>
+              <div class="col">
+                <div class="mt-1">
+                  <span class="d-block ls-1">
+                    {{ task.priority }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <!-- Buttons -->
+          <div class="row">
+            <div class="col">
+              <a href="{% url 'projects:task_update' slug object.pk %}" class="btn btn-primary">Update Task</a>
+            </div>
+            <div class="col px-0 text-right">
+              <a href="#" class="btn btn-primary">Request Feedback</a>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
     <div class="container">
-        <div class="card">
-            <h5 class="card-header">Messages: </h5>
-            <div class="card-body">
+      <div class="card">
+        <h5 class="card-header">Messages: </h5>
+        <div class="card-body">
+          <hr />
+          {% for comment in comments %}
+            <div class="media media-comment">
+              <div class="media-body">
+                <div class="media-comment-bubble left-top">
+                  <h6 class="mt-0">{{ comment.author }}</h6>
+                  <p class="text-sm lh-160">{{ comment.text }}</p>
+                  <div class="icon-actions">
+                    <span class="text-muted">posted on {{ comment.posted_at }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
             <hr />
-                {% for comment in comments %}
-                <div class="media media-comment">
-                    <div class="media-body">
-                        <div class="media-comment-bubble left-top">
-                            <h6 class="mt-0">{{ comment.author }}</h6>
-                            <p class="text-sm lh-160">{{ comment.text }}</p>
-                            <div class="icon-actions">
-                                <span class="text-muted">posted on {{ comment.posted_at }}</span>
-                            </div>
-                        </div>
-                    </div>
+          {% endfor %}
+          <div class="media media-comment align-items-center">
+            <div class="media-body">
+              <form class="rounded-lg border" method="post" action="{% url 'projects:task_detail' slug object.slug %}">
+                {% csrf_token %}
+                <div class="input-group input-group-lg input-group-merge">
+                  <!-- Prepend -->
+                  <div class="input-group-prepend">
+                    <span class="input-group-text border-0 pr-2">
+                      <i data-feather="edit-2"></i>
+                    </span>
+                  </div>
+                  <!-- Input -->
+                  <input type="text" name="text" class="form-control border-0 px-1" aria-label="Find something" placeholder="Leave a comment...">
+                  <!-- Append -->
+                  <div class="input-group-append">
+                    <span class="input-group-text border-0 py-0 pl-2 pr-2">
+                      <button type="submit" class="btn btn-sm btn-primary">Post</button>
+                    </span>
+                  </div>
                 </div>
-                <hr />
-                {% endfor %}
-                <div class="media media-comment align-items-center">
-                    <div class="media-body">
-                        <form class="rounded-lg border" method="post" action="{% url 'projects:task_detail' slug object.slug %}">
-                            {% csrf_token %}
-                            <div class="input-group input-group-lg input-group-merge">
-                                <!-- Prepend -->
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text border-0 pr-2">
-                                        <i data-feather="edit-2"></i>
-                                    </span>
-                                </div>
-                                <!-- Input -->
-                                <input type="text" name="text" class="form-control border-0 px-1" aria-label="Find something" placeholder="Leave a comment...">
-                                <!-- Append -->
-                                <div class="input-group-append">
-                                    <span class="input-group-text border-0 py-0 pl-2 pr-2">
-                                        <button type="submit" class="btn btn-sm btn-primary">Post</button>
-                                    </span>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+              </form>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</section>
-{% endblock customer_content %}
+  </section>
+{% endblock content %}
