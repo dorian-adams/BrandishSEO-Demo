@@ -1,42 +1,39 @@
 {% extends "core/base.html" %}
 {% load wagtailcore_tags %}
+
 {% block head %}
-<!-- Meta title -->
-<title>{{ page.seo_title }}</title>
-<!-- Meta description -->
-<meta name="description" content="{{ page.search_description }}" />
+  <title>{{ page.seo_title }}</title>
+  <meta name="description" content="{{ page.search_description }}" />
 {% endblock head %}
 
 {% block content %}
-    {% include "blog/blog_nav.html" %}
-    <section class="slice pt-5 pb-7 bg-section-primary">
-        <div class="container">
-        {% include "blog/intro.html" %}
-            <!-- Category -->
-            {% for element in posts_per_category %}
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h2 class="mt-4">{{ element.category.specific.title }}</h2>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <!-- Posts per Category -->
-                    {% for post in element.posts %}
-                        {% include "blog/article_list.html" %}
-                    {% endfor %}
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-6">
-                        <!-- Category URL -->
-                        <a href="{% pageurl element.category %}">
-                            <span class="lh-180">>>View more articles on {{ element.category.title }}</span>
-                        </a>
-                    </div>
-                    <hr class="divider divider-fade divider-light my-5">
-                </div>
-            {% endfor %}
+  {% include "blog/includes/blog_nav.html" %}
+  <section class="slice pt-5 pb-7 bg-section-primary">
+    <div class="container">
+      {% include "blog/includes/intro.html" %}
+      <!-- Category -->
+      {% for element in posts_per_category %}
+        <div class="row">
+          <div class="col-lg-6">
+            <h2 class="mt-4">{{ element.category.specific.title }}</h2>
+          </div>
         </div>
-    </section>
+        <div class="row">
+          <!-- Posts per Category -->
+          {% for post in element.posts %}
+            {% include "blog/includes/article_list.html" %}
+          {% endfor %}
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <!-- Category URL -->
+            <a href="{% pageurl element.category %}">
+              <span class="lh-180">>>View more articles on {{ element.category.title }}</span>
+            </a>
+          </div>
+          <hr class="divider divider-fade divider-light my-5">
+        </div>
+      {% endfor %}
+    </div>
+  </section>
 {% endblock content %}

@@ -2,258 +2,251 @@
 {% load wagtailcore_tags wagtailroutablepage_tags wagtailimages_tags %}
 
 {% block head %}
-{% image page.featured_image max-1600x840 as featured_image %}
-<!-- Meta title -->
-<title>{{ page.seo_title }}</title>
-<!-- Meta description -->
-<meta name="description" content="{{ page.search_description }}" />
-<!-- Meta socials -->
-<meta property="og:locale" content="en_US" />
-<meta property="og:type" content="article" />
-<meta property="og:title" content="{{ page.title }}" />
-<meta property="og:description" content="{{ page.snippet }}" />
-<meta property="og:url" content="{{ page.full_url }}" />
-<meta property="og:site_name" content="BrandishSEO" />
-<meta property="article:publisher" content="http://www.facebook.com/BrandishSEO" />
-<meta property="article:published_time" content="{{ page.date }}" />
-<meta property="og:image" content="{{ featured_image.url }}" />
-<meta property="og:image:width" content="1600" />
-<meta property="og:image:height" content="840" />
-<meta property="og:image:type" content="image/jpg" />
-<meta name="author" content="{{ page.author.first_name }} {{ page.author.last_name }}" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:creator" content="{{ page.author.authorprofile.twitter_handle }}" />
-<meta name="twitter:site" content="@BrandishSEO" />
-<meta name="twitter:label1" content="Written by" />
-<meta name="twitter:data1" content="{{ page.author.first_name }} {{ page.author.last_name }}" />
+  {% image page.featured_image max-1600x840 as featured_image %}
+  <title>{{ page.seo_title }}</title>
+  <meta name="description" content="{{ page.search_description }}" />
+  <!-- Meta socials -->
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="{{ page.title }}" />
+  <meta property="og:description" content="{{ page.snippet }}" />
+  <meta property="og:url" content="{{ page.full_url }}" />
+  <meta property="og:site_name" content="BrandishSEO" />
+  <meta property="article:publisher" content="http://www.facebook.com/BrandishSEO" />
+  <meta property="article:published_time" content="{{ page.date }}" />
+  <meta property="og:image" content="{{ featured_image.url }}" />
+  <meta property="og:image:width" content="1600" />
+  <meta property="og:image:height" content="840" />
+  <meta property="og:image:type" content="image/jpg" />
+  <meta name="author" content="{{ page.author.first_name }} {{ page.author.last_name }}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:creator" content="{{ page.author.authorprofile.twitter_handle }}" />
+  <meta name="twitter:site" content="@BrandishSEO" />
+  <meta name="twitter:label1" content="Written by" />
+  <meta name="twitter:data1" content="{{ page.author.first_name }} {{ page.author.last_name }}" />
 {% endblock head %}
 
 {% block content %}
-    <!-- BlogPage Article -->
-    <section class="slice slice-lg pt-17 pb-0 bg-cover bg-size--cover" style="background-image: url({{ page.featured_image.file.url }})">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-9 col-lg-10">
-                    <div class="card mb-n7 position-relative zindex-100">
-                        <div class="card-body p-md-5">
-                            <div class=" text-center">
-                                <!-- Category Badge -->
-                                <a href="{{ page.get_parent.url }}" class="badge badge-warning badge-pill">{{ page.get_parent.title }}</a>
-                                <!-- Heading / Title -->
-                                <h1 class="h2 lh-150 mt-3 mb-0">{{ page.title }}</h1>
-                            </div>
-                            <!-- Share -->
-                            <div class="row align-items-center mt-5 pt-5 delimiter-top">
-                                <div class="col mb-3 mb-lg-0">
-                                    <div class="media align-items-center">
-                                        <div>
-                                            <img alt="author's image" src="{{ page.author.authorprofile.profile_image.url }}" width="100" class="mr-3">
-                                        </div>
-                                        <div class="media-body">
-                                            <!-- Post Info -->
-                                            <span class="d-block h6 mb-0">
-                                                {{ page.author.first_name }} {{ page.author.last_name }}
-                                            </span>
-                                            <span class="text-sm text-muted">Published: {{ page.date }}</span>
-                                            <br />
-                                            <span class="text-sm text-muted">Last updated: {{ page.latest_revision_created_at }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Tags -->
-                                <div class="col-auto">
-                                    <span class="text-sm text-muted">Tags:</span>
-                                    <ul class="list-inline mb-0">
-                                        {% for tag in page.get_tags %}
-                                            <li class="list-inline-item pr-1">
-                                                <a href="{{ tag.url }}" class="text-muted">
-                                                    <span class="badge badge-{% cycle 'primary' 'secondary' 'success' 'info' %}">
-                                                        {{ tag.name }}
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+  <section class="slice slice-lg pt-17 pb-0 bg-cover bg-size--cover" style="background-image: url({{ page.featured_image.file.url }})">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-9 col-lg-10">
+          <div class="card mb-n7 position-relative zindex-100">
+            <div class="card-body p-md-5">
+              <div class="text-center">
+                <!-- Category Badge -->
+                <a href="{{ page.get_parent.url }}" class="badge badge-warning badge-pill">{{ page.get_parent.title }}</a>
+                <!-- Heading / Title -->
+                <h1 class="h2 lh-150 mt-3 mb-0">{{ page.title }}</h1>
+              </div>
+              <!-- Share -->
+              <div class="row align-items-center mt-5 pt-5 delimiter-top">
+                <div class="col mb-3 mb-lg-0">
+                  <div class="media align-items-center">
+                    <div>
+                      <img alt="author's image" src="{{ page.author.authorprofile.profile_image.url }}" width="100" class="mr-3">
                     </div>
+                    <div class="media-body">
+                      <!-- Post Info -->
+                      <span class="d-block h6 mb-0">
+                        {{ page.author.first_name }} {{ page.author.last_name }}
+                      </span>
+                      <span class="text-sm text-muted">Published: {{ page.date }}</span>
+                      <br />
+                      <span class="text-sm text-muted">Last updated: {{ page.latest_revision_created_at }}</span>
+                    </div>
+                  </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Article body -->
-    <section class="slice slice-lg pt-10 pb-5">
-        <div class="container pb-6">
-            <div class="row row-grid align-items-center">
-                <div class="col-xl-8 col-lg-10 offset-xl-2 offset-lg-1">
-                    <article>
-                        <!-- Text / Article -->
-                        {{ page.body|richtext }}
-                    </article>
-                    <!-- Article Footer -->
-                    <div class="row align-items-center mt-7 py-4 border-top">
-                        <div class="col mb-3 mb-lg-0">
-                            <div class="media align-items-center">
-                                <div>
-                                    <span class="avatar avatar-sm bg-primary rounded-circle">
-                                        {{ page.author.initials }}
-                                    </span>
-                                    &nbsp; &nbsp;
-                                </div>
-                                <div class="media-body">
-                                    <span class="d-block h6 mb-0">
-                                        {{ page.author.first_name }} {{ page.author.last_name }}
-                                    </span>
-                                    <span class="text-sm text-muted">Published on {{ page.date }}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <ul class="list-inline mb-0">
-                                <li class="list-inline-item">
-                                    <i data-feather="twitter" class="mr-1"></i>
-                                    <a href="https://twitter.com/{{ page.author.authorprofile.twitter_handle }}">
-                                        {{ page.author.authorprofile.twitter_handle }}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Author Bio -->
-                    <div class="row align-items-center py-4 border-bottom">
-                        <div class="col mb-3 mb-lg-0">
-                            <div class="media align-items-center">
-                                <div class="media-body">
-                                    <span class="d-block h6 mb-0">
-                                        Author Bio:
-                                    </span>
-                                    <span class="text-sm text-muted">
-                                        {{ page.author.authorprofile.bio }}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Share -->
-                    <div class="row justify-content-center">
-                        <div class="mt-5">
-                            <a href="{{ page.get_facebook_share_url }}">
-                                <button type="button" class="btn btn-facebook btn-icon-label">
-                                    <span class="btn-inner--icon">
-                                        <i class="fab fa-facebook"></i>
-                                    </span>
-                                    <span class="btn-inner--text">Facebook</span>
-                                </button>
-                            </a>
-                            <a href="{{ page.get_twitter_share_url }}">
-                                <button type="button" class="btn btn-twitter btn-icon-label">
-                                    <span class="btn-inner--icon">
-                                        <i class="fab fa-twitter"></i>
-                                    </span>
-                                    <span class="btn-inner--text">Twitter</span>
-                                </button>
-                            </a>
-                            <a href="{{ page.get_linkedin_share_url }}">
-                                <button type="button" class="btn btn-facebook btn-icon-label">
-                                    <span class="btn-inner--icon">
-                                        <i class="fab fa-linkedin"></i>
-                                    </span>
-                                    <span class="btn-inner--text">LinkedIn</span>
-                                </button>
-                            </a>
-                            <a href="{{ page.get_email_share_url }}">
-                                <button type="button" class="btn btn-primary btn-icon-label">
-                                    <span class="btn-inner--icon">
-                                        <i class="fa fa-envelope"></i>
-                                    </span>
-                                    <span class="btn-inner--text">E-Mail</span>
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Comments Section -->
-                    <div class="mt-5">
-                        <h6 class="mb-4">Comments</h6>
-                        <!-- Comment entry -->
-                        {% if user.is_authenticated %}
-                            <div class="media media-comment align-items-center">
-                                <span class="avatar avatar-sm bg-primary rounded-circle">
-                                    {{ user.initials }}
-                                </span>
-                                &nbsp; &nbsp;
-                                <div class="media-body">
-                                    <form class="rounded-lg border" method="post" action="#">
-                                        {% csrf_token %}
-                                        <div class="input-group input-group-lg input-group-merge">
-                                            <!-- Prepend -->
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text border-0 pr-2">
-                                                    <i data-feather="edit-2"></i>
-                                                </span>
-                                            </div>
-                                            <!-- Comment Form -->
-                                            {{ form }}
-                                            <div class="input-group-append">
-                                                <span class="input-group-text border-0 py-0 pl-2 pr-2">
-                                                    <button type="submit" class="btn btn-sm btn-primary">Post</button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <br />
-                        {% else %}
-                            <div class="media-body" style="margin-bottom: 50px;">
-                                <span class="text-muted">
-                                    <a href="{% url 'accounts:login' %}">Login</a> or <a href="{% url 'accounts:register' %}">Register</a> to leave a comment.
-                                </span>
-                            </div>
-                        {% endif %}
-                        <!-- Success message if user submitted a comment -->
-                        {% if messages %}
-                            {% for message in messages %}
-                                <div class="row justify-content-center">
-                                    <div class="col mb-3 mb-lg-0">
-                                        <div class="alert alert-success" role="alert">
-                                            <strong>Success!</strong> {{ message }}
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-
-                        <!-- Display Comments -->
-                        {% if page.page_comments %}
-                            {% for comment in page.page_comments.all %}
-                                {% if comment.is_approved %}
-                                    <div class="media media-comment">
-                                        <span class="avatar avatar-sm bg-primary rounded-circle mr-3">
-                                            {{ comment.user.initials }}
-                                        </span>
-                                        <!-- Commend Body -->
-                                        <div class="media-body">
-                                            <div class="media-comment-bubble left-top">
-                                                <h6 class="mt-0">{{ comment.user.first_name }}</h6>
-                                                <p class="lh-160">{{ comment.text }}</p>
-                                                <div class="icon-actions">
-                                                    <span class="text-muted text-sm">posted on
-                                                        {{ comment.created_at }}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
-                    </div>
+                <!-- Tags -->
+                <div class="col-auto">
+                  <span class="text-sm text-muted">Tags:</span>
+                  <ul class="list-inline mb-0">
+                    {% for tag in page.get_tags %}
+                      <li class="list-inline-item pr-1">
+                        <a href="{{ tag.url }}" class="text-muted">
+                          <span class="badge badge-{% cycle 'primary' 'secondary' 'success' 'info' %}">
+                            {{ tag.name }}
+                          </span>
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
+  <!-- Article body -->
+  <section class="slice slice-lg pt-10 pb-5">
+    <div class="container pb-6">
+      <div class="row row-grid align-items-center">
+        <div class="col-xl-8 col-lg-10 offset-xl-2 offset-lg-1">
+          <article>
+              <!-- Text / Article -->
+              {{ page.body|richtext }}
+          </article>
+          <!-- Article Footer -->
+          <div class="row align-items-center mt-7 py-4 border-top">
+            <div class="col mb-3 mb-lg-0">
+              <div class="media align-items-center">
+                <div>
+                  <span class="avatar avatar-sm bg-primary rounded-circle">
+                    {{ page.author.initials }}
+                  </span>
+                  &nbsp; &nbsp;
+                </div>
+                <div class="media-body">
+                  <span class="d-block h6 mb-0">
+                    {{ page.author.first_name }} {{ page.author.last_name }}
+                  </span>
+                  <span class="text-sm text-muted">Published on {{ page.date }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-auto">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                    <i data-feather="twitter" class="mr-1"></i>
+                    <a href="https://twitter.com/{{ page.author.authorprofile.twitter_handle }}">
+                        {{ page.author.authorprofile.twitter_handle }}
+                    </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- Author Bio -->
+          <div class="row align-items-center py-4 border-bottom">
+            <div class="col mb-3 mb-lg-0">
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <span class="d-block h6 mb-0">
+                    Author Bio:
+                  </span>
+                  <span class="text-sm text-muted">
+                    {{ page.author.authorprofile.bio }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Share -->
+          <div class="row justify-content-center">
+            <div class="mt-5">
+              <a href="{{ page.get_facebook_share_url }}">
+                <button type="button" class="btn btn-facebook btn-icon-label">
+                  <span class="btn-inner--icon">
+                    <i class="fab fa-facebook"></i>
+                  </span>
+                  <span class="btn-inner--text">Facebook</span>
+                </button>
+              </a>
+              <a href="{{ page.get_twitter_share_url }}">
+                <button type="button" class="btn btn-twitter btn-icon-label">
+                  <span class="btn-inner--icon">
+                    <i class="fab fa-twitter"></i>
+                  </span>
+                  <span class="btn-inner--text">Twitter</span>
+                </button>
+              </a>
+              <a href="{{ page.get_linkedin_share_url }}">
+                <button type="button" class="btn btn-facebook btn-icon-label">
+                  <span class="btn-inner--icon">
+                    <i class="fab fa-linkedin"></i>
+                  </span>
+                  <span class="btn-inner--text">LinkedIn</span>
+                </button>
+              </a>
+              <a href="{{ page.get_email_share_url }}">
+                <button type="button" class="btn btn-primary btn-icon-label">
+                  <span class="btn-inner--icon">
+                    <i class="fa fa-envelope"></i>
+                  </span>
+                  <span class="btn-inner--text">E-Mail</span>
+                </button>
+              </a>
+            </div>
+          </div>
+          <!-- Comments Section -->
+          <div class="mt-5">
+            <h6 class="mb-4">Comments</h6>
+            <!-- Comment entry -->
+            {% if user.is_authenticated %}
+              <div class="media media-comment align-items-center">
+                <span class="avatar avatar-sm bg-primary rounded-circle">
+                  {{ user.initials }}
+                </span>
+                &nbsp; &nbsp;
+                <div class="media-body">
+                  <form class="rounded-lg border" method="post" action="#">
+                    {% csrf_token %}
+                    <div class="input-group input-group-lg input-group-merge">
+                      <!-- Prepend -->
+                      <div class="input-group-prepend">
+                        <span class="input-group-text border-0 pr-2">
+                          <i data-feather="edit-2"></i>
+                        </span>
+                      </div>
+                      <!-- Comment Form -->
+                      {{ form }}
+                      <div class="input-group-append">
+                        <span class="input-group-text border-0 py-0 pl-2 pr-2">
+                          <button type="submit" class="btn btn-sm btn-primary">Post</button>
+                        </span>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <br />
+            {% else %}
+              <div class="media-body" style="margin-bottom: 50px;">
+                <span class="text-muted">
+                    <a href="{% url 'accounts:login' %}">Login</a> or <a href="{% url 'accounts:register' %}">Register</a> to leave a comment.
+                </span>
+              </div>
+            {% endif %}
+            <!-- Success message if user submitted a comment -->
+            {% if messages %}
+              {% for message in messages %}
+                <div class="row justify-content-center">
+                  <div class="col mb-3 mb-lg-0">
+                    <div class="alert alert-success" role="alert">
+                      <strong>Success!</strong> {{ message }}
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            {% endif %}
+             <!-- Display Comments -->
+            {% if page.page_comments %}
+              {% for comment in page.page_comments.all %}
+                {% if comment.is_approved %}
+                  <div class="media media-comment">
+                    <span class="avatar avatar-sm bg-primary rounded-circle mr-3">
+                      {{ comment.user.initials }}
+                    </span>
+                    <!-- Commend Body -->
+                    <div class="media-body">
+                      <div class="media-comment-bubble left-top">
+                        <h6 class="mt-0">{{ comment.user.first_name }}</h6>
+                        <p class="lh-160">{{ comment.text }}</p>
+                        <div class="icon-actions">
+                          <span class="text-muted text-sm">posted on
+                            {{ comment.created_at }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock content %}

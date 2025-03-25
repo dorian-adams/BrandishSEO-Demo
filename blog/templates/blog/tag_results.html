@@ -1,51 +1,47 @@
 {% extends "core/base.html" %}
 {% load wagtailcore_tags %}
+
 {% block head %}
-<!-- Meta title -->
-<title>All Posts Tagged: {{ filter }}</title>
-<!-- Meta description -->
-<meta name="description" content="Displaying all blog articles with the following tag, {{ filter }}" />
+  <title>All Posts Tagged: {{ filter }}</title>
+  <meta name="description" content="Displaying all blog articles with the following tag, {{ filter }}" />
 {% endblock head %}
 
 {% block content %}
-    {% include "blog/blog_nav.html" %}
-    <section class="slice pt-5 pb-7 bg-section-primary">
-        <div class="container">
-            {% include "blog/intro.html" %}
-            <div class="row">
-                <div class="col-lg-6">
-                    <h2 class="mt-4">Tag Results for '{{ tag }}':</h2>
-                </div>
-            </div>
-
-            <!-- If posts exist under tag -->
-            {% if posts %}
-                <div class="row">
-                    {% for post in posts %}
-                        {% if post.live %}
-                            {% include "blog/article_list.html" %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <!-- Pagination -->
-                {% include "blog/pagination.html" %}
-
-            <!-- If tag, but no results -->
-            {% elif tag %}
-                <div class="row">
-                    <div class="col-lg-6">
-                        <p class="lead lh-190 my-4 mt-4">No results found for '{{ tag }}'.</p>
-                    </div>
-                </div>
-
-            <!-- Else, tag or URL error -->
-            {% else %}
-                <div class="row">
-                    <div class="col-lg-6">
-                        <p class="lead lh-190 my-4 mt-4">An error occurred, please try again.</p>
-                    </div>
-                </div>
-            {% endif %}
+  {% include "blog/includes/blog_nav.html" %}
+  <section class="slice pt-5 pb-7 bg-section-primary">
+    <div class="container">
+      {% include "blog/includes/intro.html" %}
+      <div class="row">
+        <div class="col-lg-6">
+          <h2 class="mt-4">Tag Results for '{{ tag }}':</h2>
         </div>
-    </section>
+      </div>
+      <!-- If posts exist under tag -->
+      {% if posts %}
+        <div class="row">
+          {% for post in posts %}
+            {% if post.live %}
+              {% include "blog/includes/article_list.html" %}
+            {% endif %}
+          {% endfor %}
+        </div>
+        <!-- Pagination -->
+        {% include "blog/includes/pagination.html" %}
+      <!-- If tag, but no results -->
+      {% elif tag %}
+        <div class="row">
+          <div class="col-lg-6">
+            <p class="lead lh-190 my-4 mt-4">No results found for '{{ tag }}'.</p>
+          </div>
+        </div>
+      <!-- Else, tag or URL error -->
+      {% else %}
+        <div class="row">
+          <div class="col-lg-6">
+            <p class="lead lh-190 my-4 mt-4">An error occurred, please try again.</p>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </section>
 {% endblock content %}
