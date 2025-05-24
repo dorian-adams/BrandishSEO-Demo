@@ -1,14 +1,17 @@
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.validators import (
+    FileExtensionValidator,
     MaxValueValidator,
     MinLengthValidator,
     MinValueValidator,
 )
-from django.db import models
+from django.db import models, transaction
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 
 from checkout.models import Service
+from projects.utils.file_parsers import extract_tasks_docx
 
 STRATEGY_STATUS_CHOICES = (
     ("Researching", "Researching"),
@@ -55,22 +58,70 @@ class Project(models.Model):
         default="Payment Pending",
     )
     strategy_doc = models.FileField(
-        upload_to=directory_path, null=True, blank=True
+        upload_to=directory_path,
+        null=True,
+        blank=True,
+        validators=[FileExtensionValidator(allowed_extensions=["docx"])],
     )
     strategy_pdf = models.FileField(
-        upload_to=directory_path, null=True, blank=True
+        upload_to=directory_path,
+        null=True,
+        blank=True,
+        validators=[FileExtensionValidator(allowed_extensions=["pdf"])],
     )
 
     def get_absolute_url(self):
         return reverse("projects:project", args=[self.slug])
 
+    @transaction.atomic
+    def create_tasks(self):
+        """
+        Creates Task instances from extracted task data stored in self._tasks.
+
+        Ensures all tasks are created atomically. Deletes self._tasks after creation.
+        """
+        for data in self._tasks:
+            Task.objects.create(
+                project=self,
+                task_title=data["title"],
+                task_description=data["description"],
+                priority=data["priority"],
+            )
+        del self._tasks
+
+    def clean(self):
+        """
+        Validates that a strategy document is only uploaded after the project exists,
+        and parses the document for validation and task creation if none exist yet.
+        """
+        super().clean()
+
+        if self.pk is None and self.strategy_doc:
+            raise ValidationError(
+                {
+                    "strategy_doc": "You must create the project before uploading a strategy document."
+                }
+            )
+
+        if self.strategy_doc and not self.tasks.exists():
+            try:
+                self._tasks = extract_tasks_docx(self.strategy_doc)
+            except ValidationError as e:
+                raise ValidationError({"strategy_doc": e})
+
     def save(self, *args, **kwargs):
         """
-        Slugify project name and save for url
+        Generates slug from project name if not set, then saves the instance.
+
+        If task data exists (via ``self._tasks``), triggers task creation after saving.
         """
-        if self.slug == "":
+        if not self.slug:
             self.slug = slugify(self.project_name)
-        super(Project, self).save(*args, **kwargs)
+
+        super().save(*args, **kwargs)
+
+        if getattr(self, "_tasks", None):
+            self.create_tasks()
 
     def __str__(self):
         return self.website
@@ -82,7 +133,7 @@ class Task(models.Model):
     )
     task_title = models.CharField(max_length=100)
     task_description = models.TextField()
-    task_goal = models.CharField(max_length=100)
+    task_goal = models.CharField(max_length=100, blank=True)
     progress = models.IntegerField(
         default=0, validators=[MaxValueValidator(100), MinValueValidator(0)]
     )
@@ -91,7 +142,10 @@ class Task(models.Model):
         choices=TASK_STATUS_CHOICES, max_length=15, default="To-do"
     )
     assigned_to = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
     )
     created_at = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField()
