@@ -11,7 +11,7 @@ from django.template.defaultfilters import slugify
 from django.urls import reverse
 
 from checkout.models import Service
-from projects.utils.file_parsers import extract_tasks_docx
+from projects.utils.file_parsers import extract_tasks_docx, extract_tasks_xlsx
 
 STRATEGY_STATUS_CHOICES = (
     ("Researching", "Researching"),
@@ -63,6 +63,12 @@ class Project(models.Model):
         blank=True,
         validators=[FileExtensionValidator(allowed_extensions=["docx"])],
     )
+    strategy_xlsx = models.FileField(
+        upload_to=directory_path,
+        null=True,
+        blank=True,
+        validators=[FileExtensionValidator(allowed_extensions=["xlsx"])],
+    )
     strategy_pdf = models.FileField(
         upload_to=directory_path,
         null=True,
@@ -78,7 +84,8 @@ class Project(models.Model):
         """
         Creates Task instances from extracted task data stored in self._tasks.
 
-        Ensures all tasks are created atomically. Deletes self._tasks after creation.
+        Ensures all tasks are created atomically. Deletes self._tasks after 
+        creation.
         """
         for data in self._tasks:
             Task.objects.create(
@@ -91,29 +98,40 @@ class Project(models.Model):
 
     def clean(self):
         """
-        Validates that a strategy document is only uploaded after the project exists,
-        and parses the document for validation and task creation if none exist yet.
+        Validates that a strategy document is only uploaded after the project 
+        exists, and parses the document for validation and task creation if 
+        none exist yet.
         """
         super().clean()
 
-        if self.pk is None and self.strategy_doc:
+        if self.pk is None and (self.strategy_doc or self.strategy_xlsx):
             raise ValidationError(
                 {
-                    "strategy_doc": "You must create the project before uploading a strategy document."
+                    "strategy_doc": "You must create the project before "
+                    "uploading a strategy.",
+                    "strategy_xlsx": "You must create the project before "
+                    "uploading a strategy.",
                 }
             )
 
-        if self.strategy_doc and not self.tasks.exists():
-            try:
-                self._tasks = extract_tasks_docx(self.strategy_doc)
-            except ValidationError as e:
-                raise ValidationError({"strategy_doc": e})
+        if not self.tasks.exists():
+            if self.strategy_xlsx:
+                try:
+                    self._tasks = extract_tasks_xlsx(self.strategy_xlsx)
+                except ValidationError as e:
+                    raise ValidationError({"strategy_xlsx": e})
+            if self.strategy_doc:
+                try:
+                    self._tasks = extract_tasks_docx(self.strategy_doc)
+                except ValidationError as e:
+                    raise ValidationError({"strategy_doc": e})
 
     def save(self, *args, **kwargs):
         """
         Generates slug from project name if not set, then saves the instance.
 
-        If task data exists (via ``self._tasks``), triggers task creation after saving.
+        If task data exists (via ``self._tasks``), triggers task creation 
+        after saving.
         """
         if not self.slug:
             self.slug = slugify(self.project_name)
