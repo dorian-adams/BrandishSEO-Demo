@@ -1,7 +1,6 @@
+import pandas as pd
 from django.forms import ValidationError
 from docx import Document
-
-import pandas as pd
 
 
 def extract_tasks_docx(strategy_doc):
