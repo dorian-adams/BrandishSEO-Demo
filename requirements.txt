@@ -22,7 +22,7 @@ pytest-django==4.5.2
 python-docx==1.1.2
 redis
 requests==2.26.0
-stripe==2.63.0
+stripe==11.6.0
 wagtail==4.2.1
 wagtail-factories==4.0.0
 whitenoise==6.2.0

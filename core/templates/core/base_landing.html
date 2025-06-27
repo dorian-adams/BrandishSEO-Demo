@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{% endblock title %}</title>
+    <meta name="description" content="SEO strategy checkout." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/styles.min.css' %}" />
+    {% block additional_css %}{% endblock additional_css %}
+    {% block additional_js %}{% endblock additional_js %}
+  </head>
+  <body class="bg-dark">
+    <div class="p-4" style="top: 0; left: 0;">
+      <div class="row align-items-center">
+        <div class="col-auto">
+          <a href="{% url 'core:index' %}">
+            <img src="{% static 'img/brand/brandishseo-logo.png' %}" class="img-fluid" alt="logo" style="max-width: 200px;">
+          </a>
+        </div>
+        <div class="col">
+          <span class="main-sub-text text-white">Innovative SEO Strategies <strong class="text-primary">Delivered</strong></span>
+        </div>
+      </div>
+    </div>
+    {% block landing_content %}
+    {% endblock landing_content %}
+  </body>
+</html>

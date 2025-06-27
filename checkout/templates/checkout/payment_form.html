@@ -1,0 +1,49 @@
+{% extends "core/base_landing.html" %}
+{% load static %}
+
+{% block additional_css %}
+  <link rel="stylesheet" href="{% static 'css/checkout.min.css' %}" />
+{% endblock additional_css %}
+{% block additional_js %}
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    const PRICE_ID = '{{ price_id }}';
+    const ORDER_PK = '{{ order_pk }}';
+    const STRIPE_PK = '{{ stripe_pk }}';
+  </script>
+  <script src="{% static 'js/checkout.js' %}" defer></script>
+{% endblock additional_js %}
+
+{% block landing_content %}
+  {% include 'checkout/includes/checkout_progress.html' with payment_step=True project_step=False %}
+  {% csrf_token %}
+  <div class="container mb-4 mt-4" id="checkout">
+    <!-- Stripe -->
+  </div>
+  <div class="container py-5">
+    <div class="row row-grid justify-content-center py-4">
+      <div class="col-md-4">
+        <div class="icon pb-4">
+          <img src="{% static 'img/svg/icons/Secure_Files.svg' %}" class="img-fluid img-center" alt="secure icon" style="height: 50px;" />
+        </div>
+        <h5 class="text-center text-white">Your payment information is secure, and encrypted</h5>
+      </div>
+      <div class="col-md-4">
+        <div class="icon pb-4">
+          <img src="{% static 'img/svg/icons/Shield.svg' %}" class="img-fluid img-center" alt="shield icon" style="height: 50px;" />
+        </div>
+        <h5 class="text-center text-white">Payment details are not stored, and never reach our database</h5>
+      </div>
+      <div class="col-md-4">
+        <div class="icon pb-4">
+          <img src="{% static 'img/svg/icons/Task.svg' %}" class="img-fluid img-center" alt="task icon" style="height: 50px;" />
+        </div>
+        <h5 class="text-center text-white">Receive your custom Strategy within 4-weeks</h5>
+      </div>
+    </div>
+    <div class="text-center mt-3 text-white">
+      <a href="#" class="text-white">Privacy Policy</a> | <a href="#" class="text-white">Terms and Conditions</a>
+    </div>
+  </div>
+{% endblock landing_content %}
+

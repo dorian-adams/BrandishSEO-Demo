@@ -1,0 +1,44 @@
+{% extends "core/base_landing.html" %}
+{% load static %}
+
+{% block additional_css %}
+  <link rel="stylesheet" href="{% static 'css/checkout.min.css' %}" />
+{% endblock additional_css %}
+
+{% block landing_content %}
+  {% include 'checkout/includes/checkout_progress.html' with success_step=True %}
+  <div class="container-fluid pt-4">
+    <div class="row align-items-center">
+      <div class="col-md-6 col-lg-5 col-xl-4 mx-auto">
+        <div class="card shadow-lg border-0 mb-0">
+          <div class="card-body py-5 px-sm-5">
+            <h3 class="text-center">Thank you!</h3>
+            {% if processing_payment %}
+              <p class="main-text">
+                Your order has been received and is currently being processed.
+                We will contact you at {{ project_email }} once your order is complete or if further information is required. 
+                If you have any questions, please feel free to reach out to us at support@brandishseo.com. Thank you!
+              </p>
+            {% else %}
+              <p class="main-text">
+                Your order has been completed successfully! Thank you for trusting BrandishSEO for your SEO needs.
+              </p>
+              <p class="main-text">
+                <b>Project Access:</b><a href="{{ project.get_absolute_url }}"> Visit your {{ project.project_name }} project dashboard</a>
+                <br />
+                <b>Estimated Delivery:</b> {{ completion_date }} 
+                <br />
+                <b>Need to Make Changes?</b><a href="{% url 'projects:project_update' project.slug %}"> Update your project details</a>
+                <br />
+                <b>We'll be reaching out to:</b> {{ project_email }}
+                <br />
+                <b>Have questions?</b> support@brandishseo.com
+                <br />
+              </p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock landing_content %}

@@ -1,22 +1,39 @@
 from django.urls import path
 
 from . import views
-from .views import CreateOrderView
+from .views import OrderCreateView, OrderUpdateView
 
 app_name = "checkout"
 
 urlpatterns = [
-    path("strategy/<pk>/", CreateOrderView.as_view(), name="strategy_landing"),
-    path("project/<pk>/", CreateOrderView.as_view(), name="checkout_project"),
     path(
-        "payment/<order_pk>/", views.checkout_payment, name="checkout_payment"
+        "create-order/<int:package_type>/",
+        OrderCreateView.as_view(),
+        name="create_order",
     ),
-    path("payment/", views.checkout_payment, name="checkout_payment_buy_now"),
+    path(
+        "update-order/<int:pk>/",
+        OrderUpdateView.as_view(),
+        name="update_order",
+    ),
+    path(
+        "start-order/", views.start_order, name="start_order_unknown_package"
+    ),
+    path(
+        "start-order/<int:package_type>/",
+        views.start_order,
+        name="start_order_with_package",
+    ),
+    path(
+        "payment/<int:order_pk>/",
+        views.checkout_payment,
+        name="checkout_payment",
+    ),
     path("stripe-webhook/", views.stripe_webhook, name="stripe"),
     path(
-        "get-payment-intent/",
-        views.get_payment_intent,
-        name="get_payment_intent",
+        "checkout-session/",
+        views.create_checkout_session,
+        name="create_checkout_session",
     ),
-    # path('<pk>/', views.CreateCheckout.as_view(), name='create-checkout'),
+    path("success/", views.order_success_view, name="order_success"),
 ]
