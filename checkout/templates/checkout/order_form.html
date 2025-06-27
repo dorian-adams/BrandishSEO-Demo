@@ -1,0 +1,33 @@
+{% extends "core/base_landing.html" %}
+{% load static crispy_forms_tags %}
+
+{% block additional_css %}<link rel="stylesheet" href="{% static 'css/checkout.min.css' %}" />{% endblock additional_css %}
+
+{% block landing_content %}
+  {% include 'checkout/includes/checkout_progress.html' with project_step=True %}
+  <div class="container pb-4">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
+        {% if object %}
+          <form action="{% url 'checkout:update_order' object.pk %}" method="post">
+        {% else %}
+          <form action="{% url 'checkout:create_order' package_type %}" method="post">
+        {% endif %}
+          {% csrf_token %}
+          <div class="form-group main-sub-text text-white">
+            {{ form|crispy }}
+          </div>
+          <div class="my-4">
+            <div class="custom-control custom-checkbox mb-3">
+              <input type="checkbox" class="custom-control-input" id="check-terms" required>
+              <label class="custom-control-label" for="check-terms">I agree to the <a href="{% url 'core:privacy_policy' %}">terms and conditions</a></label>
+            </div>
+          </div>
+          <div class="mt-4">
+            <button class="btn btn-block btn-primary">Continue</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock landing_content %}

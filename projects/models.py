@@ -84,7 +84,7 @@ class Project(models.Model):
         """
         Creates Task instances from extracted task data stored in self._tasks.
 
-        Ensures all tasks are created atomically. Deletes self._tasks after 
+        Ensures all tasks are created atomically. Deletes self._tasks after
         creation.
         """
         for data in self._tasks:
@@ -98,8 +98,8 @@ class Project(models.Model):
 
     def clean(self):
         """
-        Validates that a strategy document is only uploaded after the project 
-        exists, and parses the document for validation and task creation if 
+        Validates that a strategy document is only uploaded after the project
+        exists, and parses the document for validation and task creation if
         none exist yet.
         """
         super().clean()
@@ -130,7 +130,7 @@ class Project(models.Model):
         """
         Generates slug from project name if not set, then saves the instance.
 
-        If task data exists (via ``self._tasks``), triggers task creation 
+        If task data exists (via ``self._tasks``), triggers task creation
         after saving.
         """
         if not self.slug:
@@ -140,6 +140,9 @@ class Project(models.Model):
 
         if getattr(self, "_tasks", None):
             self.create_tasks()
+
+    def get_absolute_url(self):
+        return reverse("projects:project", args=[self.slug])
 
     def __str__(self):
         return self.website

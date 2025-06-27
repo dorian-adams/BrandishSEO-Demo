@@ -1,0 +1,22 @@
+<div id="checkout-steps" class="main-sub-text container-fluid">
+  <div class="step complete">
+    <a href="{% url 'core:services' %}" class="text-white">
+      1. Select Package
+    </a>
+  </div>
+  <div class="step{% if project_step %} active{% else %} complete{% endif %}">
+    {% if payment_step %}
+      <a href="{% url 'checkout:update_order' order_pk %}" class="text-white">
+        2. Project Information
+      </a>
+    {% else %}
+      2. Project Information
+    {% endif %}
+  </div>
+  <div class="step{% if payment_step %} active{% elif success_step %} complete{% else %} incomplete{% endif %}">
+    3. Payment
+  </div>
+  <div class="step{% if success_step  %} active{% else %} incomplete{% endif %}">
+    4. Complete!
+  </div>
+</div>

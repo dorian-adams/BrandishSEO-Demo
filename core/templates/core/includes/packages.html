@@ -33,9 +33,9 @@
             {% endfor %}
           </ul>
           <div class="text-center">
-            <button class="pricing-action">
+            <a href="{% url 'checkout:start_order_with_package' service.package_type %}" class="btn pricing-action">
               Buy Now
-            </button>
+            </a>
           </div>
         </div>
       </div>
