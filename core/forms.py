@@ -44,11 +44,20 @@ class ContactForm(forms.Form):
 
 
 class LeadForm(forms.ModelForm):
-    
     class Meta:
         model = Lead
         fields = ["name", "preferred_contact"]
         widgets = {
-            "name": forms.TextInput(attrs={"class": "form-control form-control-lg", "placeholder": "Name"}),
-            "preferred_contact": forms.TextInput(attrs={"class": "form-control form-control-lg", "placeholder": "Phone number or e-mail"})
+            "name": forms.TextInput(
+                attrs={
+                    "class": "form-control form-control-lg",
+                    "placeholder": "Name",
+                }
+            ),
+            "preferred_contact": forms.TextInput(
+                attrs={
+                    "class": "form-control form-control-lg",
+                    "placeholder": "Phone number or e-mail",
+                }
+            ),
         }

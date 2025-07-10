@@ -38,6 +38,11 @@
                     <a href="{% url 'accounts:reset_password' %}">Forgot password?</a>
                   </p>
                 </div>
+              {% else %}
+                <div class="custom-control custom-checkbox mb-3">
+                  <input type="checkbox" class="custom-control-input" id="check-terms" required>
+                  <label class="custom-control-label" for="check-terms">I agree to the <a href="{% url 'core:terms_of_service' %}" target="_blank">terms of service</a></label>
+                </div>
               {% endif %}
               <div class="mt-4">
                 <button type="submit" class="btn btn-block btn-primary">

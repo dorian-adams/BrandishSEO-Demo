@@ -11,7 +11,11 @@ from .forms import ContactForm, LeadForm
 def index(request):
     services = Service.objects.all()
     recent_posts = BlogPage.objects.live().specific().order_by("-date")[:3]
-    return render(request, "core/index.html", {"posts": recent_posts, "services": services})
+    return render(
+        request,
+        "core/index.html",
+        {"posts": recent_posts, "services": services},
+    )
 
 
 class ContactView(FormView):
@@ -47,3 +51,7 @@ def services(request):
 
 def privacy_policy(request):
     return render(request, "core/privacy_policy.html")
+
+
+def terms_of_service(request):
+    return render(request, "core/terms_of_service.html")

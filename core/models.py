@@ -15,6 +15,8 @@ class Lead(models.Model):
 
 
 class ContactAttempt(models.Model):
-    lead = models.ForeignKey(Lead, on_delete=models.CASCADE, related_name="contact_attempts")
+    lead = models.ForeignKey(
+        Lead, on_delete=models.CASCADE, related_name="contact_attempts"
+    )
     date_attempted = models.DateTimeField()
     successful = models.BooleanField(default=False)
