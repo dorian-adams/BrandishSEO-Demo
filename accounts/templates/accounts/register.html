@@ -1,10 +1,1 @@
-{% extends "core/base.html" %}
-
-{% block head %}
-  <title>Register an Account | BrandishSEO</title>
-  <meta name="description" content="Register an account with BrandishSEO to participate in our community or complete your purchase." />
-{% endblock head %}
-
-{% block content %}
-  {% include "accounts/includes/base_form.html" with heading="Register" button_label="Register" register=True form=form action_url="accounts:register" %}
-{% endblock content %}
+{% include "accounts/includes/base_form.html" with heading="Register" title="Register an Account" button_label="Register" register=True form=form action_url="accounts:register" %}
