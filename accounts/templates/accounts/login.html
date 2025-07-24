@@ -1,11 +1,1 @@
-{% extends "core/base.html" %}
-{% load static crispy_forms_tags %}
-
-{% block head %}
-  <title>Login to your Account | BrandishSEO</title>
-  <meta name="description" content="Login to immediately access your account." />
-{% endblock head %}
-
-{% block content %}
-  {% include "accounts/includes/base_form.html" with heading="Welcome" button_label="Login" login=True form=form action_url="accounts:login" %}
-{% endblock content %}
+{% include "accounts/includes/base_form.html" with heading="Welcome" title="Login" button_label="Login" login=True form=form action_url="accounts:login" %}

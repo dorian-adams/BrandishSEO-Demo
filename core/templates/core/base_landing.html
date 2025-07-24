@@ -7,11 +7,12 @@
     <meta name="description" content="SEO strategy checkout." />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="{% static 'css/styles.min.css' %}" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     {% block additional_css %}{% endblock additional_css %}
     {% block additional_js %}{% endblock additional_js %}
   </head>
   <body class="bg-dark">
-    <div class="p-4" style="top: 0; left: 0;">
+    <header class="p-4" style="top: 0; left: 0;">
       <div class="row align-items-center">
         <div class="col-auto">
           <a href="{% url 'core:index' %}">
@@ -22,8 +23,21 @@
           <span class="main-sub-text text-white">Innovative SEO Strategies <strong class="text-primary">Delivered</strong></span>
         </div>
       </div>
-    </div>
+    </header>
+    {% if messages %}
+      <div class="container alert-wrapper">
+        {% for message in messages %}
+          <div class="alert fade show alert-{{ message.tags }}" role="alert">
+            <strong>{{ message }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
     {% block landing_content %}
     {% endblock landing_content %}
+    <script src="{% static 'libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
   </body>
 </html>
