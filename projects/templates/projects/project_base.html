@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="{{ LANGUAGE_CODE|default:'en' }}">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{% endblock title %}</title>
+    <meta name="description" content="{% block meta_description %}{% endblock meta_description %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/styles.min.css' %}" />
+    <script src="{% static 'libs/feather-icons/dist/feather.min.js' %}"></script>
+    {% block additional_css %}{% endblock additional_css %}
+    {% block additional_js %}{% endblock additional_js %}
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Side Menu -->
+        <div class="col-2 sidebar-expanded d-none d-flex flex-column" id="sidebar-container">
+          <a href="{% url 'core:index' %}" class="mb-3 mt-5">
+            <img alt="Logo" src="{% static 'img/brand/brandishseo-logo.png' %}" id="navbar-logo" class="img-fluid d-block mx-auto" style="max-width: 150px;">
+          </a>
+          <ul class="side-nav flex-column" role="navigation" aria-label="Project sidebar navigation">
+            <li class="nav-item my-3 text-xs">
+              PROJECT MENU
+            </li>
+            <li class="nav-item my-2">
+              <a href="{% url 'projects:project' slug %}" class="main-sub-text">
+                <span class="fa fa-dashboard fa-fw mr-2"></span>
+                Dashboard
+              </a>
+            </li>
+            <li class="my-2">
+              <a href="{% url 'projects:tasks' slug %}" class="main-sub-text">
+                <span class="fa fa-tasks fa-fw mr-2"></span>
+                Tasks
+              </a>
+            </li>
+            <li class="my-2">
+              <a href="{% url 'projects:strategy' slug %}" class="main-sub-text">
+                <span class="fa fa-file-text fa-fw mr-2"></span>
+                Strategy
+              </a>
+            </li>
+            <li class="nav-item my-3 text-xs">
+              MANAGE
+            </li>
+            <li class="my-2">
+              <a href="{% url 'projects:team' slug %}" class="main-sub-text">
+                <span class="fa fa-users fa-fw mr-2"></span>
+                Team
+              </a>
+            </li>
+            <li class="my-2">
+              <!-- UPDATE SO USER PK IS PULLED IN VIEW AND PASSED AS CONTEXT-->
+              <a href="#" class="main-sub-text">
+                <span class="fa fa-user fa-fw mr-2"></span>
+                Profile
+              </a>
+            </li>
+            <li class="nav-item my-3 text-xs">
+              COMMUNICATION
+            </li> 
+            <li class="my-2">
+              <a href="#" class="main-sub-text">
+                <span class="fa fa-bell fa-fw mr-2"></span>
+                Notifications
+              </a>
+            </li> 
+            <li class="my-2">
+              <a href="#" class="main-sub-text">
+                <span class="fa fa-envelope-o fa-fw mr-2"></span>
+                Messages
+              </a>
+            </li> 
+            <li class="my-2">
+              <a href="#" class="main-sub-text">
+                <span class="fa fa-question fa-fw mr-2"></span>
+                Contact Us
+              </a>
+            </li>          
+          </ul>
+        </div>
+        {% if messages %}
+          <div class="container alert-wrapper">
+            {% for message in messages %}
+              <div class="alert fade show alert-{{ message.tags }}" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+        <div class="col">
+          {% block project_content %}
+          {% endblock project_content %}
+        </div>
+      </div>
+    </div>
+    {% block landing_content %}
+    {% endblock landing_content %}
+    <script src="https://kit.fontawesome.com/fe6d6b845d.js" crossorigin="anonymous"></script>
+    <script src="{% static 'libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+    <script>
+      feather.replace({ width: '1em', height: '1em' })
+    </script>
+  </body>
+</html>

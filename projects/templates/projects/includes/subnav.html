@@ -1,58 +1,78 @@
-<section class="pt-5 bg-section-secondary">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-9">
-        <div class="row align-items-center">
-          <div class="col ml-n3 ml-md-n2">
-            <!-- Title -->
-            <h2 class="mb-0" style="padding-top: 50px;">
-            {% if demo %}
-              <b>Demo</b>
-            {% else %}
-              <b>{{ project.project_name }}</b>
-            {% endif %}
-            </h2>
-            <!-- Subtitle -->
-            <span class="text-muted d-block">{{ project.website }}</span>
-          </div>
-        </div>
-        <div class="mt-4">
-          <ul class="nav nav-tabs overflow-x">
-            <li class="nav-item">
-              <a href="{% url 'projects:project' slug %}" class="nav-link active">
-                Main
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{% url 'projects:tasks' slug %}" class="nav-link">
-                Task Manager
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{% url 'projects:team' slug %}" class="nav-link">
-                Team
-              </a>
-            </li>
-            {% if not demo %}
-              <li class="nav-item">
-                <a href="{% url 'projects:project_update' slug %}" class="nav-link">
-                  Project
-                </a>
-              </li>
-            {% endif %}
-            <li class="nav-item">
-              <a href="{% url 'projects:strategy' slug %}" class="nav-link">
-                SEO Strategy
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="notifications.html" class="nav-link">
-                Notifications
-              </a>
-            </li>
-          </ul>
-        </div>
+{% load static %}
+
+<!-- Sidebar -->
+<div id="sidebar-container" class="sidebar-expanded col-2 pt-10">
+  <!-- Bootstrap List Group -->
+  <ul class="list-group sticky-top sticky-offset">
+    <!-- Separator with title -->
+    <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+      <small>PROJECT MENU</small>
+    </li>
+
+    <a href="#" class="bg-sidebar-label list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-start align-items-center">
+        <span class="fa fa-dashboard fa-fw mr-3"></span>
+        <span class="menu-collapsed">Dashboard</span>
       </div>
-    </div>
-  </div>
-</section>
+    </a>
+
+    <a href="#" class="bg-sidebar-label list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-start align-items-center">
+        <span class="fa fa-user fa-fw mr-3"></span>
+        <span class="menu-collapsed">Profile</span>
+      </div>
+    </a>
+
+    <a href="#" class="bg-sidebar-label list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-start align-items-center">
+        <span class="fa fa-tasks fa-fw mr-3"></span>
+        <span class="menu-collapsed">Tasks</span>
+      </div>
+    </a>
+
+    <!-- Separator with title -->
+    <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+      <small>OPTIONS</small>
+    </li>
+
+    <a href="#" class="bg-sidebar-label list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-start align-items-center">
+        <span class="fa fa-file-text fa-fw mr-3"></span>
+        <span class="menu-collapsed">Strategy</span>
+      </div>
+    </a>
+
+    <a href="#" class="bg-sidebar-label list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-start align-items-center">
+        <span class="fa fa-envelope-o fa-fw mr-3"></span>
+        <span class="menu-collapsed">
+          Messages <span class="badge badge-pill badge-primary ml-2">5</span>
+        </span>
+      </div>
+    </a>
+
+    <!-- Separator without title -->
+    <li class="list-group-item sidebar-separator menu-collapsed"></li>
+
+    <a href="#" class="bg-sidebar-label list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-start align-items-center">
+        <span class="fa fa-question fa-fw mr-3"></span>
+        <span class="menu-collapsed">Help</span>
+      </div>
+    </a>
+
+    <a href="#" data-toggle="sidebar-colapse"
+       class="bg-sidebar-label list-group-item list-group-item-action d-flex align-items-center">
+      <div class="d-flex w-100 justify-content-start align-items-center">
+        <span id="collapse-icon" class="fa fa-2x mr-3"></span>
+        <span id="collapse-text" class="menu-collapsed">Collapse</span>
+      </div>
+    </a>
+
+    <!-- Logo -->
+    <li class="list-group-item logo-separator d-flex justify-content-center">
+      <img src="{% static 'img/brand/S-logo.png' %}" width="30" height="30">
+    </li>
+  </ul>
+</div>
+<!-- Sidebar END -->
