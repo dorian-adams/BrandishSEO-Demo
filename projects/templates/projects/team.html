@@ -2,7 +2,7 @@
 {% load static crispy_forms_tags %}
 
 {% block project_content %}
-  <div class="slice py-5 bg-section-secondary min-vh-100" >
+  <div class="slice py-5 bg-section-secondary min-vh-100">
     <div class="container-fluid">
       <div class="row">
         <div class="col">
@@ -56,12 +56,22 @@
                           <td>
                             {% if admin %}
                               {% if member in project.admin.all %}
-                                <div class="name h6 mb-0 text-sm">
-                                  <a href="{% url 'projects:remove_admin' slug member.id %}" method="post">Demote Admin</a>
+                                <div class="name h6 mb-0">
+                                  <form action="{% url 'projects:remove_admin' slug member.id %}" method="post" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn p-0 text-sm">
+                                      Demote Admin
+                                    </button>
+                                  </form>
                                 </div>
                               {% else %}
-                                <div class="name h6 mb-0 text-sm">
-                                  <a href="{% url 'projects:add_admin' slug member.id %}" method="post">Promote Admin</a>
+                                <div class="name h6 mb-0">
+                                  <form action="{% url 'projects:add_admin' slug member.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn p-0 text-sm">
+                                      Promote to Admin
+                                    </button>
+                                  </form>
                                 </div>
                               {% endif %}
                             {% endif %}
@@ -73,9 +83,12 @@
                                 <i data-feather="message-square"></i>
                               </a>
                               {% if admin %}
-                                <a href="{% url 'projects:remove_member' slug member.id %}" class="action-item text-danger mr-2" data-toggle="tooltip" title="Remove Member">
-                                  <i data-feather="trash-2"></i>
-                                </a>
+                                <form action="{% url 'projects:remove_member' slug member.id %}" method="post" class="action-item" data-toggle="tooltip" title="Remove Member">
+                                  {% csrf_token %}
+                                  <button type="submit" class="btn p-0 text-danger mr-2">
+                                    <i data-feather="trash-2"></i>
+                                  </button>
+                                </form>
                               {% endif %}
                             </div>
                           </td>

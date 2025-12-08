@@ -31,9 +31,7 @@ def test_register_user_view_post(client, django_user_model):
 
 def test_user_update_view_get(auto_login_user):
     user, client = auto_login_user
-    response = client.get(
-        reverse("accounts:user_update", kwargs={"pk": user.pk})
-    )
+    response = client.get(reverse("accounts:user_update"))
 
     assert 200 == response.status_code
     # Ensure form fields are prepopulated with the user's data.
@@ -47,7 +45,7 @@ def test_user_update_view_post(auto_login_user):
     user, client = auto_login_user
     new_first, new_last, new_email = ("NewFirst", "NewLast", "new@mail.com")
     response = client.post(
-        reverse("accounts:user_update", kwargs={"pk": user.pk}),
+        reverse("accounts:user_update"),
         data={
             "first_name": new_first,
             "last_name": new_last,

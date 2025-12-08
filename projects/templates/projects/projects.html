@@ -26,7 +26,7 @@
                         <span class="sub-text-purple">Profile</span>
                       </div>
                       <div class="col-auto">
-                        <a href="{% if demo %}#{% else %}{% url 'accounts:user_update' user.pk %}{% endif %}"
+                        <a href="{% if demo %}#{% else %}{% url 'accounts:user_update' %}{% endif %}"
                         class="btn btn-xs btn-primary btn-icon rounded-pill">
                             <span class="btn-inner--icon"><i data-feather="edit-2"></i></span>
                             <span class="btn-inner--text">Edit</span>
@@ -257,7 +257,7 @@
                       </div>
                     </div>
                   </a>
-                  <a href="{% if demo %}#{% else %}{% url 'accounts:user_update' user.pk %}{% endif %}" class="list-group-item list-group-item-action border-0 py-2">
+                  <a href="{% if demo %}#{% else %}{% url 'accounts:user_update' %}{% endif %}" class="list-group-item list-group-item-action border-0 py-2">
                     <div class="d-flex">
                       <div>
                         <i data-feather="user" class="mr-3"></i>
