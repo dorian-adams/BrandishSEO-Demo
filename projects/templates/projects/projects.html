@@ -1,23 +1,19 @@
-{% extends "core/base.html" %}
+{% extends "projects/project_base.html" %}
 {% load static %}
 
-{% block subnav %}
-  {% include 'projects/includes/subnav.html' %}
-{% endblock subnav %}
-
-{% block content %}
+{% block project_content %}
   <section class="slice slice-sm bg-section-secondary">
-    <div class="container">
+    <div class="container-fluid">
       <div class="row justify-content-center">
-        <div class="col-lg-9">
+        <div class="col">
           <div>
             <!-- Title -->
             <div class="row align-items-center mb-3">
               <div class="col">
                 {% if demo %}
-                  <h6 class="mb-0">Welcome!</h6>
+                  <h1 class="mb-0 h2">Welcome, Guest!</h1>
                 {% else %}
-                  <h6 class="mb-0">Welcome, {{ user.first_name }}</h6>
+                  <h1 class="mb-0 h2">Welcome, {{ user.first_name }}</h1>
                 {% endif %}
               </div>
             </div>
@@ -27,30 +23,26 @@
                   <div class="card-body">
                     <div class="row align-items-center">
                       <div class="col">
-                        <h6 class="text-sm mb-0">
-                          Profile
-                        </h6>
+                        <span class="sub-text-purple">Profile</span>
                       </div>
                       <div class="col-auto">
-                        <!-- Check if 'demo' Project -->
-                        <a href="{% if demo %}#{% else %}{% url 'accounts:user_update' user.pk %}{% endif %}">
-                          <button type="button" class="btn btn-xs btn-primary btn-icon rounded-pill">
+                        <a href="{% if demo %}#{% else %}{% url 'accounts:user_update' %}{% endif %}"
+                        class="btn btn-xs btn-primary btn-icon rounded-pill">
                             <span class="btn-inner--icon"><i data-feather="edit-2"></i></span>
                             <span class="btn-inner--text">Edit</span>
-                          </button>
                         </a>
                       </div>
                     </div>
                     <hr class="my-3">
                     <div class="row align-items-center">
                       <div class="col">
-                        <h6 class="text-sm mb-0">
+                        <span class="sub-text-purple">
                           Name
-                        </h6>
+                        </span>
                       </div>
                       <div class="col-auto">
                         {% if demo %}
-                          <span class="text-sm">Demo User</span>
+                          <span class="main-sub-text">Demo User</span>
                         {% else %}
                           <span class="text-sm">{{ user.first_name }} {{ user.last_name }}</span>
                         {% endif %}
@@ -59,26 +51,26 @@
                     <hr class="my-3">
                     <div class="row align-items-center">
                       <div class="col">
-                        <h6 class="text-sm mb-0">
+                        <span class="sub-text-purple">
                           Website
-                        </h6>
+                        </span>
                       </div>
                       <div class="col-auto">
-                        <span class="text-sm">{{ project.website }}</span>
+                        <span class="main-sub-text">{{ project.website }}</span>
                       </div>
                     </div>
                     <hr class="my-3">
                     <div class="row align-items-center">
                       <div class="col">
-                        <h6 class="text-sm mb-0">
+                        <span class="sub-text-purple">
                           E-mail
-                        </h6>
+                        </span>
                       </div>
                       <div class="col-auto">
                         {% if demo %}
-                          <span class="text-sm">example@email.com</span>
+                          <span class="main-sub-text">example@email.com</span>
                         {% else %}
-                          <span class="text-sm">{{ user.email }}</span>
+                          <span class="main-sub-text">{{ user.email }}</span>
                         {% endif %}
                       </div>
                     </div>
@@ -90,12 +82,12 @@
                   <div class="card-body">
                     <div class="row align-items-center">
                       <div class="col">
-                        <h6 class="text-sm mb-0">
+                        <h4 class="mb-0">
                           Order Status
-                        </h6>
+                        </h4>
                       </div>
                       <div class="col-auto">
-                        <span class="text-sm">{{ object.status }}</span>
+                        <span class="main-sub-text">{{ object.status }}</span>
                       </div>
                     </div>
                     <hr class="my-3">
@@ -149,15 +141,15 @@
               <div class="card">
                 <!-- Title -->
                 <div class="card-header">
-                  <h6>Team</h6>
+                  <h4>Team</h4>
                 </div>
                 <div class="list-group list-group-flush">
                   {% for person in object.members.all %}
                     <a href="#" class="list-group-item list-group-item-action">
                       <div class="d-flex align-items-center" data-toggle="tooltip" data-placement="right" data-title="time">
                         <div class="flex-fill ml-3">
-                          <div class="h6 text-sm mb-0">{{ person.first_name }} {{ person.last_name }}
-                            <small class="float-right text-muted"> {{ person.email }}</small>
+                          <div class="sub-text-purple mb-0">{{ person.first_name }} {{ person.last_name }}
+                            <small class="float-right main-sub-text"> {{ person.email }}</small>
                           </div>
                           <p class="text-sm lh-140 mb-0">
                             {{ message.text }}
@@ -169,7 +161,7 @@
                 </div>
                 <!-- Card footer -->
                 <div class="card-footer py-3 text-center border-0 position-relative">
-                  <a href="#" class="text-xs ls-1 text-uppercase font-weight-bold stretched-link">See all</a>
+                  <a href="{% url 'projects:team' slug %}" class="text-xs ls-1 text-uppercase font-weight-bold stretched-link">See all</a>
                 </div>
               </div>
             </div>
@@ -177,17 +169,13 @@
               <div class="card">
                 <div class="card-header">
                   <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <span class="h6">SEO Strategy</span>
-                    </div>
+                    <h4>Strategy Docs</h4>
                   </div>
                 </div>
                 <div class="card-body py-3">
                   <div class="d-flex align-items-center">
-                    {% if demo %}
-                    {% endif %}
                     <div class="pl-3">
-                      <h6 class="text-warning mb-0">In progress...</h6>
+                      <h6 class="main-sub-text mb-0">In progress...</h6>
                     </div>
                   </div>
                 </div>
@@ -200,7 +188,7 @@
               <div class="card">
                 <!-- Title -->
                 <div class="card-header">
-                  <h6>Messages</h6>
+                  <h4>Messages</h4>
                 </div>
                 <!-- List group -->
                 <div class="list-group list-group-flush">
@@ -229,7 +217,7 @@
               <div class="card">
                 <!-- Card header -->
                 <div class="card-header">
-                  <h6>Important Links</h6>
+                  <h4>Important Links</h4>
                 </div>
                 <!-- List group -->
                 <div class="list-group list-group-flush">
@@ -239,8 +227,8 @@
                         <i data-feather="check-square" class="mr-3"></i>
                       </div>
                       <div>
-                        <div class="text-sm lh-150">
-                          View / Manage <span class="text-dark font-weight-bold">SEO Tasks</span>
+                        <div class="lh-150">
+                          <span class="main-sub-text">View / Manage SEO Tasks</span>
                         </div>
                       </div>
                     </div>
@@ -251,8 +239,8 @@
                         <i data-feather="file-text" class="mr-3"></i>
                       </div>
                       <div>
-                        <div class="text-sm lh-150">
-                          View / Download <span class="text-dark font-weight-bold">SEO Strategy</span>
+                        <div class="lh-150">
+                          <span class="main-sub-text">View / Download SEO Strategy</span>
                         </div>
                       </div>
                     </div>
@@ -263,20 +251,20 @@
                         <i data-feather="users" class="mr-3"></i>
                       </div>
                       <div>
-                        <div class="text-sm lh-150">
-                          View / Update <span class="text-dark font-weight-bold">Team</span>
+                        <div class="lh-150">
+                          <span class="main-sub-text">View / Update Team</span>
                         </div>
                       </div>
                     </div>
                   </a>
-                  <a href="{% if demo %}#{% else %}{% url 'accounts:user_update' user.pk %}{% endif %}" class="list-group-item list-group-item-action border-0 py-2">
+                  <a href="{% if demo %}#{% else %}{% url 'accounts:user_update' %}{% endif %}" class="list-group-item list-group-item-action border-0 py-2">
                     <div class="d-flex">
                       <div>
                         <i data-feather="user" class="mr-3"></i>
                       </div>
                       <div>
                         <div class="text-sm lh-150">
-                          Update Profile for <span class="text-dark font-weight-bold">{{ user.first_name }}</span>
+                          <span class="main-sub-text">Update Profile</span>
                         </div>
                       </div>
                     </div>
@@ -287,8 +275,8 @@
                         <i data-feather="message-square" class="mr-3"></i>
                       </div>
                       <div>
-                        <div class="text-sm lh-150">
-                          Contact Us with any <span class="text-dark font-weight-bold">Questions</span>
+                        <div class="lh-150">
+                          <span class="main-sub-text">Contact Us with any Questions</span>
                         </div>
                       </div>
                     </div>
@@ -305,4 +293,4 @@
       </div>
     </div>
   </section>
-{% endblock content %}
+{% endblock project_content %}

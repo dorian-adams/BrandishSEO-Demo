@@ -25,7 +25,7 @@
                 {% endif %}
               </div>
               {% if user_update %}
-                <form action="{% url 'accounts:user_update' user.pk %}" method="post">
+                <form action="{% url 'accounts:user_update' %}" method="post">
               {% elif password_reset %}
                 <form method="post">
               {% else %}

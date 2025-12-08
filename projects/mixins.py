@@ -21,16 +21,21 @@ class ProjectAuthMixin(UserPassesTestMixin):
 
 class ProjectContextMixin:
     """
-    Sets context that's used across all ``Project``.
-
-    context['slug'] is used in the sub-nav, 'projects_nav.html'.
-    Passing the slug to context ensures it can be accessed in a consistent manner.
+    Sets context that's used across all Project views.
     """
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["demo"] = True if self.kwargs["slug"] == "demo" else False
-        context["slug"] = self.kwargs["slug"]
-        context["project"] = get_object_or_404(Project, slug=context["slug"])
-        context["admin"] = self.request.user in context["project"].admin.all()
+        slug = self.kwargs["slug"]
+        project = get_object_or_404(Project, slug=slug)
+
+        context.update(
+            {
+                "demo": slug == "demo",
+                "slug": slug,
+                "project": project,
+                "admin": self.request.user.is_authenticated
+                and self.request.user in project.admin.all(),
+            }
+        )
         return context

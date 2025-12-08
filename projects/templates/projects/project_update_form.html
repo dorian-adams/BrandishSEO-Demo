@@ -1,11 +1,7 @@
-{% extends "core/base.html" %}
+{% extends "projects/project_base.html" %}
 {% load static crispy_forms_tags %}
 
-{% block subnav %}
-  {% include 'projects/includes/subnav.html' %}
-{% endblock subnav %}
-
-{% block content %}
+{% block project_content %}
   <section class="slice py-5 bg-section-secondary">
     <div class="container d-flex flex-column">
       <div class="row align-items-center justify-content-center min-vh-100">
@@ -30,4 +26,4 @@
       </div>
     </div>
   </section>
-{% endblock content %}
+{% endblock project_content %}

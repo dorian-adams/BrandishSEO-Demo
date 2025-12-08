@@ -53,6 +53,9 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
         queryset = super().get_queryset()
         return queryset.filter(email=self.request.user.email)
 
+    def get_object(self):
+        return self.request.user
+
 
 class UpdatePasswordView(SuccessMessageMixin, PasswordChangeView):
     model = User

@@ -40,7 +40,7 @@ def extract_tasks_docx(strategy_doc):
 
 def yield_task_fields_docx(strategy_doc):
     """
-    Parse the project's ``strategy_doc`` for tasks, yielding each task 
+    Parse the project's ``strategy_doc`` for tasks, yielding each task
     component as a (key, value) pair.
 
     Only intended to be used when an xlsx strategy document is not available.
@@ -49,7 +49,7 @@ def yield_task_fields_docx(strategy_doc):
     * Task Title in “Heading 2”.
     * Priority Level (“High”, “Medium”, or “Low”) in “Heading 3”.
     * One or more description paragraphs in “Normal”.
-    * Any other style (e.g. “Implementation Instructions” in Heading 4) to end 
+    * Any other style (e.g. “Implementation Instructions” in Heading 4) to end
       the current task.
 
     Args:
@@ -101,11 +101,11 @@ def yield_task_fields_docx(strategy_doc):
 
 def extract_tasks_xlsx(strategy_xlsx):
     """
-    Parse the project's strategy Excel file to extract tasks from all relevant 
+    Parse the project's strategy Excel file to extract tasks from all relevant
     sheets.
 
     This is the preferred extraction method when available.
-    Processes all sheets except 'Descriptions', which doesn't contain tasks. 
+    Processes all sheets except 'Descriptions', which doesn't contain tasks.
     Validates the presence of required columns and data completeness.
 
     Args:

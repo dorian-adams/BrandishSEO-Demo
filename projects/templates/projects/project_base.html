@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="{{ LANGUAGE_CODE|default:'en' }}">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{% endblock title %}</title>
+    <meta name="description" content="{% block meta_description %}{% endblock meta_description %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/styles.min.css' %}" />
+    {% block additional_css %}{% endblock additional_css %}
+  </head>
+  <body>
+    <!-- Top Menu / Mobile -->
+    <div class="navbar position-fixed fixed-top navbar-expand-lg navbar-dark d-lg-none" id="dashboard-mobile-menu">
+      <div class="container">
+        <!-- Brand -->
+        <div class="d-flex align-items-center" style="max-width: 200px;">
+          <a href="{% url 'core:index' %}">
+            <img alt="Logo" src="{% static 'img/brand/brandishseo-logo.png' %}" class="img-fluid">
+          </a>
+        </div>
+        <!-- Toggler -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dashboard-mobile-menu-collapse" aria-controls="dashboard-mobile-menu-collapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="dashboard-mobile-menu-collapse">
+          <!-- Main navigation -->
+          <ul class="navbar-nav flex-column">
+            <!-- Overview -->
+            <li class="my-2">
+              <a class="main-sub-text" href="{% url 'projects:project' slug %}">
+                <span class="fa fa-dashboard fa-fw mr-2"></span>
+                Dashboard
+              </a>
+            </li>
+            <li class="my-2">
+              <a class="main-sub-text" href="{% url 'projects:tasks' slug %}">
+                <span class="fa fa-tasks fa-fw mr-2"></span>
+                Tasks
+              </a>
+            </li>
+            <li class="my-2">
+              <a class="main-sub-text" href="{% url 'projects:strategy' slug %}">
+                <span class="fa fa-file-text fa-fw mr-2"></span>
+                Strategy
+              </a>
+            </li>
+            <li class="my-2">
+              <a class="main-sub-text" href="{% url 'projects:team' slug %}">
+                <span class="fa fa-users fa-fw mr-2"></span>
+                Team
+              </a>
+            </li>
+            <li class="my-2">
+              <a class="main-sub-text" href="{% if demo %}#{% else %}{% url 'accounts:user_update' %}{% endif %}">
+                <span class="fa fa-user fa-fw mr-2"></span>
+                Profile
+              </a>
+            </li>
+            <li class="my-2">
+              <a class="main-sub-text" href="#">
+                <span class="fa fa-bell fa-fw mr-2"></span>
+                Notifications
+              </a>
+            </li>
+            <li class="my-2">
+              <a class="main-sub-text" href="#">
+                <span class="fa fa-envelope-o fa-fw mr-2"></span>
+                Messages
+              </a>
+            </li>
+            <li class="my-2">
+              <a class="main-sub-text" href="#">
+                <span class="fa fa-question fa-fw mr-2"></span>
+                Contact Us
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% if messages %}
+      <div class="d-flex justify-content-center alert-wrapper">
+        {% for message in messages %}
+          <div class="alert fade show alert-{{ message.tags }}" role="alert">
+            <strong>{{ message }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span> 
+            </button> 
+          </div> 
+        {% endfor %} 
+      </div> 
+    {% endif %}
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Side Menu -->
+        <div class="col-2 sidebar-expanded d-none d-lg-flex flex-column" id="sidebar-container">
+          <a href="{% url 'core:index' %}" class="mb-3 mt-5">
+            <img alt="Logo" src="{% static 'img/brand/brandishseo-logo.png' %}" class="img-fluid d-block mx-auto" style="max-width: 150px;">
+          </a>
+          <ul class="side-nav flex-column" role="navigation" aria-label="Project sidebar navigation" style="list-style: none;">
+            <li class="nav-item my-3 text-xs">
+              PROJECT MENU
+            </li>
+            <li class="nav-item my-2">
+              <a href="{% url 'projects:project' slug %}" class="main-sub-text">
+                <span class="fa fa-dashboard fa-fw mr-2"></span>
+                Dashboard
+              </a>
+            </li>
+            <li class="my-2">
+              <a href="{% url 'projects:tasks' slug %}" class="main-sub-text">
+                <span class="fa fa-tasks fa-fw mr-2"></span>
+                Tasks
+              </a>
+            </li>
+            <li class="my-2">
+              <a href="{% url 'projects:strategy' slug %}" class="main-sub-text">
+                <span class="fa fa-file-text fa-fw mr-2"></span>
+                Strategy
+              </a>
+            </li>
+            <li class="nav-item my-3 text-xs">
+              MANAGE
+            </li>
+            <li class="my-2">
+              <a href="{% url 'projects:team' slug %}" class="main-sub-text">
+                <span class="fa fa-users fa-fw mr-2"></span>
+                Team
+              </a>
+            </li>
+            <li class="my-2">
+              <a href="{% if demo %}#{% else %}{% url 'accounts:user_update' %}{% endif %}" class="main-sub-text">
+                <span class="fa fa-user fa-fw mr-2"></span>
+                Profile
+              </a>
+            </li>
+            <li class="nav-item my-3 text-xs">
+              COMMUNICATION
+            </li> 
+            <li class="my-2">
+              <a href="#" class="main-sub-text">
+                <span class="fa fa-bell fa-fw mr-2"></span>
+                Notifications
+              </a>
+            </li> 
+            <li class="my-2">
+              <a href="#" class="main-sub-text">
+                <span class="fa fa-envelope-o fa-fw mr-2"></span>
+                Messages
+              </a>
+            </li> 
+            <li class="my-2">
+              <a href="#" class="main-sub-text">
+                <span class="fa fa-question fa-fw mr-2"></span>
+                Contact Us
+              </a>
+            </li>          
+          </ul>
+        </div>
+        <div class="col pt-lg-0 pt-5 bg-section-secondary">
+          {% block project_content %}
+          {% endblock project_content %}
+        </div>
+      </div>
+    </div>
+    {% block landing_content %}
+    {% endblock landing_content %}
+    {% block additional_js %}{% endblock additional_js %}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://kit.fontawesome.com/fe6d6b845d.js" crossorigin="anonymous"></script>
+    <script src="{% static 'libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'libs/feather-icons/dist/feather.min.js' %}"></script>
+    <script>
+      feather.replace({ width: '1em', height: '1em' })
+    </script>
+  </body>
+</html>

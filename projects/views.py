@@ -63,9 +63,9 @@ class ProjectDetailView(ProjectAuthMixin, ProjectContextMixin, DetailView):
         Display a brief list of the latest comments, ``TaskComment``.
         """
         context = super().get_context_data(**kwargs)
-        context["comments"] = TaskComment.objects.filter(
-            task__project=self.object.pk
-        )[:5]
+        context["comments"] = TaskComment.objects.filter(task__project=self.object.pk)[
+            :5
+        ]
         return context
 
 
@@ -100,9 +100,7 @@ class TaskListView(ProjectAuthMixin, ProjectContextMixin, ListView):
         return get_list_or_404(Task, project__slug=self.kwargs["slug"])
 
 
-class TaskDetailView(
-    ProjectAuthMixin, ProjectContextMixin, FormMixin, DetailView
-):
+class TaskDetailView(ProjectAuthMixin, ProjectContextMixin, FormMixin, DetailView):
     """
     Display ``Task`` info and associated comments, ``TaskComment``.
     TaskComments are handled within this view's ``post`` method.
@@ -116,13 +114,9 @@ class TaskDetailView(
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         try:
-            context["comments"] = get_list_or_404(
-                TaskComment, task=self.object.pk
-            )
+            context["comments"] = get_list_or_404(TaskComment, task=self.object.pk)
         except:
-            context[
-                "comments"
-            ] = []  # If the given Task does not have comments
+            context["comments"] = []  # If the given Task does not have comments
         context["form"] = TaskCommentForm(initial={"task": self.object})
         return context
 
@@ -163,9 +157,7 @@ class CreateTaskView(ProjectAuthMixin, ProjectContextMixin, CreateView):
         """
         Pass ``Project`` to ``TaskCreationForm`` init for custom query.
         """
-        return {
-            "project": get_object_or_404(Project, slug=self.kwargs["slug"])
-        }
+        return {"project": get_object_or_404(Project, slug=self.kwargs["slug"])}
 
     def get_success_url(self):
         return reverse_lazy(
@@ -211,9 +203,7 @@ class StrategyDetailView(ProjectAuthMixin, ProjectContextMixin, DetailView):
 # -----------------------------------------------------------------------------
 
 
-class TeamDetailView(
-    ProjectAuthMixin, ProjectContextMixin, FormMixin, DetailView
-):
+class TeamDetailView(ProjectAuthMixin, ProjectContextMixin, FormMixin, DetailView):
     """
     Display list of ``Users`` associated with the ``Project``.
 
@@ -225,14 +215,14 @@ class TeamDetailView(
     template_name = "projects/team.html"
     model = Project
     form_class = AccountInviteForm
-    invite_email = None  # the email for which the invite is being sent via AccountInviteForm
+    invite_email = (
+        None  # the email for which the invite is being sent via AccountInviteForm
+    )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = AccountInviteForm(
-            initial={
-                "project": get_object_or_404(Project, slug=self.kwargs["slug"])
-            }
+            initial={"project": get_object_or_404(Project, slug=self.kwargs["slug"])}
         )
         return context
 
@@ -293,9 +283,7 @@ def project_remove_admin(request, slug, pk):
                 "Request failed. Project must maintain at least one admin.",
             )
 
-        return HttpResponseRedirect(
-            reverse("projects:team", args=(project.slug,))
-        )
+        return HttpResponseRedirect(reverse("projects:team", args=(project.slug,)))
 
 
 def project_add_admin(request, slug, pk):
@@ -317,9 +305,7 @@ def project_add_admin(request, slug, pk):
                 request, "Request failed. Only admins may perform this action."
             )
 
-        return HttpResponseRedirect(
-            reverse("projects:team", args=(project.slug,))
-        )
+        return HttpResponseRedirect(reverse("projects:team", args=(project.slug,)))
 
 
 def project_remove_member(request, slug, pk):
@@ -351,9 +337,7 @@ def project_remove_member(request, slug, pk):
                 request,
                 "Request failed. Project must maintain at least one member.",
             )
-        return HttpResponseRedirect(
-            reverse("projects:team", args=(project.slug,))
-        )
+        return HttpResponseRedirect(reverse("projects:team", args=(project.slug,)))
 
 
 """

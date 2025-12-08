@@ -1,20 +1,16 @@
-{% extends "core/base.html" %}
+{% extends "projects/project_base.html" %}
 {% load static %}
 
-{% block subnav %}
-  {% include 'projects/includes/subnav.html' %}
-{% endblock subnav %}
-
-{% block content %}
+{% block project_content %}
   <section class="slice py-5 bg-section-secondary">
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
           <div class="row align-items-center mb-4">
             <div class="col">
               <!-- Title -->
-              <h1 class="h4 mb-0">
-                My Tasks
+              <h1 class="h2 mb-0">
+                Project Tasks
               </h1>
             </div>
             <div class="col-auto">
@@ -34,9 +30,7 @@
                 <!-- Card header -->
                 <div class="card-header pb-3">
                   <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <span class="h6">To do</span>
-                    </div>
+                    <span class="secondary-sub-heading-purple">To do</span>
                     <div class="text-right">
                       <div class="actions mr-n2">
                         <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
@@ -58,54 +52,7 @@
                   {% for task in object_list %}
                     {% if task.status == 'To-do' %}
                       <!-- Task -->
-                      <div class="kanban-task">
-                        <a href="{{ task.get_absolute_url }}">
-                          <h6 class="mb-2">{{ task.task_title }}</h6>
-                          <p class="text-sm text-muted mb-3">
-                            {{ task.task_description }}
-                          </p>
-                        </a>
-                        <span class="surtitle d-block ls-1 mb-n2">Progress</span>
-                        <!-- Progress -->
-                        <div class="d-flex align-items-center">
-                          <div class="w-80">
-                            <div class="progress progress-sm shadow-none">
-                              <div class="progress-bar bg-primary" role="progressbar" style="width: {{ task.progress }}%" aria-valuenow="{{ task.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                          </div>
-                          <div class="col px-0 text-right">
-                            <a href="#" class="h6 text-sm text-primary">{{ task.progress }}%</a>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <span class="surtitle d-block ls-1 mb-n2">
-                              Assigned to:
-                            </span>
-                          </div>
-                          <div class="col">
-                            <span class="surtitle d-block ls-1 mb-n2">
-                              Priority:
-                            </span>
-                          </div>
-                          <div class="w-100"></div>
-                          <div class="col">
-                            <div class="mt-1">
-                              <span class="d-block ls-1">
-                                {{ task.assigned_to.first_name }} {{ task.assigned_to.last_name }}
-                              </span>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="mt-1">
-                              <span class="d-block ls-1">
-                                {{ task.priority }}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <hr class="my-3" />
+                      {% include "projects/includes/task_snippet.html" with task=task %}
                     {% endif %}
                   {% endfor %}
                 </div>
@@ -115,9 +62,7 @@
               <div class="card">
                 <div class="card-header pb-3">
                   <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <span class="h6">In progress</span>
-                    </div>
+                    <span class="secondary-sub-heading-purple">In progress</span>
                     <div class="text-right">
                       <div class="actions mr-n2">
                         <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
@@ -137,51 +82,7 @@
                 <div class="card-body pt-0 position-relative scrollable-y" style="max-height: 325px;">
                   {% for task in object_list %}
                     {% if task.status == 'In progress' %}
-                      <div class="kanban-task">
-                        <h6 class="mb-2">{{ task.task_title }}</h6>
-                        <p class="text-sm text-muted mb-3">
-                          {{ task.task_description }}
-                        </p>
-                        <span class="surtitle d-block ls-1 mb-n2">Progress</span>
-                        <div class="d-flex align-items-center">
-                          <div class="w-80">
-                            <div class="progress progress-sm shadow-none">
-                              <div class="progress-bar bg-primary" role="progressbar" style="width: {{ task.progress }}%" aria-valuenow="{{ task.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                          </div>
-                          <div class="col px-0 text-right">
-                            <a href="#" class="h6 text-sm text-primary">{{ task.progress }}%</a>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <span class="surtitle d-block ls-1 mb-n2">
-                              Assigned to:
-                            </span>
-                          </div>
-                          <div class="col">
-                            <span class="surtitle d-block ls-1 mb-n2">
-                              Priority:
-                            </span>
-                          </div>
-                          <div class="w-100"></div>
-                          <div class="col">
-                            <div class="mt-1">
-                              <span class="d-block ls-1">
-                                {{ task.assigned_to.first_name }} {{ task.assigned_to.last_name }}
-                              </span>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="mt-1">
-                              <span class="d-block ls-1">
-                                {{ task.priority }}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <hr class="my-3" />
+                      {% include "projects/includes/task_snippet.html" %}
                     {% endif %}
                   {% endfor %}
                 </div>
@@ -192,9 +93,7 @@
                 <!-- Card header -->
                 <div class="card-header pb-3">
                   <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <span class="h6">Done</span>
-                    </div>
+                    <span class="secondary-sub-heading-purple">Complete</span>
                     <div class="text-right">
                       <div class="actions mr-n2">
                         <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
@@ -274,7 +173,7 @@
                 <div class="card-header">
                   <div class="row align-items-center">
                     <div class="col">
-                      <span class="h6">Tasks</span>
+                      <span class="secondary-sub-heading-purple">All Tasks</span>
                     </div>
                     <div class="col-auto">
                       <span class="d-inline-flex align-items-center badge badge-dot badge-lg h6 mr-3">
@@ -293,53 +192,7 @@
                   <div class="card-body pt-0 position-relative scrollable-y" style="max-height: 325px;">
                     {% for task in object_list %}
                       <!-- Task -->
-                      <div class="kanban-task">
-                        <a href="{{ task.get_absolute_url }}">
-                          <h6 class="mb-2">{{ task.task_title }}</h6>
-                          <p class="text-sm text-muted mb-3">
-                            {{ task.task_description }}
-                          </p>
-                        </a>
-                        <span class="surtitle d-block ls-1 mb-n2">Progress</span>
-                        <div class="d-flex align-items-center">
-                          <div class="w-80">
-                            <div class="progress progress-sm shadow-none">
-                              <div class="progress-bar bg-primary" role="progressbar" style="width: {{ task.progress }}%" aria-valuenow="{{ task.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                          </div>
-                          <div class="col px-0 text-right">
-                            <a href="#" class="h6 text-sm text-primary">{{ task.progress }}%</a>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <span class="surtitle d-block ls-1 mb-n2">
-                              Assigned to:
-                            </span>
-                          </div>
-                          <div class="col">
-                            <span class="surtitle d-block ls-1 mb-n2">
-                              Priority:
-                            </span>
-                          </div>
-                          <div class="w-100"></div>
-                          <div class="col">
-                            <div class="mt-1">
-                              <span class="d-block ls-1">
-                                {{ task.assigned_to.first_name }} {{ task.assigned_to.last_name }}
-                              </span>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="mt-1">
-                              <span class="d-block ls-1">
-                                {{ task.priority }}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <hr class="my-3" />
+                       {% include "projects/includes/task_snippet.html" with task=task %}
                     {% endfor %}
                   </div>
                 </div>
@@ -350,9 +203,7 @@
               <div class="card card-fluid">
                 <div class="card-header pb-3">
                   <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                      <span class="h6">Recent files</span>
-                    </div>
+                    <span class="secondary-sub-heading-purple">Recent files</span>
                     <div class="text-right">
                       <div class="actions mr-n2">
                         <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
@@ -476,4 +327,4 @@
       </div>
     </div>
   </section>
-{% endblock content %}
+{% endblock project_content %}
